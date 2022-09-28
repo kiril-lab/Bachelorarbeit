@@ -31,15 +31,15 @@ a {
 
 @layer components {
   .title {
-    @apply flex justify-center font-bold text-[24px] mb-5; 
+    @apply flex justify-center font-bold text-[24px] mb-5;
   }
-  .titleUnderline{
-    @apply flex justify-center font-bold underline;
+  .titleUnderline {
+    @apply flex justify-center font-bold underline m-1;
   }
   .row {
     @apply flex flex-row justify-center  text-center;
   }
-  .info{
+  .info {
     @apply border-[5px] m-[1px] w-[20%] font-medium;
   }
 }

@@ -8,9 +8,7 @@ function Statistik1({ data }: Props) {
       {data ? (
         <div className="flex flex-col mt-[2rem] mb-[5rem]">
           <div className="title">COMPOUND DAO</div>
-          <div className="titleUnderline">
-            Gesamte Statistik
-          </div>
+          <div className="titleUnderline">Gesamte Statistik</div>
           <div className="row">
             <div className="info">All Propolsals</div>
             <div className="info">Token holders</div>
