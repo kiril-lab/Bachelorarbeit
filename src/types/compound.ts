@@ -1,12 +1,12 @@
 export interface Years {
   year_one: number;
   year_two: number;
-  year_tree: number;
+  year_three: number;
 }
 export enum Year {
   one = 2020,
   two = 2021,
-  tree = 2022,
+  three = 2022,
 }
 export interface Datum {
   month: number;

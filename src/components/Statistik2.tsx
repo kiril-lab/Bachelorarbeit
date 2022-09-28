@@ -24,7 +24,7 @@ function Statistik1({ data1, data2, data3 }: Props) {
   const [proposalYear, setProposalYear] = useState<Years>({
     year_one: 0,
     year_two: 0,
-    year_tree: 0,
+    year_three: 0,
   });
   const proposals_state = (stateStatus: StateEnum, data: RootObject2) => {
     const proposals = data.proposals;
@@ -96,10 +96,10 @@ function Statistik1({ data1, data2, data3 }: Props) {
         proposals_date(data1, Year.two).year.length +
         proposals_date(data2, Year.two).year.length +
         proposals_date(data3, Year.two).year.length,
-      year_tree:
-        proposals_date(data1, Year.tree).year.length +
-        proposals_date(data2, Year.tree).year.length +
-        proposals_date(data3, Year.tree).year.length,
+      year_three:
+        proposals_date(data1, Year.three).year.length +
+        proposals_date(data2, Year.three).year.length +
+        proposals_date(data3, Year.three).year.length,
     });
   }, [data1]);
   console.log(proposalDatum);
@@ -140,7 +140,7 @@ function Statistik1({ data1, data2, data3 }: Props) {
           <div className="row">
             <div className="w-[20%]">{proposalYear.year_one}</div>
             <div className="w-[20%]">{proposalYear.year_two}</div>
-            <div className="w-[20%]">{proposalYear.year_tree}</div>
+            <div className="w-[20%]">{proposalYear.year_three}</div>
             {/*<div className="w-[20%]">{proposal.active}</div>
             <div className="w-[20%]">{proposal.executed}</div>
             <div className="w-[20%]">{proposal.pending}</div>
