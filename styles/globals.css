@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
+  }
+}
+
+@layer components {
+  .title {
+    @apply flex justify-center font-bold text-[24px] mb-5; 
+  }
+  .titleUnderline{
+    @apply flex justify-center font-bold underline;
+  }
+  .row {
+    @apply flex flex-row justify-center  text-center;
+  }
+  .info{
+    @apply border-[5px] m-[1px] w-[20%] font-medium;
+  }
+}
