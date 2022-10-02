@@ -15,7 +15,7 @@ export default class LiveHttpService implements HttpService {
     }
   }
 
-  async GetStatistik2(i:string): Promise<Response<RootObject2>> {
+  async GetStatistik2(i: string): Promise<Response<RootObject2>> {
     const req = new Request(
       `https://api.compound.finance/api/v2/governance/proposals?page_size=50&page_number=${i}&with_detail=false&network=mainnet`,
       { method: "GET" }

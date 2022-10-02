@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Proposal, Years, Year, Month, Months } from "../types/compound";
+import { Proposal, Years, Year, Month, Months } from "../types/data";
 import { RootObject2, StateEnum } from "../types/http";
 
 interface Props {
@@ -243,7 +243,7 @@ function Statistik1({ data1, data2, data3 }: Props) {
         proposals_date(data2, Year.three, Month.twelve).month +
         proposals_date(data3, Year.three, Month.twelve).month,
     });
-  }, [data1,data2,data3]);
+  }, [data1, data2, data3]);
   return (
     <>
       {data1 && data2 && data3 ? (
