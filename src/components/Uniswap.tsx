@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { Month, Months, Year, Years } from "../types/data";
 
-const statistik4 = ({ data }: any) => {
+const Uniswap = ({ data }: any) => {
+  const [proposals, setProposals] = useState(0);
   const [proposalYear, setProposalYear] = useState<Years>({
     year_one: 0,
     year_two: 0,
     year_three: 0,
   });
   const [proposalMonth, setProposalMonth] = useState<Months>();
+  const number_proposals = () => {
+    const id = data.map((i: any) => {
+      return i.id;
+    });
+    return id.length;
+  };
   const proposal_date = (years?: Year, months?: Month) => {
     const timeStamp = data.map((t: any) => {
       return t.creationTime;
@@ -24,6 +31,7 @@ const statistik4 = ({ data }: any) => {
     return { year, month };
   };
   useEffect(() => {
+    setProposals(number_proposals());
     setProposalYear({
       year_one: proposal_date(Year.one).year,
 
@@ -110,6 +118,22 @@ const statistik4 = ({ data }: any) => {
     <>
       {data ? (
         <>
+          <div className="flex flex-col mt-[2rem] mb-[5rem]">
+            <div className="title">Uniswap DAO</div>
+            <div className="titleUnderline">Gesamte Statistik</div>
+            <div className="row">
+              <div className="info">All Propolsals</div>
+              <div className="info">Token holders</div>
+              <div className="info">Delegated Votes</div>
+              <div className="info">Voting Adresses</div>
+            </div>
+            <div className="row">
+              <div className="w-[20%]">{proposals}</div>
+              <div className="w-[20%]"></div>
+              <div className="w-[20%]"></div>
+              <div className="w-[20%]"></div>
+            </div>
+          </div>
           <div className="titleUnderline">Propolsals State</div>
           <div className="row">
             <div className="info">Succeeded</div>
@@ -258,4 +282,4 @@ const statistik4 = ({ data }: any) => {
     </>
   );
 };
-export default statistik4;
+export default Uniswap;

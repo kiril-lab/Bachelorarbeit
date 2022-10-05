@@ -1,6 +1,6 @@
 export interface HttpService {
-  GetStatistik1(): Promise<Response<RootObject1>>;
-  GetStatistik2(i:string): Promise<Response<RootObject2>>;
+  GetCompound1(): Promise<Response<RootObject1>>;
+  GetCompound2(i:string): Promise<Response<RootObject2>>;
 }
 
 export interface Response<T> {
@@ -11,7 +11,6 @@ export interface Response<T> {
 }
 
 export interface RootObject1 {
-  error: null;
   proposals_created: number;
   token_holders: number;
   total_comp_allocated: string;
@@ -19,17 +18,7 @@ export interface RootObject1 {
   voting_addresses: number;
 }
 export interface RootObject2 {
-  error: null;
-  pagination_summary: PaginationSummary;
   proposals: Proposal[];
-  request: Request;
-}
-
-export interface PaginationSummary {
-  page_number: number;
-  page_size: number;
-  total_entries: number;
-  total_pages: number;
 }
 
 export interface Proposal {
@@ -56,13 +45,4 @@ export enum StateEnum {
   Pending = "pending",
   Queued = "queued",
   Succeeded = "succeeded",
-}
-
-export interface Request {
-  network: string;
-  page_number: number;
-  page_size: number;
-  proposal_ids: any[];
-  state: string;
-  with_detail: boolean;
 }

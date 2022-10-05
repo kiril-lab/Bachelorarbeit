@@ -1,8 +1,8 @@
-import { RootObject1 } from "../types/http";
+import { RootObject1 } from "../types/httpCompound";
 interface Props {
   data: RootObject1;
 }
-function Statistik1({ data }: Props) {
+function Compound1({ data }: Props) {
   return (
     <>
       {data ? (
@@ -28,4 +28,4 @@ function Statistik1({ data }: Props) {
     </>
   );
 }
-export default Statistik1;
+export default Compound1;

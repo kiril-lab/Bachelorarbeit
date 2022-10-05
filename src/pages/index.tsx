@@ -23,7 +23,7 @@ const Home: NextPage = () => {
             <Link href="/uniswap">Uniswap DAO</Link>
           </div>
           <div className="mb-[2rem] hover:text-[#FF0000]">
-            <Link href="/">Cosmos DAO</Link>
+            <Link href="/evmos">Evmos DAO</Link>
           </div>
         </div>
       </main>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Proposal, Years, Year, Month, Months } from "../types/data";
-import { RootObject2, StateEnum } from "../types/http";
+import { RootObject2, StateEnum } from "../types/httpCompound";
 
 interface Props {
   data1: RootObject2;
@@ -8,7 +8,7 @@ interface Props {
   data3: RootObject2;
 }
 
-function Statistik1({ data1, data2, data3 }: Props) {
+function Compound2({ data1, data2, data3 }: Props) {
   const [proposal, setProposal] = useState<Proposal>({
     active: 0,
     canceled: 0,
@@ -396,4 +396,4 @@ function Statistik1({ data1, data2, data3 }: Props) {
     </>
   );
 }
-export default Statistik1;
+export default Compound2;

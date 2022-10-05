@@ -1,17 +1,15 @@
 import { ApolloClient, gql, HttpLink, InMemoryCache } from "@apollo/client";
 import { NextPage } from "next";
-import Statistik3 from "../../components/Statistik3";
-import Statistik4 from "../../components/Statistik4";
+import Uniswap from "../../components/Uniswap";
 
-const Uniswap: NextPage = ({ proposals }: any) => {
+const uniswap: NextPage = ({ proposals }: any) => {
   return (
     <>
-      <Statistik3 data={proposals} />
-      <Statistik4 data={proposals} />
+      <Uniswap data={proposals} />
     </>
   );
 };
-export default Uniswap;
+export default uniswap;
 
 export async function getStaticProps() {
   const client = new ApolloClient({
