@@ -11,7 +11,7 @@ const data_2: RootObject = {
   proposals: [],
 };
 
-const evmos: NextPage = () => {
+const EvmosSeite: NextPage = () => {
   const httpService = useContext(httpContext);
   const [data1, SetData1] = useState<RootObject>(data_1);
   const [data2, SetData2] = useState<RootObject>(data_2);
@@ -41,4 +41,4 @@ const evmos: NextPage = () => {
   );
 };
 
-export default evmos;
+export default EvmosSeite;

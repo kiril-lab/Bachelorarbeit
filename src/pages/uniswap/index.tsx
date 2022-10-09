@@ -1,11 +1,17 @@
 import { ApolloClient, gql, HttpLink, InMemoryCache } from "@apollo/client";
 import { NextPage } from "next";
 import Uniswap from "../../components/Uniswap";
+import { CONTRACT_ABI } from "../../contracts/uniswap/abi";
+import useProposalThreshold from "../../hooks/useproposalThreshold";
+import useQuorumVotes from "../../hooks/usequorumVotes";
+import { Uniswap_Addr } from "../../lib/const";
 
 const uniswap: NextPage = ({ proposals }: any) => {
+  const Quorum = useQuorumVotes(Uniswap_Addr, CONTRACT_ABI);
+  const Threshold = useProposalThreshold(Uniswap_Addr, CONTRACT_ABI);
   return (
     <>
-      <Uniswap data={proposals} />
+      <Uniswap data={proposals} quorum={Quorum} threshold={Threshold} />
     </>
   );
 };

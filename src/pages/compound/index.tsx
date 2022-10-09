@@ -2,7 +2,11 @@ import type { NextPage } from "next";
 import { useContext, useEffect, useState } from "react";
 import Compound1 from "../../components/Compound1";
 import Compound2 from "../../components/Compound2";
+import { CONTRACT_ABI } from "../../contracts/compound/abi";
+import useProposalThreshold from "../../hooks/useproposalThreshold";
+import useQuorumVotes from "../../hooks/usequorumVotes";
 import httpContext from "../../http/HttpContext";
+import { Compound_Addr } from "../../lib/const";
 import { RootObject1, RootObject2 } from "../../types/httpCompound";
 
 const data_1: RootObject1 = {
@@ -23,6 +27,8 @@ const compound: NextPage = () => {
   const [data2_2, SetData2_2] = useState<RootObject2>(data_2);
   const [data2_3, SetData2_3] = useState<RootObject2>(data_2);
   const [error, setError] = useState(false);
+  const Quorum = useQuorumVotes(Compound_Addr, CONTRACT_ABI);
+  const Threshold = useProposalThreshold(Compound_Addr, CONTRACT_ABI);
   useEffect(() => {
     const fetchData = async () => {
       const data1Fetch = await httpService.GetCompound1();
@@ -52,7 +58,7 @@ const compound: NextPage = () => {
   }, [httpService]);
   return (
     <>
-      <Compound1 data={data1} />
+      <Compound1 data={data1} quorum={Quorum} threshold={Threshold} />
       <Compound2 data1={data2_1} data2={data2_2} data3={data2_3} />
     </>
   );

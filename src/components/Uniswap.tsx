@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { Month, Months, Year, Years } from "../types/data";
-
-const Uniswap = ({ data }: any) => {
+interface Props {
+  data: any;
+  quorum: string;
+  threshold: string;
+}
+const Uniswap = ({ data, quorum, threshold }: Props) => {
   const [proposals, setProposals] = useState(0);
   const [proposalYear, setProposalYear] = useState<Years>({
     year_one: 0,
@@ -126,12 +130,16 @@ const Uniswap = ({ data }: any) => {
               <div className="info">Token holders</div>
               <div className="info">Delegated Votes</div>
               <div className="info">Voting Adresses</div>
+              <div className="info">Quorum</div>
+              <div className="info">Threshold</div>
             </div>
             <div className="row">
               <div className="w-[20%]">{proposals}</div>
               <div className="w-[20%]"></div>
               <div className="w-[20%]"></div>
               <div className="w-[20%]"></div>
+              <div className="w-[20%]">{quorum}</div>
+              <div className="w-[20%]">{threshold}</div>
             </div>
           </div>
           <div className="titleUnderline">Propolsals State</div>
