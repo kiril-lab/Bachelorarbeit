@@ -1,10 +1,9 @@
 import type { NextPage } from "next";
 import { useContext, useEffect, useState } from "react";
-import Compound1 from "../../components/Compound1";
-import Compound2 from "../../components/Compound2";
+import Compound from "../../components/Compound";
 import { CONTRACT_ABI } from "../../contracts/compound/abi";
-import useProposalThreshold from "../../hooks/useproposalThreshold";
-import useQuorumVotes from "../../hooks/usequorumVotes";
+import useProposalThreshold from "../../hooks/useProposalThreshold";
+import useQuorumVotes from "../../hooks/useQuorumVotes";
 import httpContext from "../../http/HttpContext";
 import { Compound_Addr } from "../../lib/const";
 import { RootObject1, RootObject2 } from "../../types/httpCompound";
@@ -58,8 +57,14 @@ const compound: NextPage = () => {
   }, [httpService]);
   return (
     <>
-      <Compound1 data={data1} quorum={Quorum} threshold={Threshold} />
-      <Compound2 data1={data2_1} data2={data2_2} data3={data2_3} />
+      <Compound
+        data1={data2_1}
+        data2={data2_2}
+        data3={data2_3}
+        data={data1}
+        quorum={Quorum}
+        threshold={Threshold}
+      />
     </>
   );
 };

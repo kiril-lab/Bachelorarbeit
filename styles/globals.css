@@ -33,6 +33,9 @@ a {
   .title {
     @apply flex justify-center font-bold text-[24px] mb-5;
   }
+  .title1 {
+    @apply flex justify-center font-bold text-[18px] mb-5;
+  }
   .titleUnderline {
     @apply flex justify-center font-bold underline m-1;
   }
