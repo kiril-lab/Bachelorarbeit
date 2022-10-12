@@ -1,12 +1,26 @@
+import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { Month, Months, Year, Years } from "../types/data";
 interface Props {
   data: any;
   quorum: string;
   threshold: string;
+  votes: ethers.Event[];
+  proposals: ethers.Event[];
 }
-const Uniswap = ({ data, quorum, threshold }: Props) => {
-  const [proposals, setProposals] = useState(0);
+const Uniswap = ({ data, quorum, threshold, votes, proposals }: Props) => {
+  if (votes.length > 0) {
+    const args = votes.map((a) => {
+      return a.args;
+    });
+    const VotersAndProposalIds = args?.map((x) => {
+      const voters = x?.voter;
+      const proposalId = x?.proposalId.toString();
+      return { voters: voters, proposalId: proposalId };
+    });
+    console.log(VotersAndProposalIds);
+  }
+  const [prop, setProp] = useState(0);
   const [proposalYear, setProposalYear] = useState<Years>({
     year_one: 0,
     year_two: 0,
@@ -35,7 +49,7 @@ const Uniswap = ({ data, quorum, threshold }: Props) => {
     return { year, month };
   };
   useEffect(() => {
-    setProposals(number_proposals());
+    setProp(number_proposals());
     setProposalYear({
       year_one: proposal_date(Year.one).year,
 
@@ -117,7 +131,6 @@ const Uniswap = ({ data, quorum, threshold }: Props) => {
       month_twelve_year_three: proposal_date(Year.three, Month.twelve).month,
     });
   }, []);
-  console.log(proposal_date());
   return (
     <>
       {data ? (

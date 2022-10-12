@@ -4,6 +4,7 @@ import Compound from "../../components/Compound";
 import { CONTRACT_ABI } from "../../contracts/compound/abi";
 import useProposalThreshold from "../../hooks/useProposalThreshold";
 import useQuorumVotes from "../../hooks/useQuorumVotes";
+import useVotesCast from "../../hooks/useVotesCast";
 import httpContext from "../../http/HttpContext";
 import { Compound_Addr } from "../../lib/const";
 import { RootObject1, RootObject2 } from "../../types/httpCompound";
@@ -28,6 +29,18 @@ const compound: NextPage = () => {
   const [error, setError] = useState(false);
   const Quorum = useQuorumVotes(Compound_Addr, CONTRACT_ABI);
   const Threshold = useProposalThreshold(Compound_Addr, CONTRACT_ABI);
+  const Votes = useVotesCast(
+    Compound_Addr,
+    CONTRACT_ABI,
+    9601459,
+    12140390
+  ).votes;
+  const Proposals = useVotesCast(
+    Compound_Addr,
+    CONTRACT_ABI,
+    9601459,
+    12140390
+  ).proposals;
   useEffect(() => {
     const fetchData = async () => {
       const data1Fetch = await httpService.GetCompound1();
@@ -64,6 +77,8 @@ const compound: NextPage = () => {
         data={data1}
         quorum={Quorum}
         threshold={Threshold}
+        votes={Votes}
+        proposals={Proposals}
       />
     </>
   );

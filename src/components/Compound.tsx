@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { Proposal, Years, Year, Month, Months } from "../types/data";
 import { RootObject1, RootObject2, StateEnum } from "../types/httpCompound";
@@ -9,9 +10,37 @@ interface Props {
   data3: RootObject2;
   quorum: string;
   threshold: string;
+  votes: ethers.Event[];
+  proposals: ethers.Event[];
 }
 
-function Compound({ data, data1, data2, data3, quorum, threshold }: Props) {
+function Compound({
+  data,
+  data1,
+  data2,
+  data3,
+  quorum,
+  threshold,
+  votes,
+  proposals,
+}: Props) {
+  if (proposals.length > 0) {
+    console.log(proposals);
+  }
+
+  if (votes.length > 0) {
+    const args = votes.map((a) => {
+      return a.args;
+    });
+    const VotersAndProposalIds = args?.map((x) => {
+      const voters = x?.voter;
+      const proposalId: string = x?.proposalId.toString();
+      return { voters: voters, proposalId: proposalId };
+    });
+    const VotesProposalId1 = VotersAndProposalIds.filter(
+      (i) => i.proposalId == "2"
+    );
+  }
   const [proposal, setProposal] = useState<Proposal>({
     active: 0,
     canceled: 0,

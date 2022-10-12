@@ -26,7 +26,7 @@ const Evmos = ({ data1, data2 }: Props) => {
       {data1 && data2 ? (
         <>
           <div className="flex flex-col mt-[2rem]">
-            <div className="title">Uniswap DAO</div>
+            <div className="title">Evmos DAO</div>
             <div className="title1">Votes</div>
             <div className="row mb-[5rem]">
               <div className="info">Gesamte Stimmoptionen</div>
