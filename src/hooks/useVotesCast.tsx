@@ -25,8 +25,6 @@ export default function useVotesCast(
       try {
         if (contract) {
           const filter = contract.filters.VoteCast(null, null, null);
-          const startBlock = start_Block;
-          const endBlock = end_Block;
           const filter1 = contract.filters.ProposalCreated(
             null,
             null,
@@ -38,6 +36,8 @@ export default function useVotesCast(
             null,
             null
           );
+          const startBlock = start_Block;
+          const endBlock = end_Block;
           for (let i = startBlock; i < endBlock; i += 100000) {
             const _startBlock = i;
             const _endBlock = Math.min(endBlock, i + 99999);

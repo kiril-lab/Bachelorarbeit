@@ -1,14 +1,4 @@
-export const CONTRACT_ABI = [
-  {
-    inputs: [
-      { internalType: "address", name: "timelock_", type: "address" },
-      { internalType: "address", name: "comp_", type: "address" },
-      { internalType: "address", name: "guardian_", type: "address" },
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "constructor",
-  },
+export const CONTRACT_ABI_Alpha2 = [
   {
     anonymous: false,
     inputs: [
@@ -137,40 +127,7 @@ export const CONTRACT_ABI = [
   {
     constant: false,
     inputs: [],
-    name: "__abdicate",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    constant: false,
-    inputs: [],
     name: "__acceptAdmin",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    constant: false,
-    inputs: [
-      { internalType: "address", name: "newPendingAdmin", type: "address" },
-      { internalType: "uint256", name: "eta", type: "uint256" },
-    ],
-    name: "__executeSetTimelockPendingAdmin",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    constant: false,
-    inputs: [
-      { internalType: "address", name: "newPendingAdmin", type: "address" },
-      { internalType: "uint256", name: "eta", type: "uint256" },
-    ],
-    name: "__queueSetTimelockPendingAdmin",
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
@@ -210,17 +167,6 @@ export const CONTRACT_ABI = [
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: "comp",
-    outputs: [
-      { internalType: "contract CompInterface", name: "", type: "address" },
-    ],
-    payable: false,
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -265,15 +211,6 @@ export const CONTRACT_ABI = [
         type: "tuple",
       },
     ],
-    payable: false,
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: "guardian",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
     payable: false,
     stateMutability: "view",
     type: "function",
@@ -396,6 +333,17 @@ export const CONTRACT_ABI = [
     name: "timelock",
     outputs: [
       { internalType: "contract TimelockInterface", name: "", type: "address" },
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "uni",
+    outputs: [
+      { internalType: "contract UniInterface", name: "", type: "address" },
     ],
     payable: false,
     stateMutability: "view",

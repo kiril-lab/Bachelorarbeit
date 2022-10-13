@@ -5,12 +5,66 @@ interface Props {
   data: any;
   quorum: string;
   threshold: string;
-  votes: ethers.Event[];
-  proposals: ethers.Event[];
+  votesInAlpha: ethers.Event[];
+  votesInBravo: ethers.Event[];
+  proposalsInAlpha: ethers.Event[];
+  proposalsInAlpha2: ethers.Event[];
+  proposalsInBravo: ethers.Event[];
 }
-const Uniswap = ({ data, quorum, threshold, votes, proposals }: Props) => {
-  if (votes.length > 0) {
-    const args = votes.map((a) => {
+const Uniswap = ({
+  data,
+  quorum,
+  threshold,
+  votesInBravo,
+  votesInAlpha,
+  proposalsInAlpha,
+  proposalsInAlpha2,
+  proposalsInBravo,
+}: Props) => {
+  if (proposalsInBravo.length > 0) {
+    const args = proposalsInBravo.map((a) => {
+      return a.args;
+    });
+    const proposals = args?.map((x) => {
+      const proposalId = x?.id.toString();
+      const proposalDescription = x?.description;
+      return {
+        proposalId: proposalId,
+        proposalDescription: proposalDescription,
+      };
+    });
+    console.log(proposals);
+  }
+  if (proposalsInAlpha2.length > 0) {
+    const args = proposalsInAlpha2.map((a) => {
+      return a.args;
+    });
+    const proposals = args?.map((x) => {
+      const proposalId = x?.id.toString();
+      const proposalDescription = x?.description;
+      return {
+        proposalId: proposalId,
+        proposalDescription: proposalDescription,
+      };
+    });
+    //console.log(proposals);
+  }
+  if (proposalsInAlpha.length > 0) {
+    const args = proposalsInAlpha.map((a) => {
+      return a.args;
+    });
+    const proposals = args?.map((x) => {
+      const proposalId = x?.id.toString();
+      const proposalDescription = x?.description;
+      return {
+        proposalId: proposalId,
+        proposalDescription: proposalDescription,
+      };
+    });
+    //console.log(proposals);
+  }
+  if (votesInAlpha.length > 0) {
+    const args = votesInAlpha.map((a) => {
       return a.args;
     });
     const VotersAndProposalIds = args?.map((x) => {
@@ -18,7 +72,18 @@ const Uniswap = ({ data, quorum, threshold, votes, proposals }: Props) => {
       const proposalId = x?.proposalId.toString();
       return { voters: voters, proposalId: proposalId };
     });
-    console.log(VotersAndProposalIds);
+    //console.log(VotersAndProposalIds);
+  }
+  if (votesInBravo.length > 0) {
+    const args = votesInBravo.map((a) => {
+      return a.args;
+    });
+    const VotersAndProposalIds = args?.map((x) => {
+      const voters = x?.voter;
+      const proposalId = x?.proposalId.toString();
+      return { voters: voters, proposalId: proposalId };
+    });
+    //console.log(VotersAndProposalIds);
   }
   const [prop, setProp] = useState(0);
   const [proposalYear, setProposalYear] = useState<Years>({

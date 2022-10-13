@@ -1,26 +1,56 @@
 import { ApolloClient, gql, HttpLink, InMemoryCache } from "@apollo/client";
 import { NextPage } from "next";
 import Uniswap from "../../components/Uniswap";
-import { CONTRACT_ABI } from "../../contracts/uniswap/abi";
+import { CONTRACT_ABI_Alpha } from "../../contracts/compound/abi_alpha";
+import { CONTRACT_ABI_Alpha2 } from "../../contracts/uniswap/abi_alpha2";
+import { CONTRACT_ABI_Bravo } from "../../contracts/uniswap/abi_bravo";
 import useProposalThreshold from "../../hooks/useProposalThreshold";
 import useQuorumVotes from "../../hooks/useQuorumVotes";
 import useVotesCast from "../../hooks/useVotesCast";
-import { Uniswap_Addr } from "../../lib/const";
+import {
+  Uniswap_Governor_Alpha2_Addr,
+  Uniswap_Governor_Alpha_Addr,
+  Uniswap_Governor_Bravo_Addr,
+} from "../../lib/const";
 
 const uniswap: NextPage = ({ proposals }: any) => {
-  const Quorum = useQuorumVotes(Uniswap_Addr, CONTRACT_ABI);
-  const Threshold = useProposalThreshold(Uniswap_Addr, CONTRACT_ABI);
-  const Votes = useVotesCast(
-    Uniswap_Addr,
-    CONTRACT_ABI,
-    12543659,
-    14422934
+  const Quorum = useQuorumVotes(
+    Uniswap_Governor_Alpha_Addr,
+    CONTRACT_ABI_Alpha
+  );
+  const Threshold = useProposalThreshold(
+    Uniswap_Governor_Alpha_Addr,
+    CONTRACT_ABI_Alpha
+  );
+  const VotesInAlpha = useVotesCast(
+    Uniswap_Governor_Alpha_Addr,
+    CONTRACT_ABI_Alpha,
+    10861678,
+    12654236
   ).votes;
-  const Proposals = useVotesCast(
-    Uniswap_Addr,
-    CONTRACT_ABI,
+  const ProposalsInAlpha = useVotesCast(
+    Uniswap_Governor_Alpha_Addr,
+    CONTRACT_ABI_Alpha,
+    10861678,
+    12654236
+  ).proposals;
+  const ProposalsInAlpha2 = useVotesCast(
+    Uniswap_Governor_Alpha2_Addr,
+    CONTRACT_ABI_Alpha2,
     12543659,
     14422934
+  ).proposals;
+  const VotesInBravo = useVotesCast(
+    Uniswap_Governor_Bravo_Addr,
+    CONTRACT_ABI_Bravo,
+    13059157,
+    15735726
+  ).votes;
+  const ProposalsInBravo = useVotesCast(
+    Uniswap_Governor_Bravo_Addr,
+    CONTRACT_ABI_Bravo,
+    13059157,
+    15735726
   ).proposals;
   return (
     <>
@@ -28,8 +58,11 @@ const uniswap: NextPage = ({ proposals }: any) => {
         data={proposals}
         quorum={Quorum}
         threshold={Threshold}
-        votes={Votes}
-        proposals={Proposals}
+        votesInAlpha={VotesInAlpha}
+        votesInBravo={VotesInBravo}
+        proposalsInAlpha={ProposalsInAlpha}
+        proposalsInAlpha2={ProposalsInAlpha2}
+        proposalsInBravo={ProposalsInBravo}
       />
     </>
   );

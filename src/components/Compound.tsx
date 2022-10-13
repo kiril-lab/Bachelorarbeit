@@ -10,8 +10,8 @@ interface Props {
   data3: RootObject2;
   quorum: string;
   threshold: string;
-  votes: ethers.Event[];
-  proposals: ethers.Event[];
+  votesInAlpha: ethers.Event[];
+  votesInBravo: ethers.Event[];
 }
 
 function Compound({
@@ -21,26 +21,29 @@ function Compound({
   data3,
   quorum,
   threshold,
-  votes,
-  proposals,
+  votesInAlpha,
+  votesInBravo,
 }: Props) {
-  if (proposals.length > 0) {
-    console.log(proposals);
-  }
-
+  const votes: ethers.Event[] = votesInAlpha.concat(votesInBravo);
   if (votes.length > 0) {
     const args = votes.map((a) => {
       return a.args;
     });
     const VotersAndProposalIds = args?.map((x) => {
-      const voters = x?.voter;
+      const voters: string = x?.voter;
       const proposalId: string = x?.proposalId.toString();
       return { voters: voters, proposalId: proposalId };
     });
-    const VotesProposalId1 = VotersAndProposalIds.filter(
-      (i) => i.proposalId == "2"
-    );
+    for (let i = 0; i <= 128; i++) {
+      const allVotersProposal = VotersAndProposalIds.filter(
+        (v) => v.proposalId == `${i}`
+      );
+      if (allVotersProposal.length > 0) {
+        console.log(allVotersProposal);
+      }
+    }
   }
+
   const [proposal, setProposal] = useState<Proposal>({
     active: 0,
     canceled: 0,
