@@ -42,11 +42,10 @@ function Compound({
         const voters_i = allVotersProposal_i.map((_) => {
           return _.voters;
         });
-        const idandArray = {
-          proposalId: allVotersProposal_i[0].proposalId,
-          voters: voters_i,
+        const proposalIdidWithAllVotes = {
+          [allVotersProposal_i[0].proposalId]: voters_i,
         };
-        console.log(idandArray);
+        console.log(proposalIdidWithAllVotes);
       }
     }
   }
