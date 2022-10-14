@@ -32,14 +32,21 @@ function Compound({
     const VotersAndProposalIds = args?.map((x) => {
       const voters: string = x?.voter;
       const proposalId: string = x?.proposalId.toString();
-      return { voters: voters, proposalId: proposalId };
+      return { proposalId: proposalId, voters: voters };
     });
-    for (let i = 0; i <= 128; i++) {
-      const allVotersProposal = VotersAndProposalIds.filter(
-        (v) => v.proposalId == `${i}`
+    for (let i = 1; i <= 128; i++) {
+      const allVotersProposal_i = VotersAndProposalIds.filter(
+        (v) => v.proposalId === `${i}`
       );
-      if (allVotersProposal.length > 0) {
-        console.log(allVotersProposal);
+      if (allVotersProposal_i.length > 0) {
+        const voters_i = allVotersProposal_i.map((_) => {
+          return _.voters;
+        });
+        const idandArray = {
+          proposalId: allVotersProposal_i[0].proposalId,
+          voters: voters_i,
+        };
+        console.log(idandArray);
       }
     }
   }
