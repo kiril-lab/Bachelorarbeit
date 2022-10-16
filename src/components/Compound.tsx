@@ -45,7 +45,7 @@ function Compound({
         const proposalIdidWithAllVotes = {
           [allVotersProposal_i[0].proposalId]: voters_i,
         };
-        console.log(proposalIdidWithAllVotes);
+        //console.log(proposalIdidWithAllVotes);
       }
     }
   }

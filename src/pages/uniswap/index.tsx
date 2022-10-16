@@ -28,6 +28,18 @@ const uniswap: NextPage = ({ proposals }: any) => {
     10861678,
     12654236
   ).votes;
+  const VotesInAlpha2 = useVotesCast(
+    Uniswap_Governor_Alpha2_Addr,
+    CONTRACT_ABI_Alpha2,
+    12543659,
+    14422934
+  ).votes;
+  const VotesInBravo = useVotesCast(
+    Uniswap_Governor_Bravo_Addr,
+    CONTRACT_ABI_Bravo,
+    13059157,
+    15735726
+  ).votes;
   const ProposalsInAlpha = useVotesCast(
     Uniswap_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha,
@@ -40,12 +52,6 @@ const uniswap: NextPage = ({ proposals }: any) => {
     12543659,
     14422934
   ).proposals;
-  const VotesInBravo = useVotesCast(
-    Uniswap_Governor_Bravo_Addr,
-    CONTRACT_ABI_Bravo,
-    13059157,
-    15735726
-  ).votes;
   const ProposalsInBravo = useVotesCast(
     Uniswap_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
@@ -59,6 +65,7 @@ const uniswap: NextPage = ({ proposals }: any) => {
         quorum={Quorum}
         threshold={Threshold}
         votesInAlpha={VotesInAlpha}
+        votesInAlpha2={VotesInAlpha2}
         votesInBravo={VotesInBravo}
         proposalsInAlpha={ProposalsInAlpha}
         proposalsInAlpha2={ProposalsInAlpha2}
