@@ -1,7 +1,7 @@
-import { ethers } from "ethers";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Proposal, Years, Year, Month, Months } from "../types/data";
-import { RootObject1, RootObject2, StateEnum } from "../types/httpCompound";
+import { Proposal, Years, Year, Month, Months } from "../../types/data";
+import { RootObject1, RootObject2, StateEnum } from "../../types/httpCompound";
 
 interface Props {
   data: RootObject1;
@@ -10,46 +10,9 @@ interface Props {
   data3: RootObject2;
   quorum: string;
   threshold: string;
-  votesInAlpha: ethers.Event[];
-  votesInBravo: ethers.Event[];
 }
 
-function Compound({
-  data,
-  data1,
-  data2,
-  data3,
-  quorum,
-  threshold,
-  votesInAlpha,
-  votesInBravo,
-}: Props) {
-  const votes: ethers.Event[] = votesInAlpha.concat(votesInBravo);
-  if (votes.length > 0) {
-    const args = votes.map((a) => {
-      return a.args;
-    });
-    const VotersAndProposalIds = args?.map((x) => {
-      const voters: string = x?.voter;
-      const proposalId: string = x?.proposalId.toString();
-      return { proposalId: proposalId, voters: voters };
-    });
-    for (let i = 1; i <= 128; i++) {
-      const allVotersProposal_i = VotersAndProposalIds.filter(
-        (v) => v.proposalId === `${i}`
-      );
-      if (allVotersProposal_i.length > 0) {
-        const voters_i = allVotersProposal_i.map((_) => {
-          return _.voters;
-        });
-        const proposalIdidWithAllVotes = {
-          [allVotersProposal_i[0].proposalId]: voters_i,
-        };
-        //console.log(proposalIdidWithAllVotes);
-      }
-    }
-  }
-
+function Compound({ data, data1, data2, data3, quorum, threshold }: Props) {
   const [proposal, setProposal] = useState<Proposal>({
     active: 0,
     canceled: 0,
@@ -448,6 +411,17 @@ function Compound({
               </div>
               <div className="w-[20%]">
                 {proposalMonth?.month_twelve_year_three}
+              </div>
+            </div>
+            <div className="title1">Voters</div>
+            <div className="row">
+              <div className="info">Number unterschiedlische Voters</div>
+              <div className="info">Voters per Proposal</div>
+            </div>
+            <div className="row mb-[5rem]">
+              <div className="w-[20%]"></div>
+              <div className="w-[20%] underline">
+                <Link href="/compound/uebersicht">Übersicht</Link>
               </div>
             </div>
           </div>

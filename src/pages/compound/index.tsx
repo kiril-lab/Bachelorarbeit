@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useContext, useEffect, useState } from "react";
-import Compound from "../../components/Compound";
+import Compound from "../../components/Compound/Compound";
 import { CONTRACT_ABI_Alpha } from "../../contracts/compound/abi_alpha";
 import { CONTRACT_ABI_Bravo } from "../../contracts/compound/abi_bravo";
 import useProposalThreshold from "../../hooks/useProposalThreshold";
@@ -39,18 +39,6 @@ const compound: NextPage = () => {
     Compound_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha
   );
-  const VotesInAlpha = useVotesCast(
-    Compound_Governor_Alpha_Addr,
-    CONTRACT_ABI_Alpha,
-    9601459,
-    12140390
-  ).votes;
-  const VotesInBravo = useVotesCast(
-    Compound_Governor_Bravo_Addr,
-    CONTRACT_ABI_Bravo,
-    12006099,
-    15735133
-  ).votes;
   useEffect(() => {
     const fetchData = async () => {
       const data1Fetch = await httpService.GetCompound1();
@@ -87,8 +75,6 @@ const compound: NextPage = () => {
         data={data1}
         quorum={Quorum}
         threshold={Threshold}
-        votesInAlpha={VotesInAlpha}
-        votesInBravo={VotesInBravo}
       />
     </>
   );

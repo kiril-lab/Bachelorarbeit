@@ -17,8 +17,9 @@ export default function useVotesCast(
     CONTRACT_ADDR,
     CONTRACT_ABI
   );
+  
   const event: ethers.Event[] = [];
-  const [votes, SetVotes] = useState(event);
+  const [votes, setVotes] = useState(event);
   const [proposals, setProposals] = useState(event);
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +52,7 @@ export default function useVotesCast(
               _startBlock,
               _endBlock
             );
-            SetVotes(result);
+            setVotes(result);
             setProposals(result1);
           }
         }
@@ -61,5 +62,5 @@ export default function useVotesCast(
     };
     fetchData();
   }, [contract]);
-  return { votes, proposals };
+  return { votes, proposals};
 }
