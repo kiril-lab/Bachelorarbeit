@@ -10,6 +10,7 @@ import httpContext from "../../http/HttpContext";
 import {
   Compound_Governor_Alpha_Addr,
   Compound_Governor_Bravo_Addr,
+  Start_End_Block_ProposalCompound,
 } from "../../lib/const";
 import { RootObject1, RootObject2 } from "../../types/httpCompound";
 
@@ -39,6 +40,46 @@ const compound: NextPage = () => {
     Compound_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha
   );
+  const getProposalVoters = (i: number) => {
+    const VotesInAlpha = useVotesCast(
+      Compound_Governor_Alpha_Addr,
+      CONTRACT_ABI_Alpha,
+      Start_End_Block_ProposalCompound[i - 1]?.startBlock,
+      Start_End_Block_ProposalCompound[i - 1]?.endBlock
+    ).votes;
+    const VotesInBravo = useVotesCast(
+      Compound_Governor_Bravo_Addr,
+      CONTRACT_ABI_Bravo,
+      Start_End_Block_ProposalCompound[i - 1]?.startBlock,
+      Start_End_Block_ProposalCompound[i - 1]?.endBlock
+    ).votes;
+    const Votes = [...VotesInAlpha, ...VotesInBravo];
+    const args = Votes?.map((x) => x?.args);
+    const Voters = args?.map((x) => {
+      const proposalId: number = x?.proposalId.toNumber();
+      const voters: string = x?.voter;
+      return { voters, proposalId };
+    });
+    const filteredVoteCast = Voters?.filter((x) => x.proposalId == i);
+    const voters = filteredVoteCast?.map((x) => {
+      return x.voters;
+    });
+    const result = { voters };
+    return result;
+  };
+  const getAllVoters = () => {
+    const voterBatches = [];
+    for (let i = 1; i <= Start_End_Block_ProposalCompound.length; i++) {
+      voterBatches.push(getProposalVoters(i).voters);
+    }
+
+    const allAdressVolters = voterBatches.flat();
+    const uniquie = allAdressVolters.filter(
+      (x, i) => allAdressVolters.indexOf(x) === i
+    );
+    return uniquie;
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       const data1Fetch = await httpService.GetCompound1();
@@ -75,6 +116,7 @@ const compound: NextPage = () => {
         data={data1}
         quorum={Quorum}
         threshold={Threshold}
+        voters={getAllVoters()}
       />
     </>
   );

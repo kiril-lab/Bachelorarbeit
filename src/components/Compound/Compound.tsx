@@ -10,9 +10,18 @@ interface Props {
   data3: RootObject2;
   quorum: string;
   threshold: string;
+  voters: string[];
 }
 
-function Compound({ data, data1, data2, data3, quorum, threshold }: Props) {
+function Compound({
+  data,
+  data1,
+  data2,
+  data3,
+  quorum,
+  threshold,
+  voters,
+}: Props) {
   const [proposal, setProposal] = useState<Proposal>({
     active: 0,
     canceled: 0,
@@ -247,7 +256,7 @@ function Compound({ data, data1, data2, data3, quorum, threshold }: Props) {
         proposals_date(data2, Year.three, Month.twelve).month +
         proposals_date(data3, Year.three, Month.twelve).month,
     });
-  }, [data1, data2, data3]);
+  }, [data1, data2, data3, voters]);
   return (
     <>
       {data && data1 && data2 && data3 ? (
@@ -419,7 +428,7 @@ function Compound({ data, data1, data2, data3, quorum, threshold }: Props) {
               <div className="info">Voters per Proposal</div>
             </div>
             <div className="row mb-[5rem]">
-              <div className="w-[20%]"></div>
+              <div className="w-[20%]">{voters.length}</div>
               <div className="w-[20%] underline">
                 <Link href="/compound/uebersicht">Übersicht</Link>
               </div>

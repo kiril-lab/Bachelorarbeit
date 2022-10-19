@@ -12,7 +12,7 @@ import {
 } from "../../../lib/const";
 var event: ethers.Event[];
 const uebersicht: NextPage = () => {
-  const [id, setId] = useState(11);
+  const [id, setId] = useState(1);
   const [votes, setVotes] = useState(event);
   const VotesInAlpha = useVotesCast(
     Compound_Governor_Alpha_Addr,
@@ -26,7 +26,6 @@ const uebersicht: NextPage = () => {
     Start_End_Block_ProposalCompound[id - 1]?.startBlock,
     Start_End_Block_ProposalCompound[id - 1]?.endBlock
   ).votes;
-  console.log(VotesInAlpha);
   const Votes = () => {
     if (id <= 42) {
       setVotes(VotesInAlpha);
