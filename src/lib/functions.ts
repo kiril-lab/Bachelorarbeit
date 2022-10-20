@@ -6,3 +6,6 @@ export function getRPC(network: Network) {
       return "https://eth-rpc.gateway.pokt.network";
   }
 }
+export function Quote(i: number, j: number) {
+  return j / i;
+}

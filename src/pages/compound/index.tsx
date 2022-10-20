@@ -5,7 +5,7 @@ import { CONTRACT_ABI_Alpha } from "../../contracts/compound/abi_alpha";
 import { CONTRACT_ABI_Bravo } from "../../contracts/compound/abi_bravo";
 import useProposalThreshold from "../../hooks/useProposalThreshold";
 import useQuorumVotes from "../../hooks/useQuorumVotes";
-import useVotesCast from "../../hooks/useVotesCast";
+import useViewEvent from "../../hooks/useViewEvent";
 import httpContext from "../../http/HttpContext";
 import {
   Compound_Governor_Alpha_Addr,
@@ -41,13 +41,13 @@ const compound: NextPage = () => {
     CONTRACT_ABI_Alpha
   );
   const getProposalVoters = (i: number) => {
-    const VotesInAlpha = useVotesCast(
+    const VotesInAlpha = useViewEvent(
       Compound_Governor_Alpha_Addr,
       CONTRACT_ABI_Alpha,
       Start_End_Block_ProposalCompound[i - 1]?.startBlock,
       Start_End_Block_ProposalCompound[i - 1]?.endBlock
     ).votes;
-    const VotesInBravo = useVotesCast(
+    const VotesInBravo = useViewEvent(
       Compound_Governor_Bravo_Addr,
       CONTRACT_ABI_Bravo,
       Start_End_Block_ProposalCompound[i - 1]?.startBlock,
@@ -71,6 +71,7 @@ const compound: NextPage = () => {
     for (let i = 1; i <= Start_End_Block_ProposalCompound.length; i++) {
       voterBatches.push(getProposalVoters(i));
     }
+  
     const allAdressVolters = voterBatches.flat();
     const uniquie = allAdressVolters.filter(
       (x, i) => allAdressVolters.indexOf(x) === i
@@ -105,15 +106,15 @@ const compound: NextPage = () => {
     fetchData();
   }, [httpService]);
   return (
-      <Compound
-        data1={data2_1}
-        data2={data2_2}
-        data3={data2_3}
-        data={data1}
-        quorum={Quorum}
-        threshold={Threshold}
-        voters={getAllVoters()}
-      />
+    <Compound
+      data1={data2_1}
+      data2={data2_2}
+      data3={data2_3}
+      data={data1}
+      quorum={Quorum}
+      threshold={Threshold}
+      voters={getAllVoters()}
+    />
   );
 };
 

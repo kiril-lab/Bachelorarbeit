@@ -1,9 +1,9 @@
-import { ethers } from "ethers";
+import {ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { Network } from "../types/network";
 import { useViewContract } from "./useViewContract";
 
-export default function useEventsCast(
+export default function useViewEvent(
   CONTRACT_ADDR: string,
   CONTRACT_ABI: ethers.ContractInterface,
   start_Block: number,
@@ -14,8 +14,9 @@ export default function useEventsCast(
     CONTRACT_ADDR,
     CONTRACT_ABI
   );
+
   const event: ethers.Event[] = [];
-  const [votes, SetVotes] = useState(event);
+  const [votes, setVotes] = useState(event);
   const [proposals, setProposals] = useState(event);
   useEffect(() => {
     const fetchData = async () => {
@@ -35,23 +36,27 @@ export default function useEventsCast(
           );
           const startBlock = start_Block;
           const endBlock = end_Block;
-          for (let i = startBlock; i < endBlock; i += 100000) {
+          
+        /*dies Kode liefert die Konstant-StartEndBloeckeProposal
+          in Datei \src\lib\const.ts */ 
+
+        /* for (let i = startBlock; i < endBlock; i += 100000) {
             const _startBlock = i;
-            const _endBlock = Math.min(endBlock, i + 99999);
-            const result = await contract.queryFilter(
-              filter,
-              _startBlock,
-              _endBlock
-            );
-            const result1 = await contract.queryFilter(
-              filter1,
-              _startBlock,
-              _endBlock
-            );
-            SetVotes(result);
-            setProposals(result1);
-          }
+            const _endBlock = Math.min(endBlock, i + 99999);*/
+          const result = await contract.queryFilter(
+            filter,
+            /*_*/ startBlock,
+            /*_*/ endBlock
+          );
+          const result1 = await contract.queryFilter(
+            filter1,
+            /*_*/ startBlock,
+            /*_*/ endBlock
+          );
+          setVotes(result);
+          setProposals(result1);
         }
+        //}
       } catch (e) {
         console.log(e);
       }

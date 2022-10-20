@@ -6,7 +6,7 @@ import { CONTRACT_ABI_Alpha2 } from "../../contracts/uniswap/abi_alpha2";
 import { CONTRACT_ABI_Bravo } from "../../contracts/uniswap/abi_bravo";
 import useProposalThreshold from "../../hooks/useProposalThreshold";
 import useQuorumVotes from "../../hooks/useQuorumVotes";
-import useVotesCast from "../../hooks/useVotesCast";
+import useViewEvent from "../../hooks/useViewEvent";
 import {
   Uniswap_Governor_Alpha2_Addr,
   Uniswap_Governor_Alpha_Addr,
@@ -22,37 +22,37 @@ const uniswap: NextPage = ({ proposals }: any) => {
     Uniswap_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha
   );
-  const VotesInAlpha = useVotesCast(
+  const VotesInAlpha = useViewEvent(
     Uniswap_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha,
     10861678,
     12654236
   ).votes;
-  const VotesInAlpha2 = useVotesCast(
+  const VotesInAlpha2 = useViewEvent(
     Uniswap_Governor_Alpha2_Addr,
     CONTRACT_ABI_Alpha2,
     12543659,
     14422934
   ).votes;
-  const VotesInBravo = useVotesCast(
+  const VotesInBravo = useViewEvent(
     Uniswap_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
     13059157,
     15735726
   ).votes;
-  const ProposalsInAlpha = useVotesCast(
+  const ProposalsInAlpha = useViewEvent(
     Uniswap_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha,
     10861678,
     12654236
   ).proposals;
-  const ProposalsInAlpha2 = useVotesCast(
+  const ProposalsInAlpha2 = useViewEvent(
     Uniswap_Governor_Alpha2_Addr,
     CONTRACT_ABI_Alpha2,
     12543659,
     14422934
   ).proposals;
-  const ProposalsInBravo = useVotesCast(
+  const ProposalsInBravo = useViewEvent(
     Uniswap_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
     13059157,

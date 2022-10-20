@@ -7,9 +7,8 @@ interface Props {
   support: boolean[];
   i: number;
 }
-const UebersichtTabelle = ({ voters,votes,support,i }: Props) => {
-  useEffect(() => {
-  }, [voters,votes,support, i]);
+const UebersichtTabelle = ({ voters, votes, support, i }: Props) => {
+  useEffect(() => {}, [voters, votes, support, i]);
   return (
     <div className="row mb-[3rem]">
       <div className="w-[20%]">

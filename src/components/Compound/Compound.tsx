@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Proposal } from "../../types/data";
+import { useEffect, useMemo, useState } from "react";
+import { Quote } from "../../lib/functions";
 import { RootObject1, RootObject2, StateEnum } from "../../types/httpCompound";
 import HauptPropsComponent from "../HauptPropsComponent";
 
@@ -13,6 +12,7 @@ interface Props {
   threshold: string;
   voters: string[];
 }
+
 function Compound({
   data,
   data1,
@@ -22,24 +22,34 @@ function Compound({
   threshold,
   voters,
 }: Props) {
-  const [proposal, setProposal] = useState<Proposal>({
-    succeeded: 0,
-  });
-  const proposals_state = (stateStatus: StateEnum, data: RootObject2) => {
-    const proposals = data.proposals;
-    const state_status = proposals.map((proposal) => {
-      return proposal.states.filter((state) => state.state === stateStatus);
-    });
-    return state_status.filter((e) => e.length > 0).length;
+  const [number, setNumber] = useState(0);
+  const [erfolgreicheP, setErfolgreicheP] = useState(0);
+  const [ErfolgQ, setErfolgQ] = useState(0);
+
+  const getNumber = () => {
+    const number = data.proposals_created;
+    return number;
   };
-  useEffect(() => {
-    setProposal({
-      succeeded:
-        proposals_state(StateEnum.Succeeded, data1) +
-        proposals_state(StateEnum.Succeeded, data2) +
-        proposals_state(StateEnum.Succeeded, data3),
+  const getStatusNumber = (data_1: RootObject2) => {
+    const state_status = data_1.proposals.map((proposal) => {
+      return proposal.states.filter(
+        (state) => state.state === StateEnum.Succeeded
+      );
     });
-  }, [data, voters]);
+    console.log(state_status.filter((e) => e.length > 0));
+    const result = state_status.filter((e) => e.length > 0).length;
+    return result;
+  };
+  const erfolgQuote = useMemo(() => {
+    return Quote(number, erfolgreicheP! as number);
+  }, [number, erfolgreicheP]);
+  useEffect(() => {
+    setNumber(getNumber());
+    setErfolgreicheP(
+      getStatusNumber(data1) + getStatusNumber(data2) + getStatusNumber(data3)
+    );
+    setErfolgQ(erfolgQuote);
+  }, [data, data1, data2, data3, voters]);
   return (
     <>
       {data && data1 && data2 && data3 ? (
@@ -48,9 +58,9 @@ function Compound({
           stimmOption={0}
           quorum={quorum}
           threschold={threshold}
-          allProposals={0}
-          erfolgreicheP={0}
-          erfolgQuote={0}
+          allProposals={number}
+          erfolgreicheP={erfolgreicheP}
+          erfolgQuote={erfolgQuote}
           typQuote={0}
           linkMonatlich={"/compound/monatlich"}
           numbVoters={voters.length}

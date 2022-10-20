@@ -41,7 +41,7 @@ function HauptComponent({
         </div>
         <div className="title1">Proposals</div>
         <div className="row">
-          <div className="info">All Proposals until November 2022</div>
+          <div className="info">Alle Proposals bis November 2022</div>
           <div className="info">Erfolgreiche Proposals</div>
           <div className="info">Erfolgsquote</div>
         </div>
