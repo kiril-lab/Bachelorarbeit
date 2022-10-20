@@ -122,7 +122,7 @@ const Uniswap = ({
       {data ? (
         <HauptComponent
           title={""}
-          stimmOption={0}
+          stimmOption={""}
           quorum={quorum}
           threschold={threshold}
           allProposals={0}

@@ -27,7 +27,7 @@ const Evmos = ({ data1, data2 }: Props) => {
       {data1 && data2 ? (
         <HauptComponent
           title={""}
-          stimmOption={0}
+          stimmOption={""}
           quorum={""}
           threschold={""}
           allProposals={proposals}

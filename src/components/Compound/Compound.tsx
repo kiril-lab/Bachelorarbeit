@@ -24,7 +24,7 @@ function Compound({
 }: Props) {
   const [number, setNumber] = useState(0);
   const [erfolgreicheP, setErfolgreicheP] = useState(0);
-  const [ErfolgQ, setErfolgQ] = useState(0);
+  const [stimmOption, setStimmoption] = useState("");
 
   const getNumber = () => {
     const number = data.proposals_created;
@@ -36,26 +36,38 @@ function Compound({
         (state) => state.state === StateEnum.Succeeded
       );
     });
-    console.log(state_status.filter((e) => e.length > 0));
     const result = state_status.filter((e) => e.length > 0).length;
     return result;
   };
   const erfolgQuote = useMemo(() => {
     return Quote(number, erfolgreicheP! as number);
   }, [number, erfolgreicheP]);
+  const getStimmOption = (data1: RootObject2) => {
+    const proposal = data1.proposals.map((x) => {
+      return Object.keys(x);
+    });
+    const esrteOption = proposal[0]?.[0];
+    const zweiteOption = proposal[0]?.[2];
+    return { esrteOption, zweiteOption };
+  };
   useEffect(() => {
     setNumber(getNumber());
     setErfolgreicheP(
       getStatusNumber(data1) + getStatusNumber(data2) + getStatusNumber(data3)
     );
-    setErfolgQ(erfolgQuote);
+    setStimmoption(
+      ((getStimmOption(data1).esrteOption! as string) +
+        ", " +
+        getStimmOption(data1).zweiteOption!) as string
+    );
   }, [data, data1, data2, data3, voters]);
+  console.log(getStimmOption(data1));
   return (
     <>
       {data && data1 && data2 && data3 ? (
         <HauptPropsComponent
           title={"Compound DAO"}
-          stimmOption={0}
+          stimmOption={stimmOption !== undefined ? stimmOption : ""}
           quorum={quorum}
           threschold={threshold}
           allProposals={number}

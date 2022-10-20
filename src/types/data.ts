@@ -61,5 +61,5 @@ export enum Month {
   twelve = 12,
 }
 export interface Proposal {
-  succeeded: number|undefined ;
+  succeeded: number;
 }

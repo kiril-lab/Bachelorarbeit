@@ -1,7 +1,7 @@
 import Link from "next/link";
 interface Props {
   title: string;
-  stimmOption: number;
+  stimmOption: string |null;
   quorum: string;
   threschold: string;
   allProposals: number;
