@@ -1,20 +1,17 @@
 import type { NextPage } from "next";
 import { useContext, useEffect, useState } from "react";
-import Evmos from "../../components/Evmos";
+import Evmos from "../../components/Evmos/Evmos";
 import httpContext from "../../http/HttpContext";
 import { RootObject } from "../../types/httpEvmos";
 
-const data_1: RootObject = {
-  proposals: [],
-};
-const data_2: RootObject = {
+const data: RootObject = {
   proposals: [],
 };
 
 const EvmosSeite: NextPage = () => {
   const httpService = useContext(httpContext);
-  const [data1, SetData1] = useState<RootObject>(data_1);
-  const [data2, SetData2] = useState<RootObject>(data_2);
+  const [data1, SetData1] = useState<RootObject>(data);
+  const [data2, SetData2] = useState<RootObject>(data);
   const [error, setError] = useState(false);
   useEffect(() => {
     const fetchData = async () => {

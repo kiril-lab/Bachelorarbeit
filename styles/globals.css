@@ -40,9 +40,9 @@ a {
     @apply flex justify-center font-bold underline m-1;
   }
   .row {
-    @apply flex flex-row justify-center  text-center;
+    @apply flex flex-row justify-center  text-center font-bold;
   }
   .info {
-    @apply border-[5px] m-[1px] w-[20%] font-medium;
+    @apply m-[1px] w-[20%] font-medium bg-gray-600 text-white;
   }
 }

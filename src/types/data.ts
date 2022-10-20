@@ -61,11 +61,5 @@ export enum Month {
   twelve = 12,
 }
 export interface Proposal {
-  active: number;
-  canceled: number;
-  defeated: number;
-  executed: number;
-  pending: number;
-  queued: number;
   succeeded: number;
 }

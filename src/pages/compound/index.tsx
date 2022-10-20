@@ -64,22 +64,19 @@ const compound: NextPage = () => {
     const voters = filteredVoteCast?.map((x) => {
       return x.voters;
     });
-    const result = { voters };
-    return result;
+    return voters;
   };
   const getAllVoters = () => {
     const voterBatches = [];
     for (let i = 1; i <= Start_End_Block_ProposalCompound.length; i++) {
-      voterBatches.push(getProposalVoters(i).voters);
+      voterBatches.push(getProposalVoters(i));
     }
-
     const allAdressVolters = voterBatches.flat();
     const uniquie = allAdressVolters.filter(
       (x, i) => allAdressVolters.indexOf(x) === i
     );
     return uniquie;
   };
-
   useEffect(() => {
     const fetchData = async () => {
       const data1Fetch = await httpService.GetCompound1();
@@ -108,7 +105,6 @@ const compound: NextPage = () => {
     fetchData();
   }, [httpService]);
   return (
-    <>
       <Compound
         data1={data2_1}
         data2={data2_2}
@@ -118,7 +114,6 @@ const compound: NextPage = () => {
         threshold={Threshold}
         voters={getAllVoters()}
       />
-    </>
   );
 };
 

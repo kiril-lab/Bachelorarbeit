@@ -1,6 +1,6 @@
 import { ApolloClient, gql, HttpLink, InMemoryCache } from "@apollo/client";
 import { NextPage } from "next";
-import Uniswap from "../../components/Uniswap";
+import Uniswap from "../../components/Uniswap/Uniswap";
 import { CONTRACT_ABI_Alpha } from "../../contracts/compound/abi_alpha";
 import { CONTRACT_ABI_Alpha2 } from "../../contracts/uniswap/abi_alpha2";
 import { CONTRACT_ABI_Bravo } from "../../contracts/uniswap/abi_bravo";
