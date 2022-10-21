@@ -136,6 +136,7 @@ const UebersichtMonatlich = ({data}:Props) => {
           oktober22={proposalMonth?.month_ten_year_three}
           november22={proposalMonth?.month_eleven_year_three}
           dezember22={proposalMonth?.month_twelve_year_three}
+          classInfo={"infoUniswap"}
         />
       ) : (
         <div>Keine Daten vorhanden!</div>

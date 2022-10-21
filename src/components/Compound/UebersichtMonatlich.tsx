@@ -219,6 +219,7 @@ const UebersichtMonatlich = ({ data1, data2, data3 }: Props) => {
           oktober22={proposalMonth?.month_ten_year_three}
           november22={proposalMonth?.month_eleven_year_three}
           dezember22={proposalMonth?.month_twelve_year_three}
+          classInfo={"infoCompound"}
         />
       ) : (
         <div>Keine Daten vorhanden!</div>

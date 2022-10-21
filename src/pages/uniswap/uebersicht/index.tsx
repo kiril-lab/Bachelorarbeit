@@ -6,10 +6,10 @@ const uebersicht: NextPage = () => {
     <div className="flex flex-col mt-[2rem]">
       <div className="title">Proposal</div>
       <div className="row">
-        <div className="info">Voters</div>
-        <div className="info">Votes</div>
-        <div className="info">Stimme</div>
-      </div>
+        <div className="infoUniswap">Voters</div>
+        <div className="infoUniswap">Votes</div>
+        <div className="infoUniswap">Stimme</div>
+      </div>  
       <UebersichtTabelle />
     </div>
   );

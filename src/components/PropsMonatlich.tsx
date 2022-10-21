@@ -35,6 +35,7 @@ interface Props {
   oktober22: number | undefined;
   november22: number | undefined;
   dezember22: number | undefined;
+  classInfo:string
 }
 function Monatlich({
   januar20,
@@ -73,18 +74,19 @@ function Monatlich({
   oktober22,
   november22,
   dezember22,
+  classInfo,
 }: Props) {
   return (
     <div className="flex flex-col mt-[2rem] w-[70%]">
       <div className="title">Proposals monatlich</div>
       <div className="row">
-        <div className="info">Year</div>
-        <div className="info">January</div>
-        <div className="info">February</div>
-        <div className="info">March</div>
-        <div className="info">April</div>
-        <div className="info">May</div>
-        <div className="info">June</div>
+        <div className={classInfo}>Year</div>
+        <div className={classInfo}>January</div>
+        <div className={classInfo}>February</div>
+        <div className={classInfo}>March</div>
+        <div className={classInfo}>April</div>
+        <div className={classInfo}>May</div>
+        <div className={classInfo}>June</div>
       </div>
       <div className="row mb-5">
         <div className="w-[20%] font-bold">2020</div>
@@ -114,13 +116,13 @@ function Monatlich({
         <div className="w-[20%]">{juni22}</div>
       </div>
       <div className="row">
-        <div className="info">Year</div>
-        <div className="info">July</div>
-        <div className="info">August</div>
-        <div className="info">September</div>
-        <div className="info">October</div>
-        <div className="info">November</div>
-        <div className="info">December</div>
+        <div className={classInfo}>Year</div>
+        <div className={classInfo}>July</div>
+        <div className={classInfo}>August</div>
+        <div className={classInfo}>September</div>
+        <div className={classInfo}>October</div>
+        <div className={classInfo}>November</div>
+        <div className={classInfo}>December</div>
       </div>
       <div className="row mb-5">
         <div className="w-[20%] font-bold">2020</div>

@@ -39,6 +39,7 @@ const UebersichtMonatlich = () => {
       oktober22={undefined}
       november22={undefined}
       dezember22={undefined}
+      classInfo={"infoEvmos"}
     />
   );
 };

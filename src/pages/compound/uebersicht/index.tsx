@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import UebersichtTabelle from "../../../components/Compound/UebersichtTabelle";
 import { CONTRACT_ABI_Alpha } from "../../../contracts/compound/abi_alpha";
 import { CONTRACT_ABI_Bravo } from "../../../contracts/compound/abi_bravo";
-import useEventCast from "../../../hooks/useViewEvent";
+import useViewEvent from "../../../hooks/useViewEvent";
 import {
   Compound_Governor_Alpha_Addr,
   Compound_Governor_Bravo_Addr,
@@ -12,25 +12,25 @@ import {
   Start_End_Block_ProposalCompound,
 } from "../../../lib/const";
 const uebersicht: NextPage = () => {
-  const [id, setId] = useState(1);
+  const [id, setId] = useState(100);
   const handleChange = (event: any) => {
     const value = event.target.value;
     setId(value);
   };
-  const getAllProposalData = (i: number) => {
-    const VotesInAlpha = useEventCast(
+    const VotesInAlpha = useViewEvent(
       Compound_Governor_Alpha_Addr,
       CONTRACT_ABI_Alpha,
-      Start_End_Block_ProposalCompound[i - 1]?.startBlock,
-      Start_End_Block_ProposalCompound[i - 1]?.endBlock
+      Start_End_Block_ProposalCompound[id - 1]?.startBlock,
+      Start_End_Block_ProposalCompound[id - 1]?.endBlock
     ).votes;
-    const VotesInBravo = useEventCast(
+    const VotesInBravo = useViewEvent(
       Compound_Governor_Bravo_Addr,
       CONTRACT_ABI_Bravo,
-      Start_End_Block_ProposalCompound[i - 1]?.startBlock,
-      Start_End_Block_ProposalCompound[i - 1]?.endBlock
+      Start_End_Block_ProposalCompound[id - 1]?.startBlock,
+      Start_End_Block_ProposalCompound[id - 1]?.endBlock
     ).votes;
     const Votes = [...VotesInAlpha, ...VotesInBravo];
+    console.log(Votes)
     const args = Votes?.map((a) => {
       return a?.args;
     });
@@ -46,7 +46,7 @@ const uebersicht: NextPage = () => {
         support: support,
       };
     });
-    const filteredVoteCast = voteCast?.filter((x) => x.proposalId == i);
+    const filteredVoteCast = voteCast?.filter((x) => x.proposalId == id);
 
     const votes = filteredVoteCast?.map((x) => {
       return x.votes;
@@ -62,20 +62,6 @@ const uebersicht: NextPage = () => {
       votes: votes,
       support: support,
     };
-    return { proposalId: i, result };
-  };
-  const getProposalData = () => {
-    const voterBatches = [];
-    for (let i = 1; i <= Start_End_Block_ProposalCompound.length; i++) {
-      voterBatches.push(getAllProposalData(i));
-    }
-    const allDataProposal = voterBatches.flat();
-    const filterData = allDataProposal.filter((x) => x.proposalId == id);
-    const result = filterData.map((x) => {
-      return x.result;
-    });
-    return result[0];
-  };
   /*dies Kode liefert die Konstant-StartEndBloeckeProposal
   in Datei \src\lib\const.ts */
   /*
@@ -92,8 +78,6 @@ const uebersicht: NextPage = () => {
   if (ProposalCreated.length > 0) {
     console.log(ProposalCreated);
   }*/
-
-  useEffect(() => {}, [id]);
   return (
     <div className="flex flex-col mt-[2rem]">
       <div className="title">
@@ -111,15 +95,15 @@ const uebersicht: NextPage = () => {
         </label>
       </div>
       <div className="row">
-        <div className="info">Voters</div>
-        <div className="info">Votes</div>
-        <div className="info">Stimme</div>
+        <div className="infoCompound">Voters</div>
+        <div className="infoCompound">Votes</div>
+        <div className="infoCompound">Stimme</div>
       </div>
 
       <UebersichtTabelle
-        voters={getProposalData().voters}
-        votes={getProposalData().votes}
-        support={getProposalData().support}
+        voters={result.voters}
+        votes={result.votes}
+        support={result.support}
         i={id}
       />
     </div>

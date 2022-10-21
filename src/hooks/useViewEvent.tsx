@@ -62,6 +62,6 @@ export default function useViewEvent(
       }
     };
     fetchData();
-  }, [contract]);
+  }, [contract,start_Block,end_Block]);
   return { votes, proposals };
 }
