@@ -37,6 +37,7 @@ const Evmos = ({ data1, data2 }: Props) => {
           linkMonatlich={""}
           numbVoters={0}
           linkUebersicht={""}
+          classInfo="infoEvmos"
         />
       ) : (
         <div>Keine Daten vorhanden!</div>

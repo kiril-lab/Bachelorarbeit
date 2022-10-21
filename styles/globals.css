@@ -42,7 +42,13 @@ a {
   .row {
     @apply flex flex-row justify-center  text-center font-bold;
   }
-  .info {
-    @apply m-[1px] w-[20%] font-medium bg-gray-600 text-white;
+  .infoCompound {
+    @apply m-[1px] w-[20%] font-medium bg-[#00d398] text-white;
+  }
+  .infoUniswap {
+    @apply m-[1px] w-[20%] font-medium bg-[#e60470] text-white;
+  }
+  .infoEvmos {
+    @apply m-[1px] w-[20%] font-medium bg-[#e24b2e] text-white;
   }
 }

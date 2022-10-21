@@ -40,7 +40,7 @@ const compound: NextPage = () => {
     Compound_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha
   );
-  const getProposalVoters = (i: number) => {
+  const getAllProposalVoters = (i: number) => {
     const VotesInAlpha = useViewEvent(
       Compound_Governor_Alpha_Addr,
       CONTRACT_ABI_Alpha,
@@ -58,7 +58,7 @@ const compound: NextPage = () => {
     const Voters = args?.map((x) => {
       const proposalId: number = x?.proposalId.toNumber();
       const voters: string = x?.voter;
-      return { voters, proposalId };
+      return { proposalId, voters };
     });
     const filteredVoteCast = Voters?.filter((x) => x.proposalId == i);
     const voters = filteredVoteCast?.map((x) => {
@@ -69,9 +69,9 @@ const compound: NextPage = () => {
   const getAllVoters = () => {
     const voterBatches = [];
     for (let i = 1; i <= Start_End_Block_ProposalCompound.length; i++) {
-      voterBatches.push(getProposalVoters(i));
+      voterBatches.push(getAllProposalVoters(i));
     }
-  
+
     const allAdressVolters = voterBatches.flat();
     const uniquie = allAdressVolters.filter(
       (x, i) => allAdressVolters.indexOf(x) === i

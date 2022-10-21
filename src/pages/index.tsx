@@ -16,13 +16,13 @@ const Home: NextPage = () => {
           <div className="mb-[2rem] text-[32px] font-bold">
             Untersuchungs Ergebnise
           </div>
-          <div className="mb-[2rem] hover:text-[#FF0000]">
+          <div className="mb-[2rem] hover:text-[#00d398]">
             <Link href="/compound">Compund DAO</Link>
           </div>
-          <div className="mb-[2rem] hover:text-[#FF0000]">
+          <div className="mb-[2rem] hover:text-[#e60470]">
             <Link href="/uniswap">Uniswap DAO</Link>
           </div>
-          <div className="mb-[2rem] hover:text-[#FF0000]">
+          <div className="mb-[2rem] hover:text-[#e24b2e]">
             <Link href="/evmos">Evmos DAO</Link>
           </div>
         </div>

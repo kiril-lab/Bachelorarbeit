@@ -24,7 +24,11 @@ function Compound({
 }: Props) {
   const [number, setNumber] = useState(0);
   const [erfolgreicheP, setErfolgreicheP] = useState(0);
-  const [stimmOption, setStimmoption] = useState("");
+  const [stimmOption, setStimmoption] = useState({
+    ersteOption: "",
+    zweiteOption: "",
+  });
+  const [numberVoters, setNumberVoters] = useState(0);
 
   const getNumber = () => {
     const number = data.proposals_created;
@@ -40,43 +44,48 @@ function Compound({
     return result;
   };
   const erfolgQuote = useMemo(() => {
-    return Quote(number, erfolgreicheP! as number);
+    if (number && erfolgreicheP != 0) {
+      return Quote(number, erfolgreicheP! as number);
+    }
   }, [number, erfolgreicheP]);
   const getStimmOption = (data1: RootObject2) => {
     const proposal = data1.proposals.map((x) => {
       return Object.keys(x);
     });
-    const esrteOption = proposal[0]?.[0];
-    const zweiteOption = proposal[0]?.[2];
-    return { esrteOption, zweiteOption };
+    const ersteOption = proposal[0]?.[2];
+    const zweiteOption = proposal[0]?.[0];
+    return { ersteOption, zweiteOption };
   };
   useEffect(() => {
     setNumber(getNumber());
     setErfolgreicheP(
       getStatusNumber(data1) + getStatusNumber(data2) + getStatusNumber(data3)
     );
-    setStimmoption(
-      ((getStimmOption(data1).esrteOption! as string) +
-        ", " +
-        getStimmOption(data1).zweiteOption!) as string
-    );
+    if (getStimmOption(data1) !== undefined) {
+      setStimmoption(getStimmOption(data1));
+    }
+    setNumberVoters(voters.length);
   }, [data, data1, data2, data3, voters]);
-  console.log(getStimmOption(data1));
   return (
     <>
       {data && data1 && data2 && data3 ? (
         <HauptPropsComponent
           title={"Compound DAO"}
-          stimmOption={stimmOption !== undefined ? stimmOption : ""}
-          quorum={quorum}
-          threschold={threshold}
-          allProposals={number}
-          erfolgreicheP={erfolgreicheP}
-          erfolgQuote={erfolgQuote}
+          stimmOption={
+            stimmOption.ersteOption && stimmOption.zweiteOption
+              ? stimmOption.ersteOption + ", " + stimmOption.zweiteOption
+              : "Loading..."
+          }
+          quorum={quorum ? quorum : "Loading..."}
+          threschold={threshold ? threshold : "Loading..."}
+          allProposals={number ? number : "Loading..."}
+          erfolgreicheP={erfolgreicheP != 0 ? erfolgreicheP : "Loading..."}
+          erfolgQuote={erfolgQuote != undefined ? erfolgQuote : "Loading..."}
           typQuote={0}
           linkMonatlich={"/compound/monatlich"}
-          numbVoters={voters.length}
+          numbVoters={numberVoters >= 2800 ? numberVoters : "Loading..."}
           linkUebersicht={"/compound/uebersicht"}
+          classInfo={"infoCompound"}
         />
       ) : (
         <div>Keine Daten vorhanden!</div>

@@ -132,6 +132,7 @@ const Uniswap = ({
           linkMonatlich={"/uniswap/monatlich"}
           numbVoters={0}
           linkUebersicht={"/uniswap/uebersicht"}
+          classInfo={"infoUniswap"}
         />
       ) : (
         <div>Keine Daten vorhanden!</div>
