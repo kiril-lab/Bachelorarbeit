@@ -10,7 +10,7 @@ import httpContext from "../../http/HttpContext";
 import {
   Compound_Governor_Alpha_Addr,
   Compound_Governor_Bravo_Addr,
-  Start_End_Block_ProposalCompound,
+  Start_End_Block_Proposal_ParametersCompound,
 } from "../../lib/const";
 import { RootObject1, RootObject2 } from "../../types/httpCompound";
 
@@ -32,6 +32,7 @@ const compound: NextPage = () => {
   const [data2_2, SetData2_2] = useState<RootObject2>(data_2);
   const [data2_3, SetData2_3] = useState<RootObject2>(data_2);
   const [error, setError] = useState(false);
+
   const Quorum = useQuorumVotes(
     Compound_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha
@@ -44,14 +45,14 @@ const compound: NextPage = () => {
     const VotesInAlpha = useViewEvent(
       Compound_Governor_Alpha_Addr,
       CONTRACT_ABI_Alpha,
-      Start_End_Block_ProposalCompound[i - 1]?.startBlock,
-      Start_End_Block_ProposalCompound[i - 1]?.endBlock
+      Start_End_Block_Proposal_ParametersCompound[i - 1]?.startBlock,
+      Start_End_Block_Proposal_ParametersCompound[i - 1]?.endBlock
     ).votes;
     const VotesInBravo = useViewEvent(
       Compound_Governor_Bravo_Addr,
       CONTRACT_ABI_Bravo,
-      Start_End_Block_ProposalCompound[i - 1]?.startBlock,
-      Start_End_Block_ProposalCompound[i - 1]?.endBlock
+      Start_End_Block_Proposal_ParametersCompound[i - 1]?.startBlock,
+      Start_End_Block_Proposal_ParametersCompound[i - 1]?.endBlock
     ).votes;
     const Votes = [...VotesInAlpha, ...VotesInBravo];
     const args = Votes?.map((x) => x?.args);
@@ -68,16 +69,60 @@ const compound: NextPage = () => {
   };
   const getAllVoters = () => {
     const voterBatches = [];
-    for (let i = 1; i <= Start_End_Block_ProposalCompound.length; i++) {
+    for (
+      let i = 1;
+      i <= Start_End_Block_Proposal_ParametersCompound.length;
+      i++
+    ) {
       voterBatches.push(getAllProposalVoters(i));
     }
-
     const allAdressVolters = voterBatches.flat();
     const uniquie = allAdressVolters.filter(
       (x, i) => allAdressVolters.indexOf(x) === i
     );
-    return uniquie;
+    return uniquie.length;
   };
+  const votersNumber = getAllVoters();
+  /*dies Kode gibt die Nummer von Start und and block bei 
+  Konstanetn Start_End_Block_Proposal_ParametersCompound
+  und Konstant Start_EndBlock_CreateProposal_Event
+  in Datei \src\lib\const.ts */
+  /*
+  const ProposalsInAlpha = useViewEvent(
+    Compound_Governor_Alpha_Addr,
+    CONTRACT_ABI_Alpha,
+    9601459,
+    12140390
+  ).proposals;
+  const ProposalsInBravo = useViewEvent(
+    Compound_Governor_Bravo_Addr,
+    CONTRACT_ABI_Bravo,
+    12006099,
+    15799268
+  ).proposals;
+  const AllProposals = [...ProposalsInAlpha, ...ProposalsInBravo];
+  const allBlockNumbers = AllProposals.map((x)=>{
+    return x.blockNumber
+  })
+  const EventsBatches =[]
+  EventsBatches.push(allBlockNumbers)
+  const allNumbers = EventsBatches.flat()
+  const result = allNumbers.filter(
+    (x, i) => allNumbers.indexOf(x) === i
+  );
+  console.log(result)
+  const argsProposolals = AllProposals.map((x) => {
+    return x?.args;
+  });
+  const ProposalCreated = argsProposolals?.map((x) => {
+    const proposalId = x?.[0].toNumber();
+    const startBlock = x?.[6].toNumber();
+    const endBlock = x?.[7].toNumber();
+    return { [proposalId]: { startBlock, endBlock } };
+  });
+  /*if (ProposalCreated.length > 0) {
+    console.log(ProposalCreated);
+  }*/
   useEffect(() => {
     const fetchData = async () => {
       const data1Fetch = await httpService.GetCompound1();
@@ -113,7 +158,7 @@ const compound: NextPage = () => {
       data={data1}
       quorum={Quorum}
       threshold={Threshold}
-      voters={getAllVoters()}
+      votersNumber={votersNumber}
     />
   );
 };

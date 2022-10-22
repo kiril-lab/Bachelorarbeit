@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Start_EndBlock_CreateProposal_EventCompound } from "../../lib/const";
 import { Quote } from "../../lib/functions";
 import { RootObject1, RootObject2, StateEnum } from "../../types/httpCompound";
 import HauptPropsComponent from "../HauptPropsComponent";
@@ -10,7 +11,7 @@ interface Props {
   data3: RootObject2;
   quorum: string;
   threshold: string;
-  voters: string[];
+  votersNumber: number;
 }
 
 function Compound({
@@ -20,7 +21,7 @@ function Compound({
   data3,
   quorum,
   threshold,
-  voters,
+  votersNumber,
 }: Props) {
   const [number, setNumber] = useState(0);
   const [erfolgreicheP, setErfolgreicheP] = useState(0);
@@ -28,10 +29,12 @@ function Compound({
     ersteOption: "",
     zweiteOption: "",
   });
-  const [numberVoters, setNumberVoters] = useState(0);
-
   const getNumber = () => {
-    const number = data.proposals_created;
+    const allStartBlocksCreateProposalEvent =
+      Start_EndBlock_CreateProposal_EventCompound.filter(
+        (x, i) => Start_EndBlock_CreateProposal_EventCompound.indexOf(x) === i
+      );
+    const number = allStartBlocksCreateProposalEvent.length;
     return number;
   };
   const getStatusNumber = (data_1: RootObject2) => {
@@ -64,8 +67,7 @@ function Compound({
     if (getStimmOption(data1) !== undefined) {
       setStimmoption(getStimmOption(data1));
     }
-    setNumberVoters(voters.length);
-  }, [data, data1, data2, data3, voters]);
+  }, [data, data1, data2, data3, votersNumber]);
   return (
     <>
       {data && data1 && data2 && data3 ? (
@@ -83,7 +85,7 @@ function Compound({
           erfolgQuote={erfolgQuote != undefined ? erfolgQuote : "Loading..."}
           typQuote={0}
           linkMonatlich={"/compound/monatlich"}
-          numbVoters={numberVoters >= 2800 ? numberVoters : "Loading..."}
+          numbVoters={votersNumber >= 2800 ? votersNumber : "Loading..."}
           linkUebersicht={"/compound/uebersicht"}
           classInfo={"infoCompound"}
         />
