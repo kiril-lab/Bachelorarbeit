@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
-import { Start_EndBlock_CreateProposal_EventCompound } from "../../lib/const";
+import {
+  allBlockNumbersExecutedProposalEvent_Compound,
+  AllBlockNumbers_CreateProposalEvent_Compound,
+} from "../../lib/const";
 import { Quote } from "../../lib/functions";
-import { RootObject1, RootObject2, StateEnum } from "../../types/httpCompound";
+import { RootObject2, StateEnum } from "../../types/httpCompound";
 import HauptPropsComponent from "../HauptPropsComponent";
 
 interface Props {
-  data: RootObject1;
   data1: RootObject2;
   data2: RootObject2;
   data3: RootObject2;
@@ -15,7 +17,6 @@ interface Props {
 }
 
 function Compound({
-  data,
   data1,
   data2,
   data3,
@@ -24,33 +25,40 @@ function Compound({
   votersNumber,
 }: Props) {
   const [number, setNumber] = useState(0);
-  const [erfolgreicheP, setErfolgreicheP] = useState(0);
+  const [numberExecuted, setNumberExecuted] = useState(0);
   const [stimmOption, setStimmoption] = useState({
     ersteOption: "",
     zweiteOption: "",
   });
   const getNumber = () => {
-    const allStartBlocksCreateProposalEvent =
-      Start_EndBlock_CreateProposal_EventCompound.filter(
-        (x, i) => Start_EndBlock_CreateProposal_EventCompound.indexOf(x) === i
-      );
-    const number = allStartBlocksCreateProposalEvent.length;
+    const number = AllBlockNumbers_CreateProposalEvent_Compound.length;
     return number;
   };
-  const getStatusNumber = (data_1: RootObject2) => {
-    const state_status = data_1.proposals.map((proposal) => {
-      return proposal.states.filter(
-        (state) => state.state === StateEnum.Succeeded
+  const getNumberExecuted = () => {
+    const number = allBlockNumbersExecutedProposalEvent_Compound.length;
+    return number;
+  };
+  const getProposalTitelandStatus = (data: RootObject2) => {
+    const title = data.proposals.map((proposal) => {
+      const title = proposal.title;
+      const status = proposal.states.map((state) => {
+        return state.state;
+      });
+      const statusFilter = status.filter(
+        (f) =>
+          f == StateEnum.Defeated ||
+          f == StateEnum.Executed ||
+          f == StateEnum.Canceled
       );
+      return { status: statusFilter, title };
     });
-    const result = state_status.filter((e) => e.length > 0).length;
-    return result;
+    return title;
   };
   const erfolgQuote = useMemo(() => {
-    if (number && erfolgreicheP != 0) {
-      return Quote(number, erfolgreicheP! as number);
+    if (number && numberExecuted) {
+      return Quote(number, numberExecuted);
     }
-  }, [number, erfolgreicheP]);
+  }, [number, numberExecuted]);
   const getStimmOption = (data1: RootObject2) => {
     const proposal = data1.proposals.map((x) => {
       return Object.keys(x);
@@ -61,16 +69,19 @@ function Compound({
   };
   useEffect(() => {
     setNumber(getNumber());
-    setErfolgreicheP(
-      getStatusNumber(data1) + getStatusNumber(data2) + getStatusNumber(data3)
-    );
+    setNumberExecuted(getNumberExecuted());
     if (getStimmOption(data1) !== undefined) {
       setStimmoption(getStimmOption(data1));
     }
-  }, [data, data1, data2, data3, votersNumber]);
+  }, [data1, data2, data3, votersNumber]);
+  console.log([
+    ...getProposalTitelandStatus(data1),
+    ...getProposalTitelandStatus(data2),
+    ...getProposalTitelandStatus(data3),
+  ]);
   return (
     <>
-      {data && data1 && data2 && data3 ? (
+      {data1 && data2 && data3 ? (
         <HauptPropsComponent
           title={"Compound DAO"}
           stimmOption={
@@ -81,11 +92,11 @@ function Compound({
           quorum={quorum ? quorum : "Loading..."}
           threschold={threshold ? threshold : "Loading..."}
           allProposals={number ? number : "Loading..."}
-          erfolgreicheP={erfolgreicheP != 0 ? erfolgreicheP : "Loading..."}
-          erfolgQuote={erfolgQuote != undefined ? erfolgQuote : "Loading..."}
+          erfolgreicheP={numberExecuted ? numberExecuted : "Loading..."}
+          erfolgQuote={erfolgQuote ? erfolgQuote : "Loading..."}
           typQuote={0}
           linkMonatlich={"/compound/monatlich"}
-          numbVoters={votersNumber >= 2800 ? votersNumber : "Loading..."}
+          numbVoters={votersNumber}
           linkUebersicht={"/compound/uebersicht"}
           classInfo={"infoCompound"}
         />

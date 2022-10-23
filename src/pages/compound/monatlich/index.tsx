@@ -1,37 +1,32 @@
+import { providers } from "ethers";
 import type { NextPage } from "next";
-import { useContext, useEffect, useState } from "react";
 import UebersichtMonatlich from "../../../components/Compound/UebersichtMonatlich";
-import httpContext from "../../../http/HttpContext";
-import { RootObject2 } from "../../../types/httpCompound";
+import { AllBlockNumbers_CreateProposalEvent_Compound } from "../../../lib/const";
+import { getRPC } from "../../../lib/functions";
+import { Network } from "../../../types/network";
 
-const data: RootObject2 = {
-  proposals: [],
-};
 const monatlich: NextPage = () => {
-  /*diese func erzeugt die const timestampBlocks
-   in datei \src\lib\const.ts*/
-  /* 
   const getDatumBlocks = async () => {
-    const allStartBlocksCreateProposalEvent =
-      Start_EndBlock_CreateProposal_EventCompound.filter(
-        (x, i) => Start_EndBlock_CreateProposal_EventCompound.indexOf(x) === i
-      );
-    const blockNumberArr = allStartBlocksCreateProposalEvent;
+    const blockNumberArr = AllBlockNumbers_CreateProposalEvent_Compound;
     const provider = new providers.JsonRpcProvider(
       getRPC(Network.ethereum),
       Network.ethereum
     );
-    const blocksBatches = [];
+    const allTimestampBlocks = [];
     for (let i = 0; i < blockNumberArr.length; i++) {
       const blockData = await provider.getBlock(blockNumberArr[i]);
-      blocksBatches.push(blockData);
+      allTimestampBlocks.push(blockData);
     }
-    const alltimestampBlocks = blocksBatches.flat();
-    const timeStampArr = alltimestampBlocks.map((x) => {
+    const timeStampArr = allTimestampBlocks.map((x) => {
       return x?.timestamp;
     });
     console.log(timeStampArr);
-  };*/
+  };
+  /* das hier erzeugt dir Konstant timestampBlocks_CreateProposalEvent_Compound
+   in ../src/lib/const.ts
+  useEffect(()=>{
+    getDatumBlocks()
+  },[providers])*/
   return (
     <div className="flex align-center justify-center">
       <UebersichtMonatlich />

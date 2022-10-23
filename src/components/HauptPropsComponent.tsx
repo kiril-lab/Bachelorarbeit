@@ -6,7 +6,7 @@ interface Props {
   threschold: string;
   allProposals: number | string;
   erfolgreicheP: number | string;
-  erfolgQuote: number | string;
+  erfolgQuote: number | string | undefined;
   typQuote: number;
   linkMonatlich: string;
   numbVoters: number | string;

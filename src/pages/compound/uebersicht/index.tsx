@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import UebersichtTabelle from "../../../components/Compound/UebersichtTabelle";
 import { CONTRACT_ABI_Alpha } from "../../../contracts/compound/abi_alpha";
 import { CONTRACT_ABI_Bravo } from "../../../contracts/compound/abi_bravo";
-import useViewEvent from "../../../hooks/useViewEvent";
+import useViewVoteCastEvent from "../../../hooks/useViewVoteCastEvent";
 import {
   Compound_Governor_Alpha_Addr,
   Compound_Governor_Bravo_Addr,
@@ -17,18 +17,18 @@ const uebersicht: NextPage = () => {
     const value = event.target.value;
     setId(value);
   };
-  const VotesInAlpha = useViewEvent(
+  const VotesInAlpha = useViewVoteCastEvent(
     Compound_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha,
     Start_End_Block_Proposal_ParametersCompound[id - 1]?.startBlock,
     Start_End_Block_Proposal_ParametersCompound[id - 1]?.endBlock
-  ).votes;
-  const VotesInBravo = useViewEvent(
+  );
+  const VotesInBravo = useViewVoteCastEvent(
     Compound_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
     Start_End_Block_Proposal_ParametersCompound[id - 1]?.startBlock,
     Start_End_Block_Proposal_ParametersCompound[id - 1]?.endBlock
-  ).votes;
+  );
   const Votes = [...VotesInAlpha, ...VotesInBravo];
   console.log(Votes);
   const argsVotes = Votes?.map((a) => {

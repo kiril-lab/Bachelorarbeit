@@ -1,6 +1,5 @@
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
-import { Month, Months, Year, Years } from "../../types/data";
 import HauptComponent from "../HauptPropsComponent";
 interface Props {
   data: any;

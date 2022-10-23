@@ -6,7 +6,8 @@ import { CONTRACT_ABI_Alpha2 } from "../../contracts/uniswap/abi_alpha2";
 import { CONTRACT_ABI_Bravo } from "../../contracts/uniswap/abi_bravo";
 import useProposalThreshold from "../../hooks/useProposalThreshold";
 import useQuorumVotes from "../../hooks/useQuorumVotes";
-import useViewEvent from "../../hooks/useViewEvent";
+import useViewProposalsEvent from "../../hooks/useViewProposalsEvent";
+import useViewVoteCastEvent from "../../hooks/useViewVoteCastEvent";
 import {
   Uniswap_Governor_Alpha2_Addr,
   Uniswap_Governor_Alpha_Addr,
@@ -22,42 +23,45 @@ const uniswap: NextPage = ({ proposals }: any) => {
     Uniswap_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha
   );
-  const VotesInAlpha = useViewEvent(
+  const VotesInAlpha = useViewVoteCastEvent(
     Uniswap_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha,
     10861678,
     12654236
-  ).votes;
-  const VotesInAlpha2 = useViewEvent(
+  );
+  const VotesInAlpha2 = useViewVoteCastEvent(
     Uniswap_Governor_Alpha2_Addr,
     CONTRACT_ABI_Alpha2,
     12543659,
     14422934
-  ).votes;
-  const VotesInBravo = useViewEvent(
+  );
+  const VotesInBravo = useViewVoteCastEvent(
     Uniswap_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
     13059157,
     15735726
-  ).votes;
-  const ProposalsInAlpha = useViewEvent(
+  );
+  const ProposalsInAlpha = useViewProposalsEvent(
     Uniswap_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha,
     10861678,
     12654236
-  ).proposals;
-  const ProposalsInAlpha2 = useViewEvent(
+  ).proposalsCreated;
+  const ProposalsInAlpha2 = useViewProposalsEvent(
     Uniswap_Governor_Alpha2_Addr,
     CONTRACT_ABI_Alpha2,
     12543659,
     14422934
-  ).proposals;
-  const ProposalsInBravo = useViewEvent(
+  ).proposalsCreated;
+  const ProposalsInBravo = useViewProposalsEvent(
     Uniswap_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
     13059157,
     15735726
-  ).proposals;
+  ).proposalsCreated;
+  const proposalsInAlpha = ProposalsInAlpha.flat();
+  const proposalsInAlpha2 = ProposalsInAlpha2.flat();
+  const proposalsInBravo = ProposalsInBravo.flat();
   return (
     <>
       <Uniswap
@@ -67,9 +71,9 @@ const uniswap: NextPage = ({ proposals }: any) => {
         votesInAlpha={VotesInAlpha}
         votesInAlpha2={VotesInAlpha2}
         votesInBravo={VotesInBravo}
-        proposalsInAlpha={ProposalsInAlpha}
-        proposalsInAlpha2={ProposalsInAlpha2}
-        proposalsInBravo={ProposalsInBravo}
+        proposalsInAlpha={proposalsInAlpha}
+        proposalsInAlpha2={proposalsInAlpha2}
+        proposalsInBravo={proposalsInBravo}
       />
     </>
   );

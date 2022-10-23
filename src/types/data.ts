@@ -1,8 +1,3 @@
-export interface Years {
-  year_one: number;
-  year_two: number;
-  year_three: number;
-}
 export interface Months {
   month_one_year_one: number;
   month_two_year_one: number;
@@ -59,7 +54,4 @@ export enum Month {
   ten = 10,
   eleven = 11,
   twelve = 12,
-}
-export interface Proposal {
-  succeeded: number;
 }

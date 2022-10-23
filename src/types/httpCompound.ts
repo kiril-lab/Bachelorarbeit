@@ -1,6 +1,5 @@
 export interface HttpService {
-  GetCompound1(): Promise<Response<RootObject1>>;
-  GetCompound2(i:string): Promise<Response<RootObject2>>;
+  GetCompound2(i: string): Promise<Response<RootObject2>>;
 }
 
 export interface Response<T> {
@@ -10,13 +9,6 @@ export interface Response<T> {
   errordesc?: string;
 }
 
-export interface RootObject1 {
-  proposals_created: number;
-  token_holders: number;
-  total_comp_allocated: string;
-  votes_delegated: string;
-  voting_addresses: number;
-}
 export interface RootObject2 {
   proposals: Proposal[];
 }
