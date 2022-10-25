@@ -1,25 +1,16 @@
 import { providers } from "ethers";
 import type { NextPage } from "next";
-import { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from "react";
 import UebersichtMonatlich from "../../../components/Compound/UebersichtMonatlich";
+import { AllBlockNumbers_CreateProposalEvent } from "../../../lib/constCompound";
 import { getRPC } from "../../../lib/functions";
-import { AppState } from "../../../state";
-import { setProposalsTimeStamp } from "../../../state/ProposalsTimeStampCompound";
 import { Network } from "../../../types/network";
 
 const monatlich: NextPage = () => {
-  const dispatch = useDispatch();
-  const { requestsProposalsInAlphaCreated, requestsProposalsInBravoCreated } =
-    useSelector((state: AppState) => state.ProposalsRequestCompound);
-  const AllProposalsAlpha = requestsProposalsInAlphaCreated.flat();
-  const AllProposalsBravo = requestsProposalsInBravoCreated.flat();
-  const AllProposals = [...AllProposalsAlpha, ...AllProposalsBravo];
-  const allBlockNumbersForCreatedProposals = AllProposals.map((x) => {
-    return x.blockNumber;
-  });
+  /*diese function erzeugt die Konstante timestampBlocks_CreateProposalEvent
+   in ../src/lib/constCompound.ts*/
   const getDatumBlocks = useCallback(async () => {
-    const blockNumberArr = allBlockNumbersForCreatedProposals;
+    const blockNumberArr = AllBlockNumbers_CreateProposalEvent;
     const provider = new providers.JsonRpcProvider(
       getRPC(Network.ethereum),
       Network.ethereum
@@ -32,11 +23,9 @@ const monatlich: NextPage = () => {
     const timeStampArr = allTimestampBlocks.map((x) => {
       return x?.timestamp;
     });
-    dispatch(setProposalsTimeStamp({ timeStamp: timeStampArr }));
+    return timeStampArr;
   }, []);
-  useEffect(() => {
-    getDatumBlocks();
-  }, [requestsProposalsInAlphaCreated, requestsProposalsInBravoCreated]);
+  //console.log(getDatumBlocks());
   return (
     <div className="flex align-center justify-center">
       <UebersichtMonatlich />

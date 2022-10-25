@@ -21,12 +21,12 @@ export default function useViewVoteCastEvent(
     const fetchData = async () => {
       try {
         if (contract) {
-          const filter = contract.filters.VoteCast(null, null, null)
-            const result = await contract.queryFilter(
-              filter,
-              start_Block,
-              end_Block
-            )
+          const filter = contract.filters.VoteCast(null, null, null);
+          const result = await contract.queryFilter(
+            filter,
+            start_Block,
+            end_Block
+          );
           setVotes(result);
         }
       } catch (e) {
@@ -35,5 +35,5 @@ export default function useViewVoteCastEvent(
     };
     fetchData();
   }, [contract, start_Block, end_Block]);
-  return votes
+  return votes;
 }

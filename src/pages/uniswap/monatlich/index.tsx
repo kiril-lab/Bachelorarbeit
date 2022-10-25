@@ -1,36 +1,36 @@
-import { ApolloClient, gql, HttpLink, InMemoryCache } from "@apollo/client";
-import type { NextPage } from "next";
+import { providers } from "ethers";
+import { NextPage } from "next";
+import { useCallback, useEffect } from "react";
 import UebersichtMonatlich from "../../../components/Uniswap/UebersichtMonatlich";
+import { AllBlockNumbers_CreateProposalEvent } from "../../../lib/constUniswap";
+import { getRPC } from "../../../lib/functions";
+import { Network } from "../../../types/network";
 
-const monatlich: NextPage = ({ proposals }: any) => {
+const monatlich: NextPage = () => {
+  /*diese function erzeugt die Konstante timestampBlocks_CreateProposalEvent
+   in ../src/lib/constUniswap.ts*/
+  const getDatumBlocks = useCallback(async () => {
+    const blockNumberArr = AllBlockNumbers_CreateProposalEvent;
+    const provider = new providers.JsonRpcProvider(
+      getRPC(Network.ethereum),
+      Network.ethereum
+    );
+    const allTimestampBlocks = [];
+    for (let i = 0; i < blockNumberArr.length; i++) {
+      const blockData = await provider.getBlock(blockNumberArr[i]);
+      allTimestampBlocks.push(blockData);
+    }
+    const timeStampArr = allTimestampBlocks.map((x) => {
+      return x?.timestamp;
+    });
+    return timeStampArr;
+  }, []);
+  //console.log(getDatumBlocks());
   return (
     <div className="flex align-center justify-center">
-      <UebersichtMonatlich data={proposals} />
+      <UebersichtMonatlich />
     </div>
   );
 };
 
 export default monatlich;
-export async function getStaticProps() {
-  const client = new ApolloClient({
-    link: new HttpLink({
-      uri: "https://api.thegraph.com/subgraphs/name/arr00/uniswap-governance-v2",
-    }),
-    cache: new InMemoryCache(),
-  });
-  const { data } = await client.query({
-    query: gql`
-      query MyQuery {
-        proposals(orderBy: id) {
-          id
-          creationTime
-        }
-      }
-    `,
-  });
-  return {
-    props: {
-      proposals: data.proposals,
-    },
-  };
-}

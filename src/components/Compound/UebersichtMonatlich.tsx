@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { AppState } from "../../state";
+import { timestampBlocks_CreateProposalEvent } from "../../lib/constCompound";
 import { Month, Months, Year } from "../../types/data";
 import PropsMonatlich from "../PropsMonatlich";
 
 const UebersichtMonatlich = () => {
-  const { timeStamp } = useSelector(
-    (state: AppState) => state.ProposalsTimeStampCompound
-  );
   const [proposalMonth, setProposalMonth] = useState<Months>();
 
   const getDate = (years: Year, months: Month) => {
-    const date = timeStamp.map((x) => {
+    const date = timestampBlocks_CreateProposalEvent.map((x) => {
       const year = new Date(x * 1000).getFullYear();
       const month = new Date(x * 1000).getMonth() + 1;
       return { month: month, year: year };
@@ -62,7 +58,7 @@ const UebersichtMonatlich = () => {
       month_eleven_year_three: getDate(Year.three, Month.eleven).month,
       month_twelve_year_three: getDate(Year.three, Month.twelve).month,
     });
-  }, [timeStamp]);
+  }, []);
   return (
     <PropsMonatlich
       januar20={proposalMonth?.month_one_year_one}

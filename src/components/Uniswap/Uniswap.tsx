@@ -1,98 +1,51 @@
-import { ethers } from "ethers";
-import { useEffect, useState } from "react";
-import HauptComponent from "../HauptPropsComponent";
+import { useEffect, useMemo, useState } from "react";
+import { AllBlockNumbers_CreateProposalEvent } from "../../lib/constUniswap";
+import { allBlockNumbers_ExecutedProposalEvent } from "../../lib/constUniswap";
+import { Quote } from "../../lib/functions";
+import { n } from "../../types/data";
+import HauptPropsComponent from "../HauptPropsComponent";
 interface Props {
   quorum: string;
   threshold: string;
+  votersNumber: number;
 }
-const Uniswap = ({ quorum, threshold }: Props) => {
-  /*
-  if (proposalsInAlpha.length > 0) {
-    const args = proposalsInAlpha.map((a) => {
-      return a.args;
-    });
-    const proposals = args?.map((x) => {
-      const proposalId = x?.id.toString();
-      const proposalDescription = x?.description;
-      return {
-        proposalId: proposalId,
-        proposalDescription: proposalDescription,
-      };
-    });
-    //console.log(proposals);
-  }
+const Uniswap = ({ quorum, threshold, votersNumber }: Props) => {
+  const [number, setNumber] = useState(n);
+  const [numberExecuted, setNumberExecuted] = useState(0);
+  const [numberVoters, setNumberVoters] = useState(0);
 
-    console.log(proposals);
-  }
-  if (proposalsInBravo.length > 0) {
-    const args = proposalsInBravo.map((a) => {
-      return a.args;
-    });
-    const proposals = args?.map((x) => {
-      const proposalId = x?.id.toString();
-      const proposalDescription = x?.description;
-      return {
-        proposalId: proposalId,
-        proposalDescription: proposalDescription,
-      };
-    });
-    //console.log(proposals);
-  }
-  if (votesInAlpha.length > 0) {
-    const args = votesInAlpha.map((a) => {
-      return a.args;
-    });
-    const VotersAndProposalIds = args?.map((x) => {
-      const voters = x?.voter;
-      const proposalId = x?.proposalId.toString();
-      return { voters: voters, proposalId: proposalId };
-    });
-    //console.log(VotersAndProposalIds);
-  }
-  if (votesInAlpha2.length > 0) {
-    const args = votesInAlpha2.map((a) => {
-      return a.args;
-    });
-    const VotersAndProposalIds = args?.map((x) => {
-      const voters = x?.voter;
-      const proposalId = x?.proposalId.toString();
-      return { voters: voters, proposalId: proposalId };
-    });
-    //console.log(VotersAndProposalIds);
-  }
-  if (votesInBravo.length > 0) {
-    const args = votesInBravo.map((a) => {
-      return a.args;
-    });
-    const VotersAndProposalIds = args?.map((x) => {
-      const voters = x?.voter;
-      const proposalId = x?.proposalId.toString();
-      return { voters: voters, proposalId: proposalId };
-    });
-    //console.log(VotersAndProposalIds);
-  }
-  const [numberProp, setNumberProp] = useState(0);
-  const number_proposals = () => {
-    const id = data.map((i: any) => {
-      return i.id;
-    });
-    return id.length;
+  const getNumber = () => {
+    const number = AllBlockNumbers_CreateProposalEvent.length;
+    return number;
   };
+  const getNumberExecuted = () => {
+    const number = allBlockNumbers_ExecutedProposalEvent.length;
+    return number;
+  };
+  const erfolgQuote = useMemo(() => {
+    if (number && numberExecuted) {
+      return Quote(number, numberExecuted);
+    }
+  }, [number, numberExecuted]);
+
   useEffect(() => {
-    setNumberProp(number_proposals());
-  }, []);*/
+    setNumber(getNumber());
+    setNumberExecuted(getNumberExecuted());
+    setNumberVoters(votersNumber);
+  }, [votersNumber]);
+
   return (
-    <HauptComponent
-      title={""}
-      stimmOption={""}
-      quorum={quorum}
-      threschold={threshold}
-      allProposals={0}
-      erfolgreicheP={0}
-      erfolgQuote={0}
-      linkErfolgsNachTyp={""}
+    <HauptPropsComponent
+      title={"Uniswap DAO"}
+      stimmOption={"2 (Ja, Nein)"}
+      quorum={quorum ? quorum : "Loading..."}
+      threschold={threshold ? threshold : "Loading..."}
+      allProposals={number ? number : "Loading..."}
+      erfolgreicheP={numberExecuted ? numberExecuted : "Loading..."}
+      erfolgQuote={erfolgQuote ? erfolgQuote : "Loading..."}
+      linkErfolgsNachTyp={"/uniswap/erfolgsNachTyp"}
       linkMonatlich={"/uniswap/monatlich"}
-      numbVoters={0}
+      numbVoters={numberVoters}
       linkUebersicht={"/uniswap/uebersicht"}
       classInfo={"infoUniswap"}
     />

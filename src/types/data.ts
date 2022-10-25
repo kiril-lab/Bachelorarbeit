@@ -55,3 +55,4 @@ export enum Month {
   eleven = 11,
   twelve = 12,
 }
+export var n: number | undefined;
