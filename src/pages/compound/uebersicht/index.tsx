@@ -1,6 +1,6 @@
-import { ethers } from "ethers";
 import type { NextPage } from "next";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import UebersichtTabelle from "../../../components/Compound/UebersichtTabelle";
 import { CONTRACT_ABI_Alpha } from "../../../contracts/compound/abi_alpha";
 import { CONTRACT_ABI_Bravo } from "../../../contracts/compound/abi_bravo";
@@ -9,9 +9,20 @@ import {
   Compound_Governor_Alpha_Addr,
   Compound_Governor_Bravo_Addr,
   hundleChangeArr,
-  Start_End_Block_Proposal_ParametersCompound,
-} from "../../../lib/const";
+} from "../../../lib/constCompound";
+import { AppState } from "../../../state";
 const uebersicht: NextPage = () => {
+  const { requestsProposalsInAlphaCreated, requestsProposalsInBravoCreated } =
+    useSelector((state: AppState) => state.ProposalsRequestCompound);
+  const AllProposalsAlpha = requestsProposalsInAlphaCreated.flat();
+  const AllProposalsBravo = requestsProposalsInBravoCreated.flat();
+  const AllProposals = [...AllProposalsAlpha, ...AllProposalsBravo];
+  const args = AllProposals?.map((x) => x?.args);
+  const ProposalStartEndBlock = args?.map((x) => {
+    const startBlock = x?.[6].hex;
+    const endBlock = x?.[7].hex;
+    return { startBlock, endBlock };
+  });
   const [id, setId] = useState(100);
   const handleChange = (event: any) => {
     const value = event.target.value;
@@ -20,17 +31,16 @@ const uebersicht: NextPage = () => {
   const VotesInAlpha = useViewVoteCastEvent(
     Compound_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha,
-    Start_End_Block_Proposal_ParametersCompound[id - 1]?.startBlock,
-    Start_End_Block_Proposal_ParametersCompound[id - 1]?.endBlock
+    ProposalStartEndBlock[id - 1]?.startBlock,
+    ProposalStartEndBlock[id - 1]?.endBlock
   );
   const VotesInBravo = useViewVoteCastEvent(
     Compound_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
-    Start_End_Block_Proposal_ParametersCompound[id - 1]?.startBlock,
-    Start_End_Block_Proposal_ParametersCompound[id - 1]?.endBlock
+    ProposalStartEndBlock[id - 1]?.startBlock,
+    ProposalStartEndBlock[id - 1]?.endBlock
   );
   const Votes = [...VotesInAlpha, ...VotesInBravo];
-  console.log(Votes);
   const argsVotes = Votes?.map((a) => {
     return a?.args;
   });
@@ -62,6 +72,10 @@ const uebersicht: NextPage = () => {
     votes: votes,
     support: support,
   };
+  useEffect(() => {}, [
+    requestsProposalsInAlphaCreated,
+    requestsProposalsInBravoCreated,
+  ]);
   return (
     <div className="flex flex-col mt-[2rem]">
       <div className="title">

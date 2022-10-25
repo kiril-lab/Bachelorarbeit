@@ -2,14 +2,7 @@ export const Compound_Governor_Alpha_Addr =
   "0xc0da01a04c3f3e0be433606045bb7017a7323e38";
 export const Compound_Governor_Bravo_Addr =
   "0xc0Da02939E1441F497fd74F78cE7Decb17B66529";
-export const Uniswap_Governor_Alpha_Addr =
-  "0x5e4be8Bc9637f0EAA1A755019e06A68ce081D58F";
-export const Uniswap_Governor_Alpha2_Addr =
-  "0xC4e172459f1E7939D522503B81AFAaC1014CE6F6";
-export const Uniswap_Governor_Bravo_Addr =
-  "0x408ED6354d4973f66138C91495F2f2FCbd8724C3";
-export const Evmos = "";
-export const AllBlockNumbers_CreateProposalEvent_Compound = [
+export const AllBlockNumbers_CreateProposalEvent = [
   9951904, 9956584, 10065392, 10117038, 10179118, 10225965, 10241644, 10286281,
   10291220, 10318493, 10351501, 10375086, 10397424, 10401005, 10420910,
   10426075, 10489842, 10517331, 10648381, 10672812, 10738218, 10823754,
@@ -30,7 +23,7 @@ export const AllBlockNumbers_CreateProposalEvent_Compound = [
   15447994, 15461528, 15461811, 15462088, 15563660, 15597874, 15598392,
   15649146, 15714409, 15770320, 15785622,
 ];
-export const allBlockNumbersExecutedProposalEvent_Compound = [
+export const allBlockNumbers_ExecutedProposalEvent = [
   9982249, 9987151, 10096844, 10149088, 10211430, 10259279, 10271924, 10316576,
   10335618, 10348710, 10381738, 10451297, 10456497, 10522436, 10547935,
   10678764, 10703563, 10768647, 10854390, 10906967, 10972683, 10984837,
@@ -46,7 +39,7 @@ export const allBlockNumbersExecutedProposalEvent_Compound = [
   15174742, 15287175, 15412370, 15441888, 15487430, 15506764, 15507603,
   15507699, 15610870, 15645055, 15696338, 15761599,
 ];
-export const Start_End_Block_Proposal_ParametersCompound = [
+export const Start_End_Block_Proposal_Parameters = [
   { startBlock: 9951905, endBlock: 9969185 }, //ProposalId=1
   { startBlock: 9956585, endBlock: 9973865 },
   { startBlock: 10065393, endBlock: 10082673 },
@@ -178,7 +171,7 @@ export const Start_End_Block_Proposal_ParametersCompound = [
   { startBlock: 15727549, endBlock: 15747259 },
   { startBlock: 15783460, endBlock: 15803170 },
 ];
-export const timestampBlocks_CreateProposalEvent_Compound = [
+export const timestampBlocks_CreateProposalEvent= [
   1587955312, 1588018145, 1618369221, 1619476644, 1589474064, 1590169444,
   1591002827, 1591631130, 1591841611, 1592437864, 1592503801, 1620979620,
   1621010208, 1592867937, 1593310389, 1593627293, 1593925855, 1593973789,

@@ -1,5 +1,4 @@
-import { ethers } from "ethers";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 interface Props {
   voters: string[];

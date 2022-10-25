@@ -33,7 +33,7 @@ const Evmos = ({ data1, data2 }: Props) => {
           allProposals={proposals}
           erfolgreicheP={0}
           erfolgQuote={0}
-          typQuote={0}
+          linkErfolgsNachTyp={""}
           linkMonatlich={""}
           numbVoters={0}
           linkUebersicht={""}

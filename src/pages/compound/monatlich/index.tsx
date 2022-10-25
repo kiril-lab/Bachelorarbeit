@@ -1,13 +1,25 @@
 import { providers } from "ethers";
 import type { NextPage } from "next";
+import { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import UebersichtMonatlich from "../../../components/Compound/UebersichtMonatlich";
-import { AllBlockNumbers_CreateProposalEvent_Compound } from "../../../lib/const";
 import { getRPC } from "../../../lib/functions";
+import { AppState } from "../../../state";
+import { setProposalsTimeStamp } from "../../../state/ProposalsTimeStampCompound";
 import { Network } from "../../../types/network";
 
 const monatlich: NextPage = () => {
-  const getDatumBlocks = async () => {
-    const blockNumberArr = AllBlockNumbers_CreateProposalEvent_Compound;
+  const dispatch = useDispatch();
+  const { requestsProposalsInAlphaCreated, requestsProposalsInBravoCreated } =
+    useSelector((state: AppState) => state.ProposalsRequestCompound);
+  const AllProposalsAlpha = requestsProposalsInAlphaCreated.flat();
+  const AllProposalsBravo = requestsProposalsInBravoCreated.flat();
+  const AllProposals = [...AllProposalsAlpha, ...AllProposalsBravo];
+  const allBlockNumbersForCreatedProposals = AllProposals.map((x) => {
+    return x.blockNumber;
+  });
+  const getDatumBlocks = useCallback(async () => {
+    const blockNumberArr = allBlockNumbersForCreatedProposals;
     const provider = new providers.JsonRpcProvider(
       getRPC(Network.ethereum),
       Network.ethereum
@@ -20,13 +32,11 @@ const monatlich: NextPage = () => {
     const timeStampArr = allTimestampBlocks.map((x) => {
       return x?.timestamp;
     });
-    console.log(timeStampArr);
-  };
-  /* das hier erzeugt dir Konstant timestampBlocks_CreateProposalEvent_Compound
-   in ../src/lib/const.ts
-  useEffect(()=>{
-    getDatumBlocks()
-  },[providers])*/
+    dispatch(setProposalsTimeStamp({ timeStamp: timeStampArr }));
+  }, []);
+  useEffect(() => {
+    getDatumBlocks();
+  }, [requestsProposalsInAlphaCreated, requestsProposalsInBravoCreated]);
   return (
     <div className="flex align-center justify-center">
       <UebersichtMonatlich />

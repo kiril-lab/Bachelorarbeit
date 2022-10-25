@@ -7,7 +7,7 @@ interface Props {
   allProposals: number | string;
   erfolgreicheP: number | string;
   erfolgQuote: number | string | undefined;
-  typQuote: number;
+  linkErfolgsNachTyp: string;
   linkMonatlich: string;
   numbVoters: number | string;
   linkUebersicht: string;
@@ -21,7 +21,7 @@ function HauptComponent({
   allProposals,
   erfolgreicheP,
   erfolgQuote,
-  typQuote,
+  linkErfolgsNachTyp,
   linkMonatlich,
   numbVoters,
   linkUebersicht,
@@ -62,7 +62,9 @@ function HauptComponent({
             <div className={classInfo}>Proposals monatlich</div>
           </div>
           <div className="row mb-[2rem]">
-            <div className="w-[20%]">{typQuote}</div>
+            <div className="w-[20%] underline">
+              <Link href={linkErfolgsNachTyp}>Übersicht</Link>
+            </div>
             <div className="w-[20%] underline">
               <Link href={linkMonatlich}>Übersicht</Link>
             </div>
