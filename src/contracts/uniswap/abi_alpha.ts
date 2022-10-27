@@ -1,14 +1,5 @@
 export const CONTRACT_ABI_Alpha = [
   {
-    inputs: [
-      { internalType: "address", name: "timelock_", type: "address" },
-      { internalType: "address", name: "uni_", type: "address" },
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "constructor",
-  },
-  {
     anonymous: false,
     inputs: [
       { indexed: false, internalType: "uint256", name: "id", type: "uint256" },
@@ -131,6 +122,15 @@ export const CONTRACT_ABI_Alpha = [
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
     payable: false,
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    constant: false,
+    inputs: [],
+    name: "__acceptAdmin",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
     type: "function",
   },
   {

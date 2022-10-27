@@ -18,12 +18,12 @@ import useViewVoteCastEvent from "../../hooks/useViewVoteCastEvent";
 
 const uniswap: NextPage = () => {
   const Quorum = useQuorumVotes(
-    Uniswap_Governor_Bravo_Addr,
-    CONTRACT_ABI_Bravo
+    Uniswap_Governor_Alpha2_Addr,
+    CONTRACT_ABI_Alpha2
   );
   const Threshold = useProposalThreshold(
-    Uniswap_Governor_Bravo_Addr,
-    CONTRACT_ABI_Bravo
+    Uniswap_Governor_Alpha2_Addr,
+    CONTRACT_ABI_Alpha2
   );
   const ProposalsInAlpha = useViewProposalsEvent(
     Uniswap_Governor_Alpha_Addr,
@@ -215,7 +215,7 @@ const uniswap: NextPage = () => {
     const result = uniquie.length;
     return result;
   };
-  console.log(getAllVotersNumber());
+  //console.log(getAllVotersNumber());
   return (
     <>
       <Uniswap quorum={Quorum} threshold={Threshold} />

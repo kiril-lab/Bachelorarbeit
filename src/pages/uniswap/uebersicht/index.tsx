@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import UebersichtTabelle1 from "../../../components/Uniswap/UebersichtTabelle1";
 import UebersichtTabelle2 from "../../../components/Uniswap/UebersichtTabelle2";
 import UebersichtTabelle3 from "../../../components/Uniswap/UebersichtTabelle3";
@@ -21,7 +21,7 @@ const uebersicht: NextPage = () => {
   const [governance, setGovernance] = useState("Alpha");
   const [id1, setId1] = useState(1);
   const [id2, setId2] = useState(1);
-  const [id3, setId3] = useState(1);
+  const [id3, setId3] = useState(9);
   const handleChange = (event: any) => {
     const value = event.target.value;
     setGovernance(value);
@@ -56,7 +56,7 @@ const uebersicht: NextPage = () => {
     Start_End_Block_Proposal_Parameters_Bravo[id3 - 1]?.startBlock,
     Start_End_Block_Proposal_Parameters_Bravo[id3 - 1]?.endBlock
   );
-  console.log(VotesInBravo)
+  console.log(VotesInBravo);
   const argsAlpha = VotesInAlpha?.map((a) => {
     return a?.args;
   });
@@ -235,12 +235,19 @@ const uebersicht: NextPage = () => {
               <div className="infoUniswap">Votes</div>
               <div className="infoUniswap">Stimme</div>
             </div>
-            <UebersichtTabelle3
-              voters3={result3.voters3}
-              votes3={result3.votes3}
-              support3={result3.support3}
-              i3={id3}
-            />
+            {id3 < 9 ? (
+              <p className="title1 mt-10">
+                Alle Proposals von 1 bis 8 sind von vorherige Governance
+                Versionen übernommen!!!
+              </p>
+            ) : (
+              <UebersichtTabelle3
+                voters3={result3.voters3}
+                votes3={result3.votes3}
+                support3={result3.support3}
+                i3={id3}
+              />
+            )}
           </>
         ) : null}
       </div>
