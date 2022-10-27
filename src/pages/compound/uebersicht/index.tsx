@@ -45,15 +45,14 @@ const uebersicht: NextPage = () => {
     };
   });
   const filteredVoteCast = voteCast?.filter((x) => x.proposalId == id);
-
   const votes = filteredVoteCast?.map((x) => {
-    return x.votes;
+    return x?.votes;
   });
   const voters = filteredVoteCast?.map((x) => {
-    return x.voters;
+    return x?.voters;
   });
   const support = filteredVoteCast?.map((x) => {
-    return x.support;
+    return x?.support;
   });
   const result = {
     voters: voters,
@@ -66,7 +65,7 @@ const uebersicht: NextPage = () => {
   return (
     <div className="flex flex-col mt-[2rem]">
       <div className="title">
-        Proposal
+        <p className="mr-1">Proposal</p>
         <label className="flex">
           <select value={id} onChange={handleChange}>
             {hundleChangeArr.map((x, i) => {

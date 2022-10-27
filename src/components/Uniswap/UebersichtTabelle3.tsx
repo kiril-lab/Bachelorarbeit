@@ -1,31 +1,31 @@
 import { useEffect } from "react";
 
 interface Props {
-  voters: string[];
-  votes: string[];
-  support: boolean[];
-  i: number;
+  voters3: string[];
+  votes3: string[];
+  support3: boolean[];
+  i3: number;
 }
-const UebersichtTabelle = ({ voters, votes, support, i }: Props) => {
-  useEffect(() => {}, [voters, votes, support, i]);
+const UebersichtTabelle3 = ({ voters3, votes3, support3, i3 }: Props) => {
+  useEffect(() => {}, [voters3, votes3, support3, i3]);
   return (
     <div className="row mb-[3rem]">
       <div className="w-[20%]">
-        {voters?.map((x, i) => {
+        {voters3?.map((x, i) => {
           return <div key={i}>{x}</div>;
         })}
       </div>
       <div className="w-[20%]">
-        {votes?.map((x, i) => {
+        {votes3?.map((x, i) => {
           return <div key={i}>{x}</div>;
         })}
       </div>
       <div className="w-[20%]">
-        {support?.map((x, i) => {
+        {support3?.map((x, i) => {
           return <div key={i}>{`${x}`}</div>;
         })}
       </div>
     </div>
   );
 };
-export default UebersichtTabelle;
+export default UebersichtTabelle3;

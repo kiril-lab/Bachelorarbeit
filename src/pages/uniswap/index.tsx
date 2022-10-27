@@ -7,7 +7,9 @@ import useProposalThreshold from "../../hooks/useProposalThreshold";
 import useQuorumVotes from "../../hooks/useQuorumVotes";
 import useViewProposalsEvent from "../../hooks/useViewProposals";
 import {
-  Start_End_Block_Proposal_Parameters,
+  Start_End_Block_Proposal_Parameters_Alpha,
+  Start_End_Block_Proposal_Parameters_Alpha2,
+  Start_End_Block_Proposal_Parameters_Bravo,
   Uniswap_Governor_Alpha2_Addr,
   Uniswap_Governor_Alpha_Addr,
   Uniswap_Governor_Bravo_Addr,
@@ -16,12 +18,12 @@ import useViewVoteCastEvent from "../../hooks/useViewVoteCastEvent";
 
 const uniswap: NextPage = () => {
   const Quorum = useQuorumVotes(
-    Uniswap_Governor_Alpha_Addr,
-    CONTRACT_ABI_Alpha
+    Uniswap_Governor_Bravo_Addr,
+    CONTRACT_ABI_Bravo
   );
   const Threshold = useProposalThreshold(
-    Uniswap_Governor_Alpha_Addr,
-    CONTRACT_ABI_Alpha
+    Uniswap_Governor_Bravo_Addr,
+    CONTRACT_ABI_Bravo
   );
   const ProposalsInAlpha = useViewProposalsEvent(
     Uniswap_Governor_Alpha_Addr,
@@ -78,42 +80,63 @@ const uniswap: NextPage = () => {
   });
   //console.log(allBlockNumbersForCreatedProposals);
 
-  /*diese constant erzeugt die Konstante allBlockNumbersExecutedProposalEvent
+  /*diese constant erzeugt die Konstante allExecutedProposalEvent
    in ../src/lib/constUniswap.ts*/
-  const allBlockNumbersForExecutedProposals = AllExecutedProposals.map((x) => {
-    return x.blockNumber;
-  });
-  //console.log(allBlockNumbersForExecutedProposals);
+  const allExecutedProposals = AllExecutedProposals.length;
+  //console.log(allExecutedProposals);
 
-  /*diese constant erzeugt die Konstante Start_End_Block_Proposal_Parameters
+  const argsAlpha = ProposalsInAlpha.flat()?.map((x) => x?.args);
+  const argsAlpha2 = ProposalsInAlpha2.flat()?.map((x) => x?.args);
+  const argsBravo = ProposalsInBravo.flat()?.map((x) => x?.args);
+
+  /*diese constant erzeugt die Konstante Start_End_Block_Proposal_Parameters_Alpha
    in ../src/lib/constUniswap.ts*/
-  const args = AllProposals?.map((x) => x?.args);
-  const ProposalStartEndBlock = args?.map((x) => {
-    const startBlock = x?.[6].toNumber();
-    const endBlock = x?.[7].toNumber();
+  const ProposalStartEndBlockAlpha = argsAlpha?.map((x, i) => {
+    const startBlock:number = x?.[6].toNumber();
+    const endBlock:number = x?.[7].toNumber();
     return { startBlock, endBlock };
   });
-  //console.log(ProposalStartEndBlock)
+  //console.log(ProposalStartEndBlockAlpha)
+
+  /*diese constant erzeugt die Konstante Start_End_Block_Proposal_Parameters_Alpha2
+   in ../src/lib/constUniswap.ts*/
+  const ProposalStartEndBlockAlpha2 = argsAlpha2?.map((x, i) => {
+    const startBlock:number = x?.[6].toNumber();
+    const endBlock:number = x?.[7].toNumber();
+    return { startBlock, endBlock };
+  });
+  //console.log(ProposalStartEndBlockAlpha2)
+
+  /*diese constant erzeugt die Konstante Start_End_Block_Proposal_Parameters_Bravo
+   in ../src/lib/constUniswap.ts*/
+  const ProposalStartEndBlockBravo = argsBravo?.map((x, i) => {
+    const startBlock:number = x?.[6].toNumber();
+    const endBlock:number = x?.[7].toNumber();
+    return { startBlock, endBlock };
+  });
+  //console.log(ProposalStartEndBlockBravo)
+  
   const getAllProposalVoters = (id: number) => {
     const VotesInAlpha = useViewVoteCastEvent(
       Uniswap_Governor_Alpha_Addr,
       CONTRACT_ABI_Alpha,
-      Start_End_Block_Proposal_Parameters[id - 1]?.startBlock,
-      Start_End_Block_Proposal_Parameters[id - 1]?.endBlock
+      Start_End_Block_Proposal_Parameters_Alpha[id - 1]?.startBlock,
+      Start_End_Block_Proposal_Parameters_Alpha[id - 1]?.endBlock
     );
     const VotesInAlpha2 = useViewVoteCastEvent(
       Uniswap_Governor_Alpha2_Addr,
       CONTRACT_ABI_Alpha2,
-      Start_End_Block_Proposal_Parameters[id - 1]?.startBlock,
-      Start_End_Block_Proposal_Parameters[id - 1]?.endBlock
+      Start_End_Block_Proposal_Parameters_Alpha2[id - 1]?.startBlock,
+      Start_End_Block_Proposal_Parameters_Alpha2[id - 1]?.endBlock
     );
-    const VotesInBravo = useViewVoteCastEvent(
+    /*const VotesInBravo = useViewVoteCastEvent(
       Uniswap_Governor_Bravo_Addr,
       CONTRACT_ABI_Bravo,
-      Start_End_Block_Proposal_Parameters[id - 1]?.startBlock,
-      Start_End_Block_Proposal_Parameters[id - 1]?.endBlock
-    );
-    const Votes = [...VotesInAlpha, ...VotesInAlpha2, ...VotesInBravo];
+      Start_End_Block_Proposal_Parameters_Bravo[id - 1]?.startBlock,
+      Start_End_Block_Proposal_Parameters_Bravo[id - 1]?.endBlock
+    );*/
+    const Votes = [...VotesInAlpha, ...VotesInAlpha2];
+    console.log(VotesInAlpha);
     const args = Votes?.map((x) => x?.args);
     const Voters = args?.map((x) => {
       const proposalId: number = x?.proposalId?.toNumber();
@@ -126,21 +149,25 @@ const uniswap: NextPage = () => {
     });
     return voters;
   };
-  const getAllVoters = () => {
+  console.log(getAllProposalVoters(5))
+  /*diese Function gibt die Number alle unterschidlische Adresse des Voters und ist als Konstante 
+  mit Name NumberUnterschidlischeVotes in file ../src/lib/constUniswap.ts gespeichert*/
+  const getAllVotersNumber = () => {
     const voterBatches = [];
-    for (let i = 1; i <= Start_End_Block_Proposal_Parameters.length; i++) {
+    for (let i = 1; i <= 25; i++) {
       voterBatches.push(getAllProposalVoters(i));
     }
     const allAdressVolters = voterBatches.flat();
     const uniquie = allAdressVolters.filter(
       (x, i) => allAdressVolters.indexOf(x) === i
     );
-    return uniquie.length;
+    const result = uniquie.length;
+    return result;
   };
-  const allVoters = getAllVoters();
+  //console.log(getAllVotersNumber());
   return (
     <>
-      <Uniswap quorum={Quorum} threshold={Threshold} votersNumber={allVoters} />
+      <Uniswap quorum={Quorum} threshold={Threshold} />
     </>
   );
 };

@@ -1,16 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
-import { AllBlockNumbers_CreateProposalEvent } from "../../lib/constUniswap";
-import { allBlockNumbers_ExecutedProposalEvent } from "../../lib/constUniswap";
+import {
+  NumberUnterschidlischeVotes,
+  AllBlockNumbers_CreateProposalEvent,
+  allExecutedProposalEvent,
+} from "../../lib/constUniswap";
 import { Quote } from "../../lib/functions";
-import { n } from "../../types/data";
 import HauptPropsComponent from "../HauptPropsComponent";
 interface Props {
   quorum: string;
   threshold: string;
-  votersNumber: number;
 }
-const Uniswap = ({ quorum, threshold, votersNumber }: Props) => {
-  const [number, setNumber] = useState(n);
+const Uniswap = ({ quorum, threshold }: Props) => {
+  const [number, setNumber] = useState(0);
   const [numberExecuted, setNumberExecuted] = useState(0);
   const [numberVoters, setNumberVoters] = useState(0);
 
@@ -18,21 +19,16 @@ const Uniswap = ({ quorum, threshold, votersNumber }: Props) => {
     const number = AllBlockNumbers_CreateProposalEvent.length;
     return number;
   };
-  const getNumberExecuted = () => {
-    const number = allBlockNumbers_ExecutedProposalEvent.length;
-    return number;
-  };
   const erfolgQuote = useMemo(() => {
     if (number && numberExecuted) {
       return Quote(number, numberExecuted);
     }
   }, [number, numberExecuted]);
-
   useEffect(() => {
     setNumber(getNumber());
-    setNumberExecuted(getNumberExecuted());
-    setNumberVoters(votersNumber);
-  }, [votersNumber]);
+    setNumberExecuted(allExecutedProposalEvent);
+    setNumberVoters(NumberUnterschidlischeVotes);
+  }, []);
 
   return (
     <HauptPropsComponent

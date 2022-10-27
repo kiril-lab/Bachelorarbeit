@@ -14,7 +14,7 @@ import {
 
 const compound: NextPage = () => {
   const Quorum = useQuorumVotes(
-    Compound_Governor_Alpha_Addr,
+    Compound_Governor_Bravo_Addr,
     CONTRACT_ABI_Alpha
   );
   const Threshold = useProposalThreshold(
@@ -46,7 +46,11 @@ const compound: NextPage = () => {
     15799268
   ).proposalsExecuted;
 
+  /*diese Konstante erzeugen die Konstante AllProposalsCompound,
+  die local unter ..src/lib/AllProposalsCompound gespeichert ist*/
   const AllProposals = [...ProposalsInAlpha, ...ProposalsInBravo].flat();
+  console.log(AllProposals);
+
   const AllExecutedProposals = [
     ...ProposalsExecutedInAlpha,
     ...ProposalsExecutedInBravo,
@@ -59,20 +63,18 @@ const compound: NextPage = () => {
   });
   //console.log(allBlockNumbersForCreatedProposals);
 
-  /*diese constant erzeugt die Konstante allBlockNumbersExecutedProposalEvent
+  /*diese constant erzeugt die Konstante allExecutedProposalEvent
    in ../src/lib/constCompound.ts*/
-  const allBlockNumbersForExecutedProposals = AllExecutedProposals.map((x) => {
-    return x.blockNumber;
-  });
-  //console.log(allBlockNumbersForExecutedProposals);
+  const allExecutedProposals = AllExecutedProposals.length;
+  //console.log(allExecutedProposals);
 
+  const args = AllProposals?.map((x) => x?.args);
   /*diese constant erzeugt die Konstante Start_End_Block_Proposal_Parameters
    in ../src/lib/constCompound.ts*/
-  const args = AllProposals?.map((x) => x?.args);
-  const ProposalStartEndBlock = args?.map((x) => {
+  const ProposalStartEndBlock = args?.map((x, i) => {
     const startBlock = x?.[6].toNumber();
     const endBlock = x?.[7].toNumber();
-    return { startBlock, endBlock };
+    return { [i]: { startBlock, endBlock } };
   });
   //console.log(ProposalStartEndBlock)
   const getAllProposalVoters = (id: number) => {
@@ -89,6 +91,7 @@ const compound: NextPage = () => {
       Start_End_Block_Proposal_Parameters[id - 1]?.endBlock
     );
     const Votes = [...VotesInAlpha, ...VotesInBravo];
+    console.log(Votes);
     const args = Votes?.map((x) => x?.args);
     const Voters = args?.map((x) => {
       const proposalId: number = x?.proposalId?.toNumber();
@@ -101,7 +104,10 @@ const compound: NextPage = () => {
     });
     return voters;
   };
-  const getAllVoters = () => {
+  //console.log(getAllProposalVoters(42))
+  /*diese Function gibt die Number alle unterschidlische Adresse des Voters und ist als Konstante 
+  mit Name NumberUnterschidlischeVotes in file ../src/lib/constCompound.ts gespeichert*/
+  const getAllVotersNumber = () => {
     const voterBatches = [];
     for (let i = 1; i <= Start_End_Block_Proposal_Parameters.length; i++) {
       voterBatches.push(getAllProposalVoters(i));
@@ -110,13 +116,12 @@ const compound: NextPage = () => {
     const uniquie = allAdressVolters.filter(
       (x, i) => allAdressVolters.indexOf(x) === i
     );
-    return uniquie.length;
+    const result = uniquie.length;
+    return result;
   };
-  const allVoters = getAllVoters();
+  //console.log(getAllVotersNumber())
 
-  return (
-    <Compound quorum={Quorum} threshold={Threshold} votersNumber={allVoters} />
-  );
+  return <Compound quorum={Quorum} threshold={Threshold} />;
 };
 
 export default compound;

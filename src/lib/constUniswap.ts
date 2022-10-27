@@ -11,29 +11,21 @@ export const AllBlockNumbers_CreateProposalEvent = [
   14418026, 14495579, 14618101, 14624438, 14719038, 14719317, 14750666,
   14756440, 14963727, 14969446, 15096227, 15346993, 15690584,
 ];
-export const timestampBlocks_CreateProposalEvent = [
-  1602526132, 1603566332, 1608249571, 1622749533, 1623508400, 1624399656,
-  1628903183, 1629424768, 1647353628, 1630361772, 1630362033, 1630362228,
-  1630362478, 1630362740, 1630363046, 1630363287, 1630363630, 1635864492,
-  1639091332, 1646088852, 1647524672, 1647708569, 1648751424, 1650405205,
-  1650491171, 1651778992, 1651782516, 1652214554, 1652293685, 1655239117,
-  1655324992, 1657207512, 1660579876, 1665077723,
-];
-export const allBlockNumbers_ExecutedProposalEvent = [
-  11533619, 12616961, 12761477, 13114754, 13604706, 13861316, 14372520,
-  14501529, 14567223, 14776273, 15026799, 15034978, 15048760, 15163462,
-  15413228, 15760070,
-];
-export const Start_End_Block_Proposal_Parameters = [
+export const allExecutedProposalEvent = 16;
+export const Start_End_Block_Proposal_Parameters_Alpha = [
   { startBlock: 11042288, endBlock: 11082608 },
   { startBlock: 11120865, endBlock: 11161185 },
   { startBlock: 11473815, endBlock: 11514135 },
   { startBlock: 12563485, endBlock: 12603805 },
   { startBlock: 12620175, endBlock: 12660495 },
+];
+export const Start_End_Block_Proposal_Parameters_Alpha2 = [
   { startBlock: 12686657, endBlock: 12726977 },
   { startBlock: 13020266, endBlock: 13060586 },
   { startBlock: 13059344, endBlock: 13099664 },
   { startBlock: 14391620, endBlock: 14431940 },
+];
+export const Start_End_Block_Proposal_Parameters_Bravo = [
   { startBlock: 13142656, endBlock: 13182976 },
   { startBlock: 13142679, endBlock: 13182999 },
   { startBlock: 13142692, endBlock: 13183012 },
@@ -60,7 +52,8 @@ export const Start_End_Block_Proposal_Parameters = [
   { startBlock: 15360133, endBlock: 15400453 },
   { startBlock: 15703724, endBlock: 15744044 },
 ];
-export const hundleChangeArr = [
+export const NumberUnterschidlischeVotes = 836;
+export const hundleChangeArr_Bravo = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+  23, 24, 25,
 ];
