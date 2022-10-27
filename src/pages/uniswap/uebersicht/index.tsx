@@ -126,7 +126,7 @@ const uebersicht: NextPage = () => {
     const voters: string = x?.voter;
     const proposalId: number = x?.proposalId.toNumber();
     const votes: string = x?.votes.toString();
-    const support: boolean = x?.support;
+    const support: number = x?.support;
     return {
       proposalId: proposalId,
       voters: voters,

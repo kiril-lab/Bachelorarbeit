@@ -22,7 +22,7 @@ const UebersichtTabelle1 = ({ voters1, votes1, support1, i1 }: Props) => {
       </div>
       <div className="w-[20%]">
         {support1?.map((x, i) => {
-          return <div key={i}>{`${x}`}</div>;
+          return <div key={i}>{x==true?"ja":"nein"}</div>;
         })}
       </div>
     </div>

@@ -33,7 +33,7 @@ const Uniswap = ({ quorum, threshold }: Props) => {
   return (
     <HauptPropsComponent
       title={"Uniswap DAO"}
-      stimmOption={"2 (Ja, Nein)"}
+      stimmOption={"3 (Ja, Nein, Enthalten)"}
       quorum={quorum ? quorum : "Loading..."}
       threschold={threshold ? threshold : "Loading..."}
       allProposals={number ? number : "Loading..."}

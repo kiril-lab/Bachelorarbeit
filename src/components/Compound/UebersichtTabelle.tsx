@@ -3,7 +3,7 @@ import { useEffect } from "react";
 interface Props {
   voters: string[];
   votes: string[];
-  support: boolean[];
+  support: boolean[] | number[];
   i: number;
 }
 const UebersichtTabelle = ({ voters, votes, support, i }: Props) => {
@@ -22,7 +22,15 @@ const UebersichtTabelle = ({ voters, votes, support, i }: Props) => {
       </div>
       <div className="w-[20%]">
         {support?.map((x, i) => {
-          return <div key={i}>{`${x}`}</div>;
+          return (
+            <div key={i}>
+              {x == true || x == 1
+                ? "ja"
+                : x == false || x == 0
+                ? "nein"
+                : "enthalten"}
+            </div>
+          );
         })}
       </div>
     </div>

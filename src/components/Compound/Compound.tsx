@@ -33,7 +33,7 @@ function Compound({ quorum, threshold }: Props) {
   }, []);
   return (
     <HauptPropsComponent
-      title={"Compound DAO"}
+      title={"3 (Ja, Nein, Enthalten)"}
       stimmOption={"2 (Ja, Nein)"}
       quorum={quorum ? quorum : "Loading..."}
       threschold={threshold ? threshold : "Loading..."}
