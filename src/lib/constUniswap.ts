@@ -52,7 +52,7 @@ export const Start_End_Block_Proposal_Parameters_Bravo = [
   { startBlock: 15360133, endBlock: 15400453 },
   { startBlock: 15703724, endBlock: 15744044 },
 ];
-export const NumberUnterschidlischeVotes = 836;
+export const NumberUnterschidlischeVotes = 1205;
 export const hundleChangeArr_Bravo = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
   23, 24, 25,

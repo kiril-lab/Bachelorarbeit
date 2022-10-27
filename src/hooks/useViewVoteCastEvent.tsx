@@ -21,7 +21,7 @@ export default function useViewVoteCastEvent(
     const fetchData = async () => {
       try {
         if (contract) {
-          const filter = contract.filters.VoteCast(null, null, null);
+          const filter = contract.filters.VoteCast(null, null, null, null);
           const result = await contract.queryFilter(
             filter,
             start_Block,
