@@ -3,7 +3,7 @@ import { useEffect } from "react";
 interface Props {
   voters: string[];
   votes: string[];
-  support: boolean[] | number[];
+  support: (boolean| number)[];
   i: number;
 }
 const UebersichtTabelle = ({ voters, votes, support, i }: Props) => {
