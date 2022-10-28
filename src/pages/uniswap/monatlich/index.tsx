@@ -7,7 +7,7 @@ import { getRPC } from "../../../lib/functions";
 import { Network } from "../../../types/network";
 
 const monatlich: NextPage = () => {
-  /*diese function erzeugt die Konstante timestampBlocks_CreateProposalEvent
+  /*diese function erzeugt die Konstante TimestampBlocks_CreateProposalEvent
    in ../src/lib/constUniswap.ts*/
   const getDatumBlocks = useCallback(async () => {
     const blockNumberArr = AllBlockNumbers_CreateProposalEvent;
@@ -25,7 +25,7 @@ const monatlich: NextPage = () => {
     });
     return timeStampArr;
   }, []);
-  //console.log(getDatumBlocks());
+  console.log(getDatumBlocks());
   return (
     <div className="flex align-center justify-center">
       <UebersichtMonatlich />

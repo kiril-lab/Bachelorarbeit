@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import {
-  NumberUnterschidlischeVotes,
   AllBlockNumbers_CreateProposalEvent,
-  allExecutedProposalEvent,
+  AllCanceledProposalEvent,
+  AllExecutedProposalEvent,
+  NumberDifferentProposers,
+  NumberDifferentVoters,
 } from "../../lib/constUniswap";
 import { Quote } from "../../lib/functions";
 import HauptPropsComponent from "../HauptPropsComponent";
@@ -14,20 +16,26 @@ const Uniswap = ({ quorum, threshold }: Props) => {
   const [number, setNumber] = useState(0);
   const [numberExecuted, setNumberExecuted] = useState(0);
   const [numberVoters, setNumberVoters] = useState(0);
+  const [numberProposers, setNumberProposers] = useState(0);
+  const [numberCanceled, setNumberCanceled] = useState(0);
 
   const getNumber = () => {
     const number = AllBlockNumbers_CreateProposalEvent.length;
     return number;
   };
   const erfolgQuote = useMemo(() => {
-    if (number && numberExecuted) {
-      return Quote(number, numberExecuted);
-    }
-  }, [number, numberExecuted]);
+    return Quote(
+      AllBlockNumbers_CreateProposalEvent.length,
+      AllCanceledProposalEvent,
+      AllExecutedProposalEvent
+    );
+  }, []);
   useEffect(() => {
     setNumber(getNumber());
-    setNumberExecuted(allExecutedProposalEvent);
-    setNumberVoters(NumberUnterschidlischeVotes);
+    setNumberExecuted(AllExecutedProposalEvent);
+    setNumberVoters(NumberDifferentVoters);
+    setNumberProposers(NumberDifferentProposers);
+    setNumberCanceled(AllCanceledProposalEvent);
   }, []);
 
   return (
@@ -38,8 +46,9 @@ const Uniswap = ({ quorum, threshold }: Props) => {
       threschold={threshold ? threshold : "Loading..."}
       allProposals={number ? number : "Loading..."}
       erfolgreicheP={numberExecuted ? numberExecuted : "Loading..."}
-      erfolgQuote={erfolgQuote ? erfolgQuote : "Loading..."}
-      linkErfolgsNachTyp={"/uniswap/erfolgsNachTyp"}
+      canceledP={numberCanceled}
+      erfolgQuote={erfolgQuote ? erfolgQuote + "%" : "Loading..."}
+      numbProposers={numberProposers}
       linkMonatlich={"/uniswap/monatlich"}
       numbVoters={numberVoters}
       linkUebersicht={"/uniswap/uebersicht"}

@@ -7,7 +7,7 @@ import { getRPC } from "../../../lib/functions";
 import { Network } from "../../../types/network";
 
 const monatlich: NextPage = () => {
-  /*diese function erzeugt die Konstante timestampBlocks_CreateProposalEvent
+  /*diese function erzeugt die Konstante TimestampBlocks_CreateProposalEvent
    in ../src/lib/constCompound.ts*/
   const getDatumBlocks = useCallback(async () => {
     const blockNumberArr = AllBlockNumbers_CreateProposalEvent;

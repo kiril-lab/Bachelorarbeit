@@ -61,16 +61,41 @@ const uniswap: NextPage = () => {
     13059157,
     15760070
   ).proposalsExecuted;
+  const ProposalsCanceledInAlpha = useViewProposalsEvent(
+    Uniswap_Governor_Alpha_Addr,
+    CONTRACT_ABI_Alpha,
+    10861678,
+    12654236
+  ).proposalsCanceled;
+  const ProposalsCanceledInAlpha2 = useViewProposalsEvent(
+    Uniswap_Governor_Alpha2_Addr,
+    CONTRACT_ABI_Alpha2,
+    12543659,
+    14422934
+  ).proposalsCanceled;
+  const ProposalsCanceledInBravo = useViewProposalsEvent(
+    Uniswap_Governor_Bravo_Addr,
+    CONTRACT_ABI_Bravo,
+    13059157,
+    15760070
+  ).proposalsCanceled;
 
   const AllProposals = [
     ...ProposalsInAlpha,
     ...ProposalsInAlpha2,
     ...ProposalsInBravo,
   ].flat();
+  //AllProposals in Reality
+  AllProposals.splice(8, 9);
   const AllExecutedProposals = [
     ...ProposalsExecutedInAlpha,
     ...ProposalsExecutedInAlpha2,
     ...ProposalsExecutedInBravo,
+  ].flat();
+  const AllCanceledProposals = [
+    ...ProposalsCanceledInAlpha,
+    ...ProposalsCanceledInAlpha2,
+    ...ProposalsCanceledInBravo,
   ].flat();
 
   /*diese constant erzeugt die Konstante AllBlockNumbers_CreateProposalEvent
@@ -80,10 +105,28 @@ const uniswap: NextPage = () => {
   });
   //console.log(allBlockNumbersForCreatedProposals);
 
-  /*diese constant erzeugt die Konstante allExecutedProposalEvent
+  /*diese constant erzeugt die Konstante AllExecutedProposalEvent
    in ../src/lib/constUniswap.ts*/
   const allExecutedProposals = AllExecutedProposals.length;
   //console.log(allExecutedProposals);
+
+  /*diese constant erzeugt die Konstante AllCanceledProposalEvent
+   in ../src/lib/constUniswap.ts*/
+  const allCanceledProposals = AllCanceledProposals.length;
+  //console.log(allCanceledProposals);
+
+  const args = AllProposals?.map((x) => x?.args);
+  const AllProposers = args?.map((x) => {
+    const address: string = x?.[1];
+    return address;
+  });
+  const uniquieAllProposers = AllProposers.filter(
+    (x, i) => AllProposers.indexOf(x) === i
+  );
+  /*diese constant erzeugt die Konstante NumberDifferentProposers
+   in ../src/lib/constCompound.ts*/
+  const NumberDifferentProposers = uniquieAllProposers.length;
+  //console.log(NumberDifferentProposers);
 
   const argsAlpha = ProposalsInAlpha.flat()?.map((x) => x?.args);
   const argsAlpha2 = ProposalsInAlpha2.flat()?.map((x) => x?.args);
@@ -114,7 +157,7 @@ const uniswap: NextPage = () => {
     const endBlock: number = x?.[7].toNumber();
     return { startBlock, endBlock };
   });
-  //console.log(ProposalStartEndBlockBravo)
+  //console.log(ProposalStartEndBlockBravo);
 
   const getAllProposalVotersInAlpha = (id1: number) => {
     const VotesInAlpha = useViewVoteCastEvent(

@@ -32,8 +32,9 @@ const Evmos = ({ data1, data2 }: Props) => {
           threschold={""}
           allProposals={proposals}
           erfolgreicheP={0}
+          canceledP={0}
           erfolgQuote={0}
-          linkErfolgsNachTyp={""}
+          numbProposers={0}
           linkMonatlich={""}
           numbVoters={0}
           linkUebersicht={""}

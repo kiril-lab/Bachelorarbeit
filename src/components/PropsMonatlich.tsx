@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface Props {
   januar20: number | undefined;
   februar20: number | undefined;
@@ -35,9 +37,9 @@ interface Props {
   oktober22: number | undefined;
   november22: number | undefined;
   dezember22: number | undefined;
-  classInfo:string
+  classInfo: string;
 }
-function Monatlich({
+const Monatlich = ({
   januar20,
   februar20,
   märz20,
@@ -75,12 +77,26 @@ function Monatlich({
   november22,
   dezember22,
   classInfo,
-}: Props) {
+}: Props) => {
+  const [year, setYear] = useState(0);
+  const handleChange = (event: any) => {
+    const value = event.target.value;
+    setYear(value);
+  };
   return (
     <div className="flex flex-col mt-[2rem] w-[70%]">
       <div className="title">Proposals monatlich</div>
+      <div className="title">
+        <p className="mr-1">Year</p>
+        <label>
+          <select value={year} onChange={handleChange}>
+            <option value={"2020"}>2020</option>
+            <option value={"2021"}>2021</option>
+            <option value={"2022"}>2022</option>
+          </select>
+        </label>
+      </div>
       <div className="row">
-        <div className={classInfo}>Year</div>
         <div className={classInfo}>January</div>
         <div className={classInfo}>February</div>
         <div className={classInfo}>March</div>
@@ -88,35 +104,35 @@ function Monatlich({
         <div className={classInfo}>May</div>
         <div className={classInfo}>June</div>
       </div>
-      <div className="row mb-5">
-        <div className="w-[20%] font-bold">2020</div>
-        <div className="w-[20%]">{januar20}</div>
-        <div className="w-[20%]">{februar20}</div>
-        <div className="w-[20%]">{märz20}</div>
-        <div className="w-[20%]">{april20}</div>
-        <div className="w-[20%]">{mai20}</div>
-        <div className="w-[20%]">{juni20}</div>
-      </div>
-      <div className="row mb-5">
-        <div className="w-[20%] font-bold">2021</div>
-        <div className="w-[20%]">{januar21}</div>
-        <div className="w-[20%]">{februar21}</div>
-        <div className="w-[20%]">{märz21}</div>
-        <div className="w-[20%]">{april21}</div>
-        <div className="w-[20%]">{mai21}</div>
-        <div className="w-[20%]">{juni21}</div>
-      </div>
-      <div className="row mb-[5rem]">
-        <div className="w-[20%] font-bold">2022</div>
-        <div className="w-[20%]">{januar22}</div>
-        <div className="w-[20%]">{februar22}</div>
-        <div className="w-[20%]">{märz22}</div>
-        <div className="w-[20%]">{april22}</div>
-        <div className="w-[20%]">{mai22}</div>
-        <div className="w-[20%]">{juni22}</div>
-      </div>
+      {year == 2020 ? (
+        <div className="row mb-5">
+          <div className="w-[20%]">{januar20}</div>
+          <div className="w-[20%]">{februar20}</div>
+          <div className="w-[20%]">{märz20}</div>
+          <div className="w-[20%]">{april20}</div>
+          <div className="w-[20%]">{mai20}</div>
+          <div className="w-[20%]">{juni20}</div>
+        </div>
+      ) : year == 2021 ? (
+        <div className="row mb-5">
+          <div className="w-[20%]">{januar21}</div>
+          <div className="w-[20%]">{februar21}</div>
+          <div className="w-[20%]">{märz21}</div>
+          <div className="w-[20%]">{april21}</div>
+          <div className="w-[20%]">{mai21}</div>
+          <div className="w-[20%]">{juni21}</div>
+        </div>
+      ) : (
+        <div className="row mb-5">
+          <div className="w-[20%]">{januar22}</div>
+          <div className="w-[20%]">{februar22}</div>
+          <div className="w-[20%]">{märz22}</div>
+          <div className="w-[20%]">{april22}</div>
+          <div className="w-[20%]">{mai22}</div>
+          <div className="w-[20%]">{juni22}</div>
+        </div>
+      )}
       <div className="row">
-        <div className={classInfo}>Year</div>
         <div className={classInfo}>July</div>
         <div className={classInfo}>August</div>
         <div className={classInfo}>September</div>
@@ -124,34 +140,35 @@ function Monatlich({
         <div className={classInfo}>November</div>
         <div className={classInfo}>December</div>
       </div>
-      <div className="row mb-5">
-        <div className="w-[20%] font-bold">2020</div>
-        <div className="w-[20%]">{juli20}</div>
-        <div className="w-[20%]">{august20}</div>
-        <div className="w-[20%]">{september20}</div>
-        <div className="w-[20%]">{oktober20}</div>
-        <div className="w-[20%]">{november20}</div>
-        <div className="w-[20%]">{dezember20}</div>
-      </div>
-      <div className="row mb-5">
-        <div className="w-[20%] font-bold">2021</div>
-        <div className="w-[20%]">{juli21}</div>
-        <div className="w-[20%]">{august21}</div>
-        <div className="w-[20%]">{september21}</div>
-        <div className="w-[20%]">{oktober21}</div>
-        <div className="w-[20%]">{november21}</div>
-        <div className="w-[20%]">{dezember21}</div>
-      </div>
-      <div className="row mb-[5rem]">
-        <div className="w-[20%] font-bold">2022</div>
-        <div className="w-[20%]">{juli22}</div>
-        <div className="w-[20%]">{august22}</div>
-        <div className="w-[20%]">{september22}</div>
-        <div className="w-[20%]">{oktober22}</div>
-        <div className="w-[20%]">{november22}</div>
-        <div className="w-[20%]">{dezember22}</div>
-      </div>
+      {year == 2020 ? (
+        <div className="row mb-5">
+          <div className="w-[20%]">{juli20}</div>
+          <div className="w-[20%]">{august20}</div>
+          <div className="w-[20%]">{september20}</div>
+          <div className="w-[20%]">{oktober20}</div>
+          <div className="w-[20%]">{november20}</div>
+          <div className="w-[20%]">{dezember20}</div>
+        </div>
+      ) : year == 2021 ? (
+        <div className="row mb-5">
+          <div className="w-[20%]">{juli21}</div>
+          <div className="w-[20%]">{august21}</div>
+          <div className="w-[20%]">{september21}</div>
+          <div className="w-[20%]">{oktober21}</div>
+          <div className="w-[20%]">{november21}</div>
+          <div className="w-[20%]">{dezember21}</div>
+        </div>
+      ) : (
+        <div className="row mb-[5rem]">
+          <div className="w-[20%]">{juli22}</div>
+          <div className="w-[20%]">{august22}</div>
+          <div className="w-[20%]">{september22}</div>
+          <div className="w-[20%]">{oktober22}</div>
+          <div className="w-[20%]">{november22}</div>
+          <div className="w-[20%]">{dezember22}</div>
+        </div>
+      )}
     </div>
   );
-}
+};
 export default Monatlich;

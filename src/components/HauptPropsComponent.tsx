@@ -6,30 +6,32 @@ interface Props {
   threschold: string;
   allProposals: number | string;
   erfolgreicheP: number | string;
+  canceledP: number | string;
   erfolgQuote: number | string | undefined;
-  linkErfolgsNachTyp: string;
+  numbProposers: number;
   linkMonatlich: string;
-  numbVoters: number | string;
+  numbVoters: number;
   linkUebersicht: string;
   classInfo: string;
 }
-function HauptComponent({
+const HauptComponent = ({
   title,
   stimmOption,
   quorum,
   threschold,
   allProposals,
   erfolgreicheP,
+  canceledP,
   erfolgQuote,
-  linkErfolgsNachTyp,
+  numbProposers,
   linkMonatlich,
   numbVoters,
   linkUebersicht,
   classInfo,
-}: Props) {
+}: Props) => {
   return (
-    <div className="w-[100%] flex felx-col justify-center align-center">
-      <div className="flex flex-col justify-center align-center w-[70%] mt-[2rem]">
+    <div className="flex felx-col justify-center align-center">
+      <div className="flex flex-col justify-center align-center w-[75%] mt-[2rem]">
         <div className="title mb-[2rem]">{title}</div>
         <div className="border-[5px]">
           <div className="title1 mt-[2rem]">Votes</div>
@@ -50,21 +52,21 @@ function HauptComponent({
           <div className="row">
             <div className={classInfo}>Alle Proposals bis November 2022</div>
             <div className={classInfo}>Erfolgreiche Proposals</div>
-            <div className={classInfo}>Erfolgsquote</div>
+            <div className={classInfo}>Stornierte Proposals</div>
           </div>
           <div className="row  mb-[2rem]">
             <div className="w-[20%]">{allProposals}</div>
             <div className="w-[20%]">{erfolgreicheP}</div>
-            <div className="w-[20%]">{erfolgQuote}</div>
+            <div className="w-[20%]">{canceledP}</div>
           </div>
           <div className="row">
-            <div className={classInfo}>Erfolgsquote nach Typ</div>
+            <div className={classInfo}>Erfolgsquote</div>
+            <div className={classInfo}>Number unterschiedlische Proposers</div>
             <div className={classInfo}>Proposals monatlich</div>
           </div>
           <div className="row mb-[2rem]">
-            <div className="w-[20%] underline">
-              <Link href={linkErfolgsNachTyp}>Übersicht</Link>
-            </div>
+            <div className="w-[20%]">{erfolgQuote}</div>
+            <div className="w-[20%]">{numbProposers}</div>
             <div className="w-[20%] underline">
               <Link href={linkMonatlich}>Übersicht</Link>
             </div>
@@ -87,5 +89,5 @@ function HauptComponent({
       </div>
     </div>
   );
-}
+};
 export default HauptComponent;

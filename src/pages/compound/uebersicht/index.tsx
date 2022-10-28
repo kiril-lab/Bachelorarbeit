@@ -7,7 +7,7 @@ import useViewVoteCastEvent from "../../../hooks/useViewVoteCastEvent";
 import {
   Compound_Governor_Alpha_Addr,
   Compound_Governor_Bravo_Addr,
-  hundleChangeArr,
+  HundleChangeArr,
   Start_End_Block_Proposal_Parameters,
 } from "../../../lib/constCompound";
 const uebersicht: NextPage = () => {
@@ -68,7 +68,7 @@ const uebersicht: NextPage = () => {
         <p className="mr-1">Proposal</p>
         <label className="flex">
           <select value={id} onChange={handleChange}>
-            {hundleChangeArr.map((x, i) => {
+            {HundleChangeArr.map((x, i) => {
               return (
                 <option key={i} value={x}>
                   {x}

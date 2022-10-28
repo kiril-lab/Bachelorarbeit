@@ -45,15 +45,26 @@ const compound: NextPage = () => {
     12006099,
     15799268
   ).proposalsExecuted;
-
-  /*diese Konstante erzeugen die Konstante AllProposalsCompound,
-  die local unter ..src/lib/AllProposalsCompound gespeichert ist*/
+  const ProposalsCanceledInAlpha = useViewProposalsEvent(
+    Compound_Governor_Alpha_Addr,
+    CONTRACT_ABI_Alpha,
+    9601459,
+    12140390
+  ).proposalsCanceled;
+  const ProposalsCanceledInBravo = useViewProposalsEvent(
+    Compound_Governor_Bravo_Addr,
+    CONTRACT_ABI_Bravo,
+    12006099,
+    15799268
+  ).proposalsCanceled;
   const AllProposals = [...ProposalsInAlpha, ...ProposalsInBravo].flat();
-  console.log(AllProposals);
-
   const AllExecutedProposals = [
     ...ProposalsExecutedInAlpha,
     ...ProposalsExecutedInBravo,
+  ].flat();
+  const AllCanceledProposals = [
+    ...ProposalsCanceledInAlpha,
+    ...ProposalsCanceledInBravo,
   ].flat();
 
   /*diese constant erzeugt die Konstante AllBlockNumbers_CreateProposalEvent
@@ -63,18 +74,36 @@ const compound: NextPage = () => {
   });
   //console.log(allBlockNumbersForCreatedProposals);
 
-  /*diese constant erzeugt die Konstante allExecutedProposalEvent
+  /*diese constant erzeugt die Konstante AllExecutedProposalEvent
    in ../src/lib/constCompound.ts*/
   const allExecutedProposals = AllExecutedProposals.length;
   //console.log(allExecutedProposals);
 
+  /*diese constant erzeugt die Konstante AllCanceledProposalEvent
+   in ../src/lib/constCompound.ts*/
+  const allCanceledProposals = AllCanceledProposals.length;
+  //console.log(allCanceledProposals);
+
   const args = AllProposals?.map((x) => x?.args);
+  const AllProposers = args?.map((x) => {
+    const address: string = x?.[1];
+    return address;
+  });
+  const uniquieAllProposers = AllProposers.filter(
+    (x, i) => AllProposers.indexOf(x) === i
+  );
+
+  /*diese constant erzeugt die Konstante NumberDifferentProposers
+   in ../src/lib/constCompound.ts*/
+  const NumberDifferentProposers = uniquieAllProposers.length;
+  //console.log(NumberDifferentProposers);
+
   /*diese constant erzeugt die Konstante Start_End_Block_Proposal_Parameters
    in ../src/lib/constCompound.ts*/
-  const ProposalStartEndBlock = args?.map((x, i) => {
+  const ProposalStartEndBlock = args?.map((x) => {
     const startBlock = x?.[6].toNumber();
     const endBlock = x?.[7].toNumber();
-    return { [i]: { startBlock, endBlock } };
+    return { startBlock, endBlock };
   });
   //console.log(ProposalStartEndBlock)
   const getAllProposalVoters = (id: number) => {
@@ -106,7 +135,7 @@ const compound: NextPage = () => {
   };
   //console.log(getAllProposalVoters(42))
   /*diese Function gibt die Number alle unterschidlische Adresse des Voters und ist als Konstante 
-  mit Name NumberUnterschidlischeVotes in file ../src/lib/constCompound.ts gespeichert*/
+  mit Name NumberDiffernetVoters in file ../src/lib/constCompound.ts gespeichert*/
   const getAllVotersNumber = () => {
     const voterBatches = [];
     for (let i = 1; i <= Start_End_Block_Proposal_Parameters.length; i++) {

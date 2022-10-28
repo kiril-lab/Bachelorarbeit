@@ -8,7 +8,7 @@ import { CONTRACT_ABI_Alpha2 } from "../../../contracts/uniswap/abi_alpha2";
 import { CONTRACT_ABI_Bravo } from "../../../contracts/uniswap/abi_bravo";
 import useViewVoteCastEvent from "../../../hooks/useViewVoteCastEvent";
 import {
-  hundleChangeArr_Bravo,
+  HundleChangeArr_Bravo,
   Start_End_Block_Proposal_Parameters_Alpha,
   Start_End_Block_Proposal_Parameters_Alpha2,
   Start_End_Block_Proposal_Parameters_Bravo,
@@ -56,7 +56,6 @@ const uebersicht: NextPage = () => {
     Start_End_Block_Proposal_Parameters_Bravo[id3 - 1]?.startBlock,
     Start_End_Block_Proposal_Parameters_Bravo[id3 - 1]?.endBlock
   );
-  console.log(VotesInBravo);
   const argsAlpha = VotesInAlpha?.map((a) => {
     return a?.args;
   });
@@ -213,6 +212,19 @@ const uebersicht: NextPage = () => {
               support2={result2.support2}
               i2={id2}
             />
+            {id2 <= 3 ? (
+              <UebersichtTabelle2
+                voters2={result2.voters2}
+                votes2={result2.votes2}
+                support2={result2.support2}
+                i2={id2}
+              />
+            ) : (
+              <p className="title1 mt-10">
+                Diese Proposals ist nach der Upgrade von Alpha2 in Bravo
+                erstellt und ist abgebrochen bzw. gecancelt!!!
+              </p>
+            )}
           </>
         ) : governance === "Bravo" ? (
           <>
@@ -220,7 +232,7 @@ const uebersicht: NextPage = () => {
               <p className="mr-1">Proposal</p>
               <label className="flex">
                 <select value={id3} onChange={handleChange3}>
-                  {hundleChangeArr_Bravo.map((x, i) => {
+                  {HundleChangeArr_Bravo.map((x, i) => {
                     return (
                       <option key={i} value={x}>
                         {x}

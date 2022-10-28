@@ -23,7 +23,8 @@ export const AllBlockNumbers_CreateProposalEvent = [
   15447994, 15461528, 15461811, 15462088, 15563660, 15597874, 15598392,
   15649146, 15714409, 15770320, 15785622,
 ];
-export const allExecutedProposalEvent = 97;
+export const AllExecutedProposalEvent = 97;
+export const AllCanceledProposalEvent = 17;
 export const Start_End_Block_Proposal_Parameters = [
   { startBlock: 9951905, endBlock: 9969185 }, //ProposalId=1
   { startBlock: 9956585, endBlock: 9973865 },
@@ -154,9 +155,9 @@ export const Start_End_Block_Proposal_Parameters = [
   { startBlock: 15611532, endBlock: 15631242 },
   { startBlock: 15662286, endBlock: 15681996 },
   { startBlock: 15727549, endBlock: 15747259 },
-  { startBlock: 15783460, endBlock: 15803170 },//ProposalId=131
+  { startBlock: 15783460, endBlock: 15803170 }, //ProposalId=131
 ];
-export const timestampBlocks_CreateProposalEvent= [
+export const TimestampBlocks_CreateProposalEvent = [
   1587955312, 1588018145, 1618369221, 1619476644, 1589474064, 1590169444,
   1591002827, 1591631130, 1591841611, 1592437864, 1592503801, 1620979620,
   1621010208, 1592867937, 1593310389, 1593627293, 1593925855, 1593973789,
@@ -180,8 +181,9 @@ export const timestampBlocks_CreateProposalEvent= [
   1661967502, 1662154521, 1662158304, 1662162251, 1663543235, 1663958171,
   1663964387, 1664576999, 1665365207, 1666039811, 1666224395,
 ];
-export const NumberUnterschidlischeVotes = 3125;
-export const hundleChangeArr = [
+export const NumberDifferentVoters = 3125;
+export const NumberDifferentProposers = 33;
+export const HundleChangeArr = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
   23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
   42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,

@@ -36,9 +36,6 @@ a {
   .title1 {
     @apply flex justify-center font-bold text-[18px] mb-5;
   }
-  .titleUnderline {
-    @apply flex justify-center font-bold underline m-1;
-  }
   .row {
     @apply flex flex-row justify-center  text-center font-bold;
   }
@@ -46,9 +43,9 @@ a {
     @apply m-[1px] w-[20%] font-medium bg-[#00d398] text-white;
   }
   .infoUniswap {
-    @apply m-[1px] w-[20%] font-medium bg-[#e60470] text-white;
+    @apply m-[1px] w-[20%] font-medium bg-[#e60470] text-white p-1;
   }
   .infoEvmos {
-    @apply m-[1px] w-[20%] font-medium bg-[#e24b2e] text-white;
+    @apply m-[1px] w-[20%] font-medium bg-[#e24b2e] text-white p-1;
   }
 }

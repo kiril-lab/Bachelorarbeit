@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   AllBlockNumbers_CreateProposalEvent,
-  allExecutedProposalEvent,
-  NumberUnterschidlischeVotes,
+  AllCanceledProposalEvent,
+  AllExecutedProposalEvent,
+  NumberDifferentProposers,
+  NumberDifferentVoters,
 } from "../../lib/constCompound";
 import { Quote } from "../../lib/functions";
 import HauptPropsComponent from "../HauptPropsComponent";
@@ -15,32 +17,39 @@ function Compound({ quorum, threshold }: Props) {
   const [number, setNumber] = useState(0);
   const [numberExecuted, setNumberExecuted] = useState(0);
   const [numberVoters, setNumberVoters] = useState(0);
+  const [numberProposers, setNumberProposers] = useState(0);
+  const [numberCanceled, setNumberCanceled] = useState(0);
 
   const getNumber = () => {
     const number = AllBlockNumbers_CreateProposalEvent.length;
     return number;
   };
   const erfolgQuote = useMemo(() => {
-    if (number && numberExecuted) {
-      return Quote(number, numberExecuted);
-    }
-  }, [number, numberExecuted]);
+    return Quote(
+      AllBlockNumbers_CreateProposalEvent.length,
+      AllCanceledProposalEvent,
+      AllExecutedProposalEvent
+    );
+  }, []);
 
   useEffect(() => {
     setNumber(getNumber());
-    setNumberExecuted(allExecutedProposalEvent);
-    setNumberVoters(NumberUnterschidlischeVotes)
+    setNumberExecuted(AllExecutedProposalEvent);
+    setNumberVoters(NumberDifferentVoters);
+    setNumberProposers(NumberDifferentProposers);
+    setNumberCanceled(AllCanceledProposalEvent);
   }, []);
   return (
     <HauptPropsComponent
-      title={"3 (Ja, Nein, Enthalten)"}
-      stimmOption={"2 (Ja, Nein)"}
+      title={"Compound DAO"}
+      stimmOption={"3 (Ja, Nein, Enthalten)"}
       quorum={quorum ? quorum : "Loading..."}
       threschold={threshold ? threshold : "Loading..."}
       allProposals={number ? number : "Loading..."}
       erfolgreicheP={numberExecuted ? numberExecuted : "Loading..."}
-      erfolgQuote={erfolgQuote ? erfolgQuote : "Loading..."}
-      linkErfolgsNachTyp={"/compound/erfolgsNachTyp"}
+      canceledP={numberCanceled}
+      erfolgQuote={erfolgQuote ? erfolgQuote + "%" : "Loading..."}
+      numbProposers={numberProposers}
       linkMonatlich={"/compound/monatlich"}
       numbVoters={numberVoters}
       linkUebersicht={"/compound/uebersicht"}

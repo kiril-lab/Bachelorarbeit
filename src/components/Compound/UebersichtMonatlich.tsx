@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { timestampBlocks_CreateProposalEvent } from "../../lib/constCompound";
+import { TimestampBlocks_CreateProposalEvent } from "../../lib/constCompound";
 import { Month, Months, Year } from "../../types/data";
 import PropsMonatlich from "../PropsMonatlich";
 
@@ -7,7 +7,7 @@ const UebersichtMonatlich = () => {
   const [proposalMonth, setProposalMonth] = useState<Months>();
 
   const getDate = (years: Year, months: Month) => {
-    const date = timestampBlocks_CreateProposalEvent.map((x) => {
+    const date = TimestampBlocks_CreateProposalEvent.map((x) => {
       const year = new Date(x * 1000).getFullYear();
       const month = new Date(x * 1000).getMonth() + 1;
       return { month: month, year: year };

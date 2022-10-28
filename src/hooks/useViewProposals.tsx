@@ -18,6 +18,7 @@ export default function useViewProposalsEvent(
   const event: ethers.Event[][] = [];
   const [proposalsCreated, setProposalsCreated] = useState(event);
   const [proposalsExecuted, setProposalsExecuted] = useState(event);
+  const [proposalsCanceled, setProposalsCanceled] = useState(event);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,10 +35,12 @@ export default function useViewProposalsEvent(
             null
           );
           const filter2 = contract.filters.ProposalExecuted(null);
+          const filter3 = contract.filters.ProposalCanceled(null);
           const startBlock = start_Block;
           const endBlock = end_Block;
           const arr1 = [];
           const arr2 = [];
+          const arr3 = [];
           for (let i = startBlock; i < endBlock; i += 100000) {
             const _startBlock = i;
             const _endBlock = Math.min(endBlock, i + 99999);
@@ -51,11 +54,18 @@ export default function useViewProposalsEvent(
               _startBlock,
               _endBlock
             );
+            const request3 = await contract.queryFilter(
+              filter3,
+              _startBlock,
+              _endBlock
+            );
             arr1.push(request1);
             arr2.push(request2);
+            arr3.push(request3);
           }
           setProposalsCreated(arr1);
           setProposalsExecuted(arr2);
+          setProposalsCanceled(arr3);
         }
       } catch (e) {
         console.log(e);
@@ -63,5 +73,5 @@ export default function useViewProposalsEvent(
     };
     fetchData();
   }, [contract, start_Block, end_Block]);
-  return { proposalsCreated, proposalsExecuted };
+  return { proposalsCreated, proposalsExecuted, proposalsCanceled };
 }
