@@ -10,8 +10,8 @@ import { Quote } from "../../lib/functions";
 import HauptPropsComponent from "../HauptPropsComponent";
 
 interface Props {
-  quorum: string;
-  threshold: string;
+  quorum: number | string;
+  threshold: number | string;
 }
 function Compound({ quorum, threshold }: Props) {
   const [number, setNumber] = useState(0);
@@ -43,8 +43,8 @@ function Compound({ quorum, threshold }: Props) {
     <HauptPropsComponent
       title={"Compound DAO"}
       stimmOption={"3 (Ja, Nein, Enthalten)"}
-      quorum={quorum ? quorum : "Loading..."}
-      threschold={threshold ? threshold : "Loading..."}
+      quorum={quorum ? quorum + " Votes" : "Loading..."}
+      threshold={threshold ? threshold + " delegated COMP" : "Loading..."}
       allProposals={number ? number : "Loading..."}
       erfolgreicheP={numberExecuted ? numberExecuted : "Loading..."}
       canceledP={numberCanceled}
@@ -54,6 +54,14 @@ function Compound({ quorum, threshold }: Props) {
       numbVoters={numberVoters}
       linkUebersicht={"/compound/uebersicht"}
       classInfo={"infoCompound"}
+      veto_threshold={""}
+      classNameVeto={""}
+      veto_threshold_result={""}
+      classNameVetoTitle={""}
+      proposals_Number_Title={"Alle Proposals bis November 2020"}
+      classNameStronierteTitle={"infoCompound"}
+      titleStornierte={"Stornierte Proposals"}
+      classNameStronierte={"w-[20%]"}
     />
   );
 }

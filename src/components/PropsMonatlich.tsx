@@ -78,7 +78,7 @@ const Monatlich = ({
   dezember22,
   classInfo,
 }: Props) => {
-  const [year, setYear] = useState(0);
+  const [year, setYear] = useState(2020);
   const handleChange = (event: any) => {
     const value = event.target.value;
     setYear(value);

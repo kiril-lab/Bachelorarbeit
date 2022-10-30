@@ -2,23 +2,31 @@ import Link from "next/link";
 interface Props {
   title: string;
   stimmOption: string;
-  quorum: string;
-  threschold: string;
+  quorum: number | string;
+  threshold: string | number;
   allProposals: number | string;
   erfolgreicheP: number | string;
   canceledP: number | string;
   erfolgQuote: number | string | undefined;
-  numbProposers: number;
+  numbProposers: number | string;
   linkMonatlich: string;
-  numbVoters: number;
+  numbVoters: number | string;
   linkUebersicht: string;
   classInfo: string;
+  veto_threshold: string;
+  classNameVeto: string;
+  veto_threshold_result: string;
+  classNameVetoTitle: string;
+  proposals_Number_Title: string;
+  classNameStronierteTitle: string;
+  titleStornierte: string;
+  classNameStronierte: string;
 }
 const HauptComponent = ({
   title,
   stimmOption,
   quorum,
-  threschold,
+  threshold,
   allProposals,
   erfolgreicheP,
   canceledP,
@@ -28,6 +36,14 @@ const HauptComponent = ({
   numbVoters,
   linkUebersicht,
   classInfo,
+  veto_threshold,
+  classNameVeto,
+  veto_threshold_result,
+  classNameVetoTitle,
+  proposals_Number_Title,
+  classNameStronierteTitle,
+  titleStornierte,
+  classNameStronierte,
 }: Props) => {
   return (
     <div className="flex felx-col justify-center align-center">
@@ -39,29 +55,31 @@ const HauptComponent = ({
             <div className={classInfo}>Gesamte Stimmoptionen</div>
             <div className={classInfo}>Quorum</div>
             <div className={classInfo}>Threshold</div>
+            <div className={classNameVetoTitle}>{veto_threshold}</div>
           </div>
           <div className="row mb-[2rem]">
             <div className="w-[20%]">{stimmOption}</div>
             <div className="w-[20%]">{quorum}</div>
-            <div className="w-[20%]">{threschold}</div>
+            <div className="w-[20%]">{threshold.toString()}</div>
+            <div className={classNameVeto}>{veto_threshold_result}</div>
           </div>
           <div className="w-[100%] flex justify-center">
             <hr className="w-[40%] border-[2px]" />
           </div>
           <div className="title1 mt-[2rem]">Proposals</div>
           <div className="row">
-            <div className={classInfo}>Alle Proposals bis November 2022</div>
+            <div className={classInfo}>{proposals_Number_Title}</div>
             <div className={classInfo}>Erfolgreiche Proposals</div>
-            <div className={classInfo}>Stornierte Proposals</div>
+            <div className={classNameStronierteTitle}>{titleStornierte}</div>
           </div>
           <div className="row  mb-[2rem]">
             <div className="w-[20%]">{allProposals}</div>
             <div className="w-[20%]">{erfolgreicheP}</div>
-            <div className="w-[20%]">{canceledP}</div>
+            <div className={classNameStronierte}>{canceledP}</div>
           </div>
           <div className="row">
             <div className={classInfo}>Erfolgsquote</div>
-            <div className={classInfo}>Number unterschiedlische Proposers</div>
+            <div className={classInfo}>Unterschiedlische Proposers</div>
             <div className={classInfo}>Proposals monatlich</div>
           </div>
           <div className="row mb-[2rem]">
@@ -76,7 +94,7 @@ const HauptComponent = ({
           </div>
           <div className="title1 mt-[2rem]">Voters</div>
           <div className="row">
-            <div className={classInfo}>Number unterschiedlische Voters</div>
+            <div className={classInfo}>Unterschiedlische Voters</div>
             <div className={classInfo}>Übersicht per Proposals</div>
           </div>
           <div className="row mb-[2rem]">

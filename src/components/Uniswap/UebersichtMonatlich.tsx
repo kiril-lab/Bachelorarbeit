@@ -5,56 +5,61 @@ import PropsMonatlich from "../PropsMonatlich";
 
 const UebersichtMonatlich = () => {
   const [proposalMonth, setProposalMonth] = useState<Months>();
-  const getDate = (years: Year, months: Month) => {
+  const numberProposalsPerMonth = (years: Year, months: Month) => {
     const date = TimestampBlocks_CreateProposalEvent.map((x) => {
       const year = new Date(x * 1000).getFullYear();
       const month = new Date(x * 1000).getMonth() + 1;
       return { month: month, year: year };
     });
-    const year = date.filter((e) => e.year == years).length;
     const month = date.filter(
       (e) => e.month == months && e.year == years
     ).length;
-    return { year, month };
+    return month;
   };
   useEffect(() => {
     setProposalMonth({
-      month_one_year_one: getDate(Year.one, Month.one).month,
-      month_two_year_one: getDate(Year.one, Month.two).month,
-      month_three_year_one: getDate(Year.one, Month.three).month,
-      month_four_year_one: getDate(Year.one, Month.four).month,
-      month_five_year_one: getDate(Year.one, Month.five).month,
-      month_six_year_one: getDate(Year.one, Month.six).month,
-      month_seven_year_one: getDate(Year.one, Month.seven).month,
-      month_eight_year_one: getDate(Year.one, Month.eight).month,
-      month_nine_year_one: getDate(Year.one, Month.nine).month,
-      month_ten_year_one: getDate(Year.one, Month.ten).month,
-      month_eleven_year_one: getDate(Year.one, Month.eleven).month,
-      month_twelve_year_one: getDate(Year.one, Month.twelve).month,
-      month_one_year_two: getDate(Year.two, Month.one).month,
-      month_two_year_two: getDate(Year.two, Month.two).month,
-      month_three_year_two: getDate(Year.two, Month.three).month,
-      month_four_year_two: getDate(Year.two, Month.four).month,
-      month_five_year_two: getDate(Year.two, Month.five).month,
-      month_six_year_two: getDate(Year.two, Month.six).month,
-      month_seven_year_two: getDate(Year.two, Month.seven).month,
-      month_eight_year_two: getDate(Year.two, Month.eight).month,
-      month_nine_year_two: getDate(Year.two, Month.nine).month,
-      month_ten_year_two: getDate(Year.two, Month.ten).month,
-      month_eleven_year_two: getDate(Year.two, Month.eleven).month,
-      month_twelve_year_two: getDate(Year.two, Month.twelve).month,
-      month_one_year_three: getDate(Year.three, Month.one).month,
-      month_two_year_three: getDate(Year.three, Month.two).month,
-      month_three_year_three: getDate(Year.three, Month.three).month,
-      month_four_year_three: getDate(Year.three, Month.four).month,
-      month_five_year_three: getDate(Year.three, Month.five).month,
-      month_six_year_three: getDate(Year.three, Month.six).month,
-      month_seven_year_three: getDate(Year.three, Month.seven).month,
-      month_eight_year_three: getDate(Year.three, Month.eight).month,
-      month_nine_year_three: getDate(Year.three, Month.nine).month,
-      month_ten_year_three: getDate(Year.three, Month.ten).month,
-      month_eleven_year_three: getDate(Year.three, Month.eleven).month,
-      month_twelve_year_three: getDate(Year.three, Month.twelve).month,
+      month_one_year_one: numberProposalsPerMonth(Year.one, Month.one),
+      month_two_year_one: numberProposalsPerMonth(Year.one, Month.two),
+      month_three_year_one: numberProposalsPerMonth(Year.one, Month.three),
+      month_four_year_one: numberProposalsPerMonth(Year.one, Month.four),
+      month_five_year_one: numberProposalsPerMonth(Year.one, Month.five),
+      month_six_year_one: numberProposalsPerMonth(Year.one, Month.six),
+      month_seven_year_one: numberProposalsPerMonth(Year.one, Month.seven),
+      month_eight_year_one: numberProposalsPerMonth(Year.one, Month.eight),
+      month_nine_year_one: numberProposalsPerMonth(Year.one, Month.nine),
+      month_ten_year_one: numberProposalsPerMonth(Year.one, Month.ten),
+      month_eleven_year_one: numberProposalsPerMonth(Year.one, Month.eleven),
+      month_twelve_year_one: numberProposalsPerMonth(Year.one, Month.twelve),
+      month_one_year_two: numberProposalsPerMonth(Year.two, Month.one),
+      month_two_year_two: numberProposalsPerMonth(Year.two, Month.two),
+      month_three_year_two: numberProposalsPerMonth(Year.two, Month.three),
+      month_four_year_two: numberProposalsPerMonth(Year.two, Month.four),
+      month_five_year_two: numberProposalsPerMonth(Year.two, Month.five),
+      month_six_year_two: numberProposalsPerMonth(Year.two, Month.six),
+      month_seven_year_two: numberProposalsPerMonth(Year.two, Month.seven),
+      month_eight_year_two: numberProposalsPerMonth(Year.two, Month.eight),
+      month_nine_year_two: numberProposalsPerMonth(Year.two, Month.nine),
+      month_ten_year_two: numberProposalsPerMonth(Year.two, Month.ten),
+      month_eleven_year_two: numberProposalsPerMonth(Year.two, Month.eleven),
+      month_twelve_year_two: numberProposalsPerMonth(Year.two, Month.twelve),
+      month_one_year_three: numberProposalsPerMonth(Year.three, Month.one),
+      month_two_year_three: numberProposalsPerMonth(Year.three, Month.two),
+      month_three_year_three: numberProposalsPerMonth(Year.three, Month.three),
+      month_four_year_three: numberProposalsPerMonth(Year.three, Month.four),
+      month_five_year_three: numberProposalsPerMonth(Year.three, Month.five),
+      month_six_year_three: numberProposalsPerMonth(Year.three, Month.six),
+      month_seven_year_three: numberProposalsPerMonth(Year.three, Month.seven),
+      month_eight_year_three: numberProposalsPerMonth(Year.three, Month.eight),
+      month_nine_year_three: numberProposalsPerMonth(Year.three, Month.nine),
+      month_ten_year_three: numberProposalsPerMonth(Year.three, Month.ten),
+      month_eleven_year_three: numberProposalsPerMonth(
+        Year.three,
+        Month.eleven
+      ),
+      month_twelve_year_three: numberProposalsPerMonth(
+        Year.three,
+        Month.twelve
+      ),
     });
   }, []);
   return (

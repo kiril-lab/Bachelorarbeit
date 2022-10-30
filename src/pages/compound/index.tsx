@@ -14,7 +14,7 @@ import {
 
 const compound: NextPage = () => {
   const Quorum = useQuorumVotes(
-    Compound_Governor_Bravo_Addr,
+    Compound_Governor_Alpha_Addr,
     CONTRACT_ABI_Alpha
   );
   const Threshold = useProposalThreshold(
@@ -149,7 +149,6 @@ const compound: NextPage = () => {
     return result;
   };
   //console.log(getAllVotersNumber())
-
   return <Compound quorum={Quorum} threshold={Threshold} />;
 };
 

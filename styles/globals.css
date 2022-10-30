@@ -40,7 +40,7 @@ a {
     @apply flex flex-row justify-center  text-center font-bold;
   }
   .infoCompound {
-    @apply m-[1px] w-[20%] font-medium bg-[#00d398] text-white;
+    @apply m-[1px] w-[20%] font-medium bg-[#00d398] text-white p-1;
   }
   .infoUniswap {
     @apply m-[1px] w-[20%] font-medium bg-[#e60470] text-white p-1;

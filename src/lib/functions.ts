@@ -8,5 +8,9 @@ export function getRPC(network: Network) {
 }
 export function Quote(i: number, j: number, k: number) {
   const result = (k / (i - j)) * 100;
-  return result.toFixed();
+  return result.toFixed(1);
+}
+export function Quote1(i: number, j: number) {
+  const result = (j / i) * 100;
+  return result.toFixed(1);
 }
