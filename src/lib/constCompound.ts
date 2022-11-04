@@ -2,6 +2,7 @@ export const Compound_Governor_Alpha_Addr =
   "0xc0da01a04c3f3e0be433606045bb7017a7323e38";
 export const Compound_Governor_Bravo_Addr =
   "0xc0Da02939E1441F497fd74F78cE7Decb17B66529";
+export const totalSupply = 10000000;
 export const AllBlockNumbers_CreateProposalEvent = [
   9951904, 9956584, 10065392, 10117038, 10179118, 10225965, 10241644, 10286281,
   10291220, 10318493, 10351501, 10375086, 10397424, 10401005, 10420910,
@@ -182,6 +183,15 @@ export const TimestampBlocks_CreateProposalEvent = [
   1663964387, 1664576999, 1665365207, 1666039811, 1666224395,
 ];
 export const NumberDifferentVoters = 3125;
+export const NumberVotersPerProposal = [
+  24, 22, 21, 14, 18, 26, 28, 69, 71, 114, 115, 106, 40, 124, 93, 104, 86, 74,
+  53, 37, 65, 48, 39, 47, 58, 47, 64, 37, 50, 57, 53, 52, 39, 39, 40, 35, 33,
+  19, 45, 200, 51, 59, 95, 54, 32, 36, 32, 0, 38, 47, 39, 38, 37, 29, 0, 30, 30,
+  19, 31, 38, 29, 29, 29, 27, 15, 21, 27, 17, 17, 15, 15, 10, 15, 16, 4, 20, 9,
+  8, 7, 2, 4, 16, 16, 20, 17, 38, 42, 0, 28, 22, 0, 61, 123, 0, 21, 15, 17, 16,
+  47, 48, 15, 19, 16, 12, 404, 78, 36, 127, 341, 59, 619, 131, 185, 0, 579, 201,
+  245, 13, 161, 0, 149, 234, 238, 281, 213, 73, 88, 172, 139, 142,
+];
 export const NumberDifferentProposers = 33;
 export const HundleChangeArr = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,

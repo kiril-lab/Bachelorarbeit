@@ -218,7 +218,7 @@ const uniswap: NextPage = () => {
   };
 
   /*diese Function gibt die Number alle unterschidlische Adresse des Voters und ist als Konstante 
-  mit Name NumberUnterschidlischeVotes in file ../src/lib/constUniswap.ts gespeichert*/
+  mit Name NumberDifferentVoters in file ../src/lib/constUniswap.ts gespeichert*/
   const getAllVotersNumber = () => {
     const voterBatches1 = [];
     const voterBatches2 = [];
@@ -244,6 +244,7 @@ const uniswap: NextPage = () => {
     ) {
       voterBatches3.push(getAllProposalVotersInBravo(k));
     }
+
     const allAdressVoltersInALpha = voterBatches1.flat();
     const allAdressVoltersInALpha2 = voterBatches2.flat();
     const allAdressVoltersInBravo = voterBatches3.flat();
@@ -259,6 +260,47 @@ const uniswap: NextPage = () => {
     return result;
   };
   //console.log(getAllVotersNumber());
+
+  /*diese Function gibt die Number alle Voters per Proposal und ist als Konstante 
+  mit Name NumberVotersPerProposal in file ../src/lib/constUniswap.ts gespeichert*/
+  const getNumberVotersPerProposal = () => {
+    const voterBatches1 = [];
+    const voterBatches2 = [];
+    const voterBatches3 = [];
+    for (
+      let i = 1;
+      i <= Start_End_Block_Proposal_Parameters_Alpha.length;
+      i++
+    ) {
+      voterBatches1.push(getAllProposalVotersInAlpha(i).length);
+    }
+    for (
+      let j = 1;
+      j <= Start_End_Block_Proposal_Parameters_Alpha2.length;
+      j++
+    ) {
+      voterBatches2.push(getAllProposalVotersInAlpha2(j).length);
+    }
+    for (
+      let k = 1;
+      k <= Start_End_Block_Proposal_Parameters_Bravo.length;
+      k++
+    ) {
+      voterBatches3.push(getAllProposalVotersInBravo(k).length);
+    }
+
+    const allNumberVoltersPerProposalInALpha = voterBatches1.flat();
+    const allNumberVoltersPerProposalInALpha2 = voterBatches2.flat();
+    const allNumberVoltersPerProposalInBravo = voterBatches3.flat();
+    const allNumberVoltersPerProposal = [
+      ...allNumberVoltersPerProposalInALpha,
+      ...allNumberVoltersPerProposalInALpha2,
+      ...allNumberVoltersPerProposalInBravo,
+    ];
+
+    return allNumberVoltersPerProposal;
+  };
+  //console.log(getNumberVotersPerProposal());
   return (
     <>
       <Uniswap quorum={Quorum} threshold={Threshold} />

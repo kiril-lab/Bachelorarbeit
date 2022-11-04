@@ -14,3 +14,9 @@ export function Quote1(i: number, j: number) {
   const result = (j / i) * 100;
   return result.toFixed(1);
 }
+export const getElementsSum = (arr: number[]) => {
+  const summe = arr.reduce(
+    (previousValue, currentValue) => previousValue + currentValue
+  );
+  return summe;
+};

@@ -21,6 +21,7 @@ interface Props {
   classNameStronierteTitle: string;
   titleStornierte: string;
   classNameStronierte: string;
+  averageNumber: string;
 }
 const HauptComponent = ({
   title,
@@ -44,6 +45,7 @@ const HauptComponent = ({
   classNameStronierteTitle,
   titleStornierte,
   classNameStronierte,
+  averageNumber,
 }: Props) => {
   return (
     <div className="flex felx-col justify-center align-center">
@@ -94,10 +96,14 @@ const HauptComponent = ({
           </div>
           <div className="title1 mt-[2rem]">Voters</div>
           <div className="row">
-            <div className={classInfo}>Unterschiedlische Voters</div>
+            <div className={classInfo}>
+              Durchschnittliche Voters Per Proposal
+            </div>
+            <div className={classInfo}>Unterschiedlische Voters insgesamt</div>
             <div className={classInfo}>Übersicht per Proposals</div>
           </div>
           <div className="row mb-[2rem]">
+            <div className="w-[20%]">{averageNumber}</div>
             <div className="w-[20%]">{numbVoters}</div>
             <div className="w-[20%] underline">
               <Link href={linkUebersicht}>Übersicht</Link>

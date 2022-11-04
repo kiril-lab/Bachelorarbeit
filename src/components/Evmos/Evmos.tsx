@@ -1,4 +1,3 @@
-import { formatEther } from "ethers/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 import { Quote1 } from "../../lib/functions";
 import { ProposalStatus, RootObject, RootObject2 } from "../../types/httpEvmos";
@@ -11,9 +10,9 @@ interface Props {
 
 const Evmos = ({ data1, data2 }: Props) => {
   const [number, setNumber] = useState<number>();
-  const [quorum, setQuorum] = useState<string>();
-  const [threshold, setThreshold] = useState<string>();
-  const [veto_threshold, setVeto_threshold] = useState<string>();
+  const [quorum, setQuorum] = useState<number>();
+  const [threshold, setThreshold] = useState<number>();
+  const [veto_threshold, setVeto_threshold] = useState<number>();
   const [numberPassed, setNumberPassed] = useState<number>();
   const [numberDifferentP, setNumberDifferentP] = useState<number>();
   const number_proposals = () => {
@@ -21,18 +20,24 @@ const Evmos = ({ data1, data2 }: Props) => {
   };
   const numberProposalsPassed = () => {
     const status = data1?.map((x) => {
-      return x.proposal_status;
+      return { id: x.id, status: x.proposal_status };
     });
     const status_passed = status?.filter(
-      (x) => x === ProposalStatus.ProposalStatusPassed
+      (x) => x.status === ProposalStatus.ProposalStatusPassed
     );
     return status_passed?.length;
   };
   const GetQuorumAndThreshold = () => {
-    const quorum = data2?.Params.gov_tallying.tally_params.quorum;
-    const threschold = data2?.Params.gov_tallying.tally_params.threshold;
+    const quorum =
+      parseFloat(data2?.Params.gov_tallying.tally_params.quorum as string) *
+      100;
+    const threschold =
+      parseFloat(data2?.Params.gov_tallying.tally_params.threshold as string) *
+      100;
     const veto_threshold =
-      data2?.Params.gov_tallying.tally_params.veto_threshold;
+      parseFloat(
+        data2?.Params.gov_tallying.tally_params.veto_threshold as string
+      ) * 100;
     return { quorum, threschold, veto_threshold };
   };
   const erfolgQuote = useMemo(() => {
@@ -47,7 +52,6 @@ const Evmos = ({ data1, data2 }: Props) => {
     const uniquieProposers = allProposers?.filter(
       (x, i) => allProposers.indexOf(x) === i
     );
-    console.log(uniquieProposers);
     const result = uniquieProposers?.length;
     return result;
   };
@@ -59,13 +63,12 @@ const Evmos = ({ data1, data2 }: Props) => {
     setNumberPassed(numberProposalsPassed());
     setNumberDifferentP(differnetProposers());
   }, [data1, data2]);
-  console.log(differnetProposers());
   return (
     <HauptComponent
       title={"Evmos DAO"}
       stimmOption={"4 (Ja, Nein, Enthalten, Nein mit veto)"}
-      quorum={quorum ? quorum : "Loading..."}
-      threshold={threshold ? threshold : "Loading..."}
+      quorum={quorum ? quorum + "%" : "Loading..."}
+      threshold={threshold ? threshold + "%" : "Loading..."}
       allProposals={number ? number : "Loading..."}
       erfolgreicheP={numberPassed ? numberPassed : "Loading..."}
       canceledP={""}
@@ -73,16 +76,19 @@ const Evmos = ({ data1, data2 }: Props) => {
       numbProposers={numberDifferentP ? numberDifferentP : "Loading..."}
       linkMonatlich={"/evmos/monatlich"}
       numbVoters={0}
-      linkUebersicht={""}
+      linkUebersicht={"/evmos/uebersicht"}
       classInfo="infoEvmos"
       veto_threshold={"Veto Threshold"}
       classNameVeto={"w-[20%]"}
-      veto_threshold_result={veto_threshold ? veto_threshold : "Loading..."}
+      veto_threshold_result={
+        veto_threshold ? veto_threshold + "%" : "Loading..."
+      }
       classNameVetoTitle={"infoEvmos"}
       proposals_Number_Title={"Alle Proposals"}
       classNameStronierteTitle={""}
       titleStornierte={""}
       classNameStronierte={""}
+      averageNumber={""}
     />
   );
 };

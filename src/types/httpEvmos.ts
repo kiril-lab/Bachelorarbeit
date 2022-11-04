@@ -1,6 +1,8 @@
 export interface HttpService {
   GetDataProposals(): Promise<Response<RootObject>>;
   GetDataQuorumAndThreshold(): Promise<Response<RootObject2>>;
+  GetAllVotesNumberPerProposals(i: number): Promise<Response<RootObject3>>;
+  GetAllVotesPerProposals(i: number, j: number): Promise<Response<RootObject4>>;
 }
 
 export interface Response<T> {
@@ -44,4 +46,30 @@ export interface TallyParams {
   quorum: string;
   threshold: string;
   veto_threshold: string;
+}
+export interface RootObject3 {
+  id: string;
+  voteMeta: VoteMeta;
+}
+export interface VoteMeta {
+  abstain: string;
+  abstain_amount: string;
+  no: string;
+  no_amount: string;
+  no_with_veto: string;
+  no_with_veto_amount: string;
+  weighted: string;
+  yes: string;
+  yes_amount: string;
+}
+export interface RootObject4 {
+  voter: string;
+  answer: Answer;
+}
+
+export enum Answer {
+  Abstain = "abstain",
+  No = "no",
+  NoWithVeto = "no with veto",
+  Yes = "yes",
 }

@@ -4,9 +4,11 @@ import {
   AllCanceledProposalEvent,
   AllExecutedProposalEvent,
   NumberDifferentProposers,
+  NumberVotersPerProposal,
   NumberDifferentVoters,
 } from "../../lib/constCompound";
-import { Quote } from "../../lib/functions";
+import { totalSupply } from "../../lib/constCompound";
+import { getElementsSum, Quote } from "../../lib/functions";
 import HauptPropsComponent from "../HauptPropsComponent";
 
 interface Props {
@@ -24,14 +26,20 @@ function Compound({ quorum, threshold }: Props) {
     const number = AllBlockNumbers_CreateProposalEvent.length;
     return number;
   };
-  const erfolgQuote = useMemo(() => {
-    return Quote(
+  const Berechnung = useMemo(() => {
+    const quote = Quote(
       AllBlockNumbers_CreateProposalEvent.length,
       AllCanceledProposalEvent,
       AllExecutedProposalEvent
     );
-  }, []);
-
+    const quorumProzent = ((quorum as number) / totalSupply) * 100;
+    const thresholdProzent = ((threshold as number) / totalSupply) * 100;
+    const totalNumberVoters = getElementsSum(NumberVotersPerProposal);
+    const averageNumberVoters = (
+      totalNumberVoters / NumberVotersPerProposal.length
+    ).toFixed(0);
+    return { quote, quorumProzent, thresholdProzent, averageNumberVoters };
+  }, [quorum, threshold]);
   useEffect(() => {
     setNumber(getNumber());
     setNumberExecuted(AllExecutedProposalEvent);
@@ -43,12 +51,25 @@ function Compound({ quorum, threshold }: Props) {
     <HauptPropsComponent
       title={"Compound DAO"}
       stimmOption={"3 (Ja, Nein, Enthalten)"}
-      quorum={quorum ? quorum + " Votes" : "Loading..."}
-      threshold={threshold ? threshold + " delegated COMP" : "Loading..."}
+      quorum={
+        quorum
+          ? quorum + " Votes" + " (" + Berechnung.quorumProzent + "%" + ")"
+          : "Loading..."
+      }
+      threshold={
+        threshold
+          ? threshold +
+            " delegated UNI" +
+            " (" +
+            Berechnung.thresholdProzent +
+            "%" +
+            ")"
+          : "Loading..."
+      }
       allProposals={number ? number : "Loading..."}
       erfolgreicheP={numberExecuted ? numberExecuted : "Loading..."}
       canceledP={numberCanceled}
-      erfolgQuote={erfolgQuote ? erfolgQuote + "%" : "Loading..."}
+      erfolgQuote={Berechnung.quote ? Berechnung.quote + "%" : "Loading..."}
       numbProposers={numberProposers}
       linkMonatlich={"/compound/monatlich"}
       numbVoters={numberVoters}
@@ -62,6 +83,7 @@ function Compound({ quorum, threshold }: Props) {
       classNameStronierteTitle={"infoCompound"}
       titleStornierte={"Stornierte Proposals"}
       classNameStronierte={"w-[20%]"}
+      averageNumber={Berechnung.averageNumberVoters}
     />
   );
 }

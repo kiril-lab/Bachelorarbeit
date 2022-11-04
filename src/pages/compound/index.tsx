@@ -18,8 +18,8 @@ const compound: NextPage = () => {
     CONTRACT_ABI_Alpha
   );
   const Threshold = useProposalThreshold(
-    Compound_Governor_Alpha_Addr,
-    CONTRACT_ABI_Alpha
+    Compound_Governor_Bravo_Addr,
+    CONTRACT_ABI_Bravo
   );
   const ProposalsInAlpha = useViewProposalsEvent(
     Compound_Governor_Alpha_Addr,
@@ -106,6 +106,7 @@ const compound: NextPage = () => {
     return { startBlock, endBlock };
   });
   //console.log(ProposalStartEndBlock)
+
   const getAllProposalVoters = (id: number) => {
     const VotesInAlpha = useViewVoteCastEvent(
       Compound_Governor_Alpha_Addr,
@@ -120,7 +121,6 @@ const compound: NextPage = () => {
       Start_End_Block_Proposal_Parameters[id - 1]?.endBlock
     );
     const Votes = [...VotesInAlpha, ...VotesInBravo];
-    console.log(Votes);
     const args = Votes?.map((x) => x?.args);
     const Voters = args?.map((x) => {
       const proposalId: number = x?.proposalId?.toNumber();
@@ -133,7 +133,7 @@ const compound: NextPage = () => {
     });
     return voters;
   };
-  //console.log(getAllProposalVoters(42))
+
   /*diese Function gibt die Number alle unterschidlische Adresse des Voters und ist als Konstante 
   mit Name NumberDiffernetVoters in file ../src/lib/constCompound.ts gespeichert*/
   const getAllVotersNumber = () => {
@@ -149,6 +149,19 @@ const compound: NextPage = () => {
     return result;
   };
   //console.log(getAllVotersNumber())
+
+  /*diese Function gibt die Number alle Voters per Proposal und ist als Konstante 
+  mit Name NumberVotersPerProposal in file ../src/lib/constCompound.ts gespeichert*/
+  const getNumberVotersPerProposal = () => {
+    const voterBatches = [];
+    for (let i = 1; i <= Start_End_Block_Proposal_Parameters.length; i++) {
+      voterBatches.push(getAllProposalVoters(i).length);
+    }
+    const allNumberVoltersPerProposal = voterBatches.flat();
+    return allNumberVoltersPerProposal;
+  };
+  //console.log(getNumberVotersPerProposal())
+
   return <Compound quorum={Quorum} threshold={Threshold} />;
 };
 

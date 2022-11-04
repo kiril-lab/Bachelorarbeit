@@ -4,6 +4,7 @@ export const Uniswap_Governor_Alpha2_Addr =
   "0xC4e172459f1E7939D522503B81AFAaC1014CE6F6";
 export const Uniswap_Governor_Bravo_Addr =
   "0x408ED6354d4973f66138C91495F2f2FCbd8724C3";
+export const totalSupply = 1000000000;
 export const AllBlockNumbers_CreateProposalEvent = [
   11042287, 11120864, 11473814, 12563484, 12620174, 12686656, 13020265,
   13059343, 13538153, 13773853, 14297457, 14404360, 14418026, 14495579,
@@ -61,6 +62,10 @@ export const TimestampBlocks_CreateProposalEvent = [
 ];
 export const NumberDifferentVoters = 6338;
 export const NumberDifferentProposers = 14;
+export const NumberVotersPerProposal = [
+  320, 340, 189, 148, 55, 296, 121, 101, 1, 0, 0, 0, 0, 0, 0, 0, 0, 41, 75,
+  1965, 0, 1131, 311, 0, 863, 871, 694, 461, 663, 0, 1248, 945, 2461, 5836,
+];
 export const HundleChangeArr_Bravo = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
   23, 24, 25,
