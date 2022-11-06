@@ -5,6 +5,7 @@ import PropsMonatlich from "../PropsMonatlich";
 
 const UebersichtMonatlich = () => {
   const [proposalMonth, setProposalMonth] = useState<Months>();
+  TimestampBlocks_CreateProposalEvent.splice(132, 1);
   const numberProposalsPerMonth = (years: Year, months: Month) => {
     const date = TimestampBlocks_CreateProposalEvent.map((x) => {
       const year = new Date(x * 1000).getFullYear();

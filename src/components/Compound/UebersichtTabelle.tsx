@@ -3,11 +3,10 @@ import { useEffect } from "react";
 interface Props {
   voters: string[];
   votes: string[];
-  support: (boolean| number)[];
-  i: number;
+  support: (boolean | number)[];
 }
-const UebersichtTabelle = ({ voters, votes, support, i }: Props) => {
-  useEffect(() => {}, [voters, votes, support, i]);
+const UebersichtTabelle = ({ voters, votes, support }: Props) => {
+  useEffect(() => {}, [voters, votes, support]);
   return (
     <div className="row mb-[3rem]">
       <div className="w-[20%]">

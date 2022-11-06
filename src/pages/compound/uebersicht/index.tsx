@@ -54,11 +54,6 @@ const uebersicht: NextPage = () => {
   const support = filteredVoteCast?.map((x) => {
     return x?.support;
   });
-  const result = {
-    voters: voters,
-    votes: votes,
-    support: support,
-  };
   useEffect(() => {
     handleChange;
   }, []);
@@ -83,12 +78,11 @@ const uebersicht: NextPage = () => {
         <div className="infoCompound">Votes</div>
         <div className="infoCompound">Stimme</div>
       </div>
-      <UebersichtTabelle
-        voters={result.voters}
-        votes={result.votes}
-        support={result.support}
-        i={id}
-      />
+      {filteredVoteCast.length != 0 ? (
+        <UebersichtTabelle voters={voters} votes={votes} support={support} />
+      ) : (
+        <div className="title1 mt-5">Loading...</div>
+      )}
     </div>
   );
 };

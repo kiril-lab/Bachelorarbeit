@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Compound from "../../components/Compound/Compound";
 import { CONTRACT_ABI_Alpha } from "../../contracts/compound/abi_alpha";
 import { CONTRACT_ABI_Bravo } from "../../contracts/compound/abi_bravo";
+import { CONTRACT_ABI_Bravo_AsProxy } from "../../contracts/compound/abi_bravo_asProxy";
 import useProposalThreshold from "../../hooks/useProposalThreshold";
 import useQuorumVotes from "../../hooks/useQuorumVotes";
 import useViewProposalsEvent from "../../hooks/useViewProposals";
@@ -19,7 +20,7 @@ const compound: NextPage = () => {
   );
   const Threshold = useProposalThreshold(
     Compound_Governor_Bravo_Addr,
-    CONTRACT_ABI_Bravo
+    CONTRACT_ABI_Bravo_AsProxy
   );
   const ProposalsInAlpha = useViewProposalsEvent(
     Compound_Governor_Alpha_Addr,
@@ -31,7 +32,7 @@ const compound: NextPage = () => {
     Compound_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
     12006099,
-    15799268
+    15875000 //1.11.2022
   ).proposalsCreated;
   const ProposalsExecutedInAlpha = useViewProposalsEvent(
     Compound_Governor_Alpha_Addr,
@@ -43,7 +44,7 @@ const compound: NextPage = () => {
     Compound_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
     12006099,
-    15799268
+    15875000
   ).proposalsExecuted;
   const ProposalsCanceledInAlpha = useViewProposalsEvent(
     Compound_Governor_Alpha_Addr,
@@ -55,7 +56,7 @@ const compound: NextPage = () => {
     Compound_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
     12006099,
-    15799268
+    15875000
   ).proposalsCanceled;
   const AllProposals = [...ProposalsInAlpha, ...ProposalsInBravo].flat();
   const AllExecutedProposals = [
@@ -89,6 +90,8 @@ const compound: NextPage = () => {
     const address: string = x?.[1];
     return address;
   });
+  //der 133 Proposals ist nicht in der Statistik
+  AllProposers.splice(132, 1);
   const uniquieAllProposers = AllProposers.filter(
     (x, i) => AllProposers.indexOf(x) === i
   );
@@ -105,7 +108,8 @@ const compound: NextPage = () => {
     const endBlock = x?.[7].toNumber();
     return { startBlock, endBlock };
   });
-  //console.log(ProposalStartEndBlock)
+  ProposalStartEndBlock.splice(132, 1);
+  //console.log(ProposalStartEndBlock);
 
   const getAllProposalVoters = (id: number) => {
     const VotesInAlpha = useViewVoteCastEvent(

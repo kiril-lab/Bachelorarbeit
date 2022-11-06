@@ -82,11 +82,6 @@ const uebersicht: NextPage = () => {
   const support1 = filteredVoteCast1?.map((x) => {
     return x.support;
   });
-  const result1 = {
-    voters1: voters1,
-    votes1: votes1,
-    support1: support1,
-  };
   const argsAlpha2 = VotesInAlpha2?.map((a) => {
     return a?.args;
   });
@@ -113,11 +108,6 @@ const uebersicht: NextPage = () => {
   const support2 = filteredVoteCast2?.map((x) => {
     return x.support;
   });
-  const result2 = {
-    voters2: voters2,
-    votes2: votes2,
-    support2: support2,
-  };
   const argsBravo = VotesInBravo?.map((a) => {
     return a?.args;
   });
@@ -144,11 +134,6 @@ const uebersicht: NextPage = () => {
   const support3 = filteredVoteCast3?.map((x) => {
     return x.support;
   });
-  const result3 = {
-    voters3: voters3,
-    votes3: votes3,
-    support3: support3,
-  };
   return (
     <div className="flex flex-col mt-[2rem]">
       <div className="title">
@@ -181,12 +166,15 @@ const uebersicht: NextPage = () => {
               <div className="infoUniswap">Votes</div>
               <div className="infoUniswap">Stimme</div>
             </div>
-            <UebersichtTabelle1
-              voters1={result1.voters1}
-              votes1={result1.votes1}
-              support1={result1.support1}
-              i1={id1}
-            />
+            {filteredVoteCast1.length != 0 ? (
+              <UebersichtTabelle1
+                voters1={voters1}
+                votes1={votes1}
+                support1={support1}
+              />
+            ) : (
+              <div className="title1 mt-5">Loading...</div>
+            )}
           </>
         ) : governance === "Alpha2" ? (
           <>
@@ -206,23 +194,25 @@ const uebersicht: NextPage = () => {
               <div className="infoUniswap">Votes</div>
               <div className="infoUniswap">Stimme</div>
             </div>
-            <UebersichtTabelle2
-              voters2={result2.voters2}
-              votes2={result2.votes2}
-              support2={result2.support2}
-              i2={id2}
-            />
-            {id2 <= 3 ? (
+            {filteredVoteCast2.length != 0 ? (
               <UebersichtTabelle2
-                voters2={result2.voters2}
-                votes2={result2.votes2}
-                support2={result2.support2}
-                i2={id2}
+                voters2={voters2}
+                votes2={votes2}
+                support2={support2}
               />
             ) : (
-              <p className="title1 mt-10">
-                Diese Proposals ist nach der Upgrade von Alpha2 in Bravo
-                erstellt und ist abgebrochen bzw. gecancelt!!!
+              <div className="title1 mt-5">Loading...</div>
+            )}
+            {id2 <= 3 ? (
+              <UebersichtTabelle2
+                voters2={voters2}
+                votes2={votes2}
+                support2={support2}
+              />
+            ) : (
+              <p className="title1 mt-5">
+                Diese Proposals ist nach der Upgrade von Alpha2 zu Bravo
+                erstellt und ist nicht in Bravo übernommen!!!
               </p>
             )}
           </>
@@ -252,13 +242,14 @@ const uebersicht: NextPage = () => {
                 Alle Proposals von 1 bis 8 sind von vorherige Governance
                 Versionen übernommen!!!
               </p>
-            ) : (
+            ) : filteredVoteCast3.length != 0 ? (
               <UebersichtTabelle3
-                voters3={result3.voters3}
-                votes3={result3.votes3}
-                support3={result3.support3}
-                i3={id3}
+                voters3={voters3}
+                votes3={votes3}
+                support3={support3}
               />
+            ) : (
+              <div className="title1 mt-5">Loading...</div>
             )}
           </>
         ) : null}

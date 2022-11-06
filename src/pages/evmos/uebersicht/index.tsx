@@ -10,17 +10,20 @@ import { allVotesEvmos } from "../../../lib/votesEvmos";
 
 const uebersicht: NextPage = () => {
   const httpService = useContext(httpContext);
-  //const [error, setError] = useState(false);
   const All_ids = EvmosNumberVotesPerProposals.map((x) => {
     return x.id;
   });
   const AllVotesNumber = EvmosNumberVotesPerProposals.map((x) => {
-    return x.numbeAllVotes;
+    return x.numberAllVotes;
   });
+
+  /* Diese Funktion erzeugt die Konstante allVotesEvmos
+     in file ..src/lib/votesEvmos.ts
+
   const fetchData = async () => {
     const arr = [];
-    for (let i = 0; i < 77; i++) {
-      for (let j = 0; j < EvmosNumberVotesPerProposals.length; j++) {
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 2; j++) {
         if (i == parseInt(All_ids[j])) {
           for (let z = 0; z < AllVotesNumber[j]; z += 60) {
             const dataFetch = await httpService.GetAllVotesPerProposals(i, z);
@@ -31,6 +34,8 @@ const uebersicht: NextPage = () => {
       }
     }
   };
+  console.log(fetchData());*/
+
   const [id, setId] = useState(2);
   const handleChange = (event: any) => {
     const value = event.target.value;
@@ -49,8 +54,7 @@ const uebersicht: NextPage = () => {
   });
   useEffect(() => {
     handleChange;
-  }, []);
-  //console.log(fetchData());
+  }, [httpService]);
   return (
     <div className="flex flex-col mt-[2rem]">
       <div className="title">
@@ -72,7 +76,14 @@ const uebersicht: NextPage = () => {
         <div className="infoEvmos">Votes</div>
         <div className="infoEvmos">Stimme</div>
       </div>
-      <UebersichtTabelle i={id} voters={voters} answers={answers} />
+      {id <= 3 ? (
+        <UebersichtTabelle voters={voters} answers={answers} />
+      ) : (
+        <div className="title1 mt-5">
+          Da es viele Voters per Proposals gibt, werden nur die Voters von
+          Proposal 2 und 3 geszeigt.
+        </div>
+      )}
     </div>
   );
 };

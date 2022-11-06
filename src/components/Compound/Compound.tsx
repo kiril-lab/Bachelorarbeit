@@ -23,7 +23,10 @@ function Compound({ quorum, threshold }: Props) {
   const [numberCanceled, setNumberCanceled] = useState(0);
 
   const getNumber = () => {
-    const number = AllBlockNumbers_CreateProposalEvent.length;
+    // -1 weil letzte Proposal ist am 31.10.2022 erstellt aber ist bis 01.01.2022
+    // nicht executed bzw. defeated
+    // ich betrachte alle Proposals bis 01.11.2022
+    const number = AllBlockNumbers_CreateProposalEvent.length - 1;
     return number;
   };
   const Berechnung = useMemo(() => {
@@ -46,7 +49,7 @@ function Compound({ quorum, threshold }: Props) {
     setNumberVoters(NumberDifferentVoters);
     setNumberProposers(NumberDifferentProposers);
     setNumberCanceled(AllCanceledProposalEvent);
-  }, []);
+  }, [quorum, threshold]);
   return (
     <HauptPropsComponent
       title={"Compound DAO"}

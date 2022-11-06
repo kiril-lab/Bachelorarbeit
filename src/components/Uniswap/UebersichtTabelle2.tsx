@@ -4,10 +4,9 @@ interface Props {
   voters2: string[];
   votes2: string[];
   support2: boolean[];
-  i2: number;
 }
-const UebersichtTabelle2 = ({ voters2, votes2, support2, i2 }: Props) => {
-  useEffect(() => {}, [voters2, votes2, support2, i2]);
+const UebersichtTabelle2 = ({ voters2, votes2, support2 }: Props) => {
+  useEffect(() => {}, [voters2, votes2, support2]);
   return (
     <div className="row mb-[3rem]">
       <div className="w-[20%]">

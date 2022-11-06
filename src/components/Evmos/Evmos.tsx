@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { Quote1 } from "../../lib/functions";
+import { EvmosNumberVotesPerProposals } from "../../lib/constEvmos";
+import { getElementsSum, Quote1 } from "../../lib/functions";
 import { ProposalStatus, RootObject, RootObject2 } from "../../types/httpEvmos";
 import HauptComponent from "../HauptPropsComponent";
 
@@ -15,6 +16,7 @@ const Evmos = ({ data1, data2 }: Props) => {
   const [veto_threshold, setVeto_threshold] = useState<number>();
   const [numberPassed, setNumberPassed] = useState<number>();
   const [numberDifferentP, setNumberDifferentP] = useState<number>();
+  const [averageNumber, setAverageNumber] = useState("");
   const number_proposals = () => {
     return data1?.length;
   };
@@ -55,6 +57,16 @@ const Evmos = ({ data1, data2 }: Props) => {
     const result = uniquieProposers?.length;
     return result;
   };
+  const getAverageNumberVoters = () => {
+    const numberVotersArr = EvmosNumberVotesPerProposals.map((x) => {
+      return x.numberAllVotes;
+    });
+    const totalNumberVoters = getElementsSum(numberVotersArr as number[]);
+    const averageNumberVoters = (
+      totalNumberVoters / numberVotersArr.length
+    ).toFixed(0);
+    return averageNumberVoters;
+  };
   useEffect(() => {
     setNumber(number_proposals());
     setQuorum(GetQuorumAndThreshold().quorum);
@@ -62,6 +74,7 @@ const Evmos = ({ data1, data2 }: Props) => {
     setVeto_threshold(GetQuorumAndThreshold().veto_threshold);
     setNumberPassed(numberProposalsPassed());
     setNumberDifferentP(differnetProposers());
+    setAverageNumber(getAverageNumberVoters());
   }, [data1, data2]);
   return (
     <HauptComponent
@@ -75,7 +88,7 @@ const Evmos = ({ data1, data2 }: Props) => {
       erfolgQuote={erfolgQuote ? erfolgQuote + "%" : "Loading..."}
       numbProposers={numberDifferentP ? numberDifferentP : "Loading..."}
       linkMonatlich={"/evmos/monatlich"}
-      numbVoters={0}
+      numbVoters={"unbekannt"}
       linkUebersicht={"/evmos/uebersicht"}
       classInfo="infoEvmos"
       veto_threshold={"Veto Threshold"}
@@ -88,7 +101,7 @@ const Evmos = ({ data1, data2 }: Props) => {
       classNameStronierteTitle={""}
       titleStornierte={""}
       classNameStronierte={""}
-      averageNumber={""}
+      averageNumber={averageNumber}
     />
   );
 };
