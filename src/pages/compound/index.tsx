@@ -32,7 +32,7 @@ const compound: NextPage = () => {
     Compound_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
     12006099,
-    15875000 //1.11.2022
+    15875000 //1.11.2022 12Uhr
   ).proposalsCreated;
   const ProposalsExecutedInAlpha = useViewProposalsEvent(
     Compound_Governor_Alpha_Addr,

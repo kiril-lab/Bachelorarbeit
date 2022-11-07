@@ -41,7 +41,7 @@ const uniswap: NextPage = () => {
     Uniswap_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
     13059157,
-    15760070
+    15875000 //1.11.2022 12Uhr
   ).proposalsCreated;
   const ProposalsExecutedInAlpha = useViewProposalsEvent(
     Uniswap_Governor_Alpha_Addr,
@@ -59,7 +59,7 @@ const uniswap: NextPage = () => {
     Uniswap_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
     13059157,
-    15760070
+    15875000
   ).proposalsExecuted;
   const ProposalsCanceledInAlpha = useViewProposalsEvent(
     Uniswap_Governor_Alpha_Addr,
@@ -77,7 +77,7 @@ const uniswap: NextPage = () => {
     Uniswap_Governor_Bravo_Addr,
     CONTRACT_ABI_Bravo,
     13059157,
-    15760070
+    15875000
   ).proposalsCanceled;
 
   const AllProposals = [

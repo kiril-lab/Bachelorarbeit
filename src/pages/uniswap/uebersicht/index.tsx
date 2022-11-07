@@ -171,6 +171,7 @@ const uebersicht: NextPage = () => {
                 voters1={voters1}
                 votes1={votes1}
                 support1={support1}
+                i1={id1}
               />
             ) : (
               <div className="title1 mt-5">Loading...</div>
@@ -199,21 +200,10 @@ const uebersicht: NextPage = () => {
                 voters2={voters2}
                 votes2={votes2}
                 support2={support2}
+                i2={id2}
               />
             ) : (
               <div className="title1 mt-5">Loading...</div>
-            )}
-            {id2 <= 3 ? (
-              <UebersichtTabelle2
-                voters2={voters2}
-                votes2={votes2}
-                support2={support2}
-              />
-            ) : (
-              <p className="title1 mt-5">
-                Diese Proposals ist nach der Upgrade von Alpha2 zu Bravo
-                erstellt und ist nicht in Bravo übernommen!!!
-              </p>
             )}
           </>
         ) : governance === "Bravo" ? (
@@ -242,11 +232,17 @@ const uebersicht: NextPage = () => {
                 Alle Proposals von 1 bis 8 sind von vorherige Governance
                 Versionen übernommen!!!
               </p>
+            ) : id3 == 12 || id3 == 15 || id3 == 21 ? (
+              <p className="title1 mt-10">
+                Es gibt keine Votes, weil diese Proposal, bevor jemand zu voten,
+                gecancelt wurde!!!
+              </p>
             ) : filteredVoteCast3.length != 0 ? (
               <UebersichtTabelle3
                 voters3={voters3}
                 votes3={votes3}
                 support3={support3}
+                i3={id3}
               />
             ) : (
               <div className="title1 mt-5">Loading...</div>

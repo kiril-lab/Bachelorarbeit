@@ -78,8 +78,24 @@ const uebersicht: NextPage = () => {
         <div className="infoCompound">Votes</div>
         <div className="infoCompound">Stimme</div>
       </div>
-      {filteredVoteCast.length != 0 ? (
-        <UebersichtTabelle voters={voters} votes={votes} support={support} />
+      {id == 48 ||
+      id == 55 ||
+      id == 88 ||
+      id == 91 ||
+      id == 94 ||
+      id == 114 ||
+      id == 120 ? (
+        <p className="title1 mt-10">
+          Es gibt keine Votes, weil diese Proposal, bevor jemand zu voten,
+          gecancelt wurde!!!
+        </p>
+      ) : filteredVoteCast.length != 0 ? (
+        <UebersichtTabelle
+          voters={voters}
+          votes={votes}
+          support={support}
+          i={id}
+        />
       ) : (
         <div className="title1 mt-5">Loading...</div>
       )}
