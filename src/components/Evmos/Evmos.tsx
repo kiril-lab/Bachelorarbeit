@@ -17,12 +17,24 @@ const Evmos = ({ data1, data2 }: Props) => {
   const [numberPassed, setNumberPassed] = useState<number>();
   const [numberDifferentP, setNumberDifferentP] = useState<number>();
   const [averageNumber, setAverageNumber] = useState("");
+
+  const AllProposals = data1?.map((x) => {
+    const date = x.submit_time;
+    const id = x.id;
+    const status = x.proposal_status;
+    const proposer = x.proposer;
+    const year = new Date(date).getFullYear();
+    const month = new Date(date).getMonth() + 1;
+    return { id, status, proposer, year, month };
+  });
+  //alle Proposals bis November 2022
+  const AllProposalsUnitlNovember = AllProposals?.filter((x) => x.month < 11);
   const number_proposals = () => {
-    return data1?.length;
+    return AllProposalsUnitlNovember?.length;
   };
   const numberProposalsPassed = () => {
-    const status = data1?.map((x) => {
-      return { id: x.id, status: x.proposal_status };
+    const status = AllProposalsUnitlNovember?.map((x) => {
+      return { id: x?.id, status: x?.status };
     });
     const status_passed = status?.filter(
       (x) => x.status === ProposalStatus.ProposalStatusPassed
@@ -48,7 +60,7 @@ const Evmos = ({ data1, data2 }: Props) => {
     }
   }, [number, numberPassed]);
   const differnetProposers = () => {
-    const allProposers = data1?.map((x) => {
+    const allProposers = AllProposalsUnitlNovember?.map((x) => {
       return x.proposer;
     });
     const uniquieProposers = allProposers?.filter(
@@ -97,7 +109,6 @@ const Evmos = ({ data1, data2 }: Props) => {
         veto_threshold ? veto_threshold + "%" : "Loading..."
       }
       classNameVetoTitle={"infoEvmos"}
-      proposals_Number_Title={"Alle Proposals"}
       classNameStronierteTitle={""}
       titleStornierte={""}
       classNameStronierte={""}

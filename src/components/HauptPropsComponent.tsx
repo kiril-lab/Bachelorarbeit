@@ -17,7 +17,6 @@ interface Props {
   classNameVeto: string;
   veto_threshold_result: string;
   classNameVetoTitle: string;
-  proposals_Number_Title: string;
   classNameStronierteTitle: string;
   titleStornierte: string;
   classNameStronierte: string;
@@ -41,7 +40,6 @@ const HauptComponent = ({
   classNameVeto,
   veto_threshold_result,
   classNameVetoTitle,
-  proposals_Number_Title,
   classNameStronierteTitle,
   titleStornierte,
   classNameStronierte,
@@ -70,7 +68,7 @@ const HauptComponent = ({
           </div>
           <div className="title1 mt-[2rem]">Proposals</div>
           <div className="row">
-            <div className={classInfo}>{proposals_Number_Title}</div>
+            <div className={classInfo}>Alle Proposals bis November 2022</div>
             <div className={classInfo}>Erfolgreiche Proposals</div>
             <div className={classNameStronierteTitle}>{titleStornierte}</div>
           </div>

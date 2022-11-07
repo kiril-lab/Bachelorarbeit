@@ -35,8 +35,6 @@ interface Props {
   august22: number | undefined;
   september22: number | undefined;
   oktober22: number | undefined;
-  november22: number | undefined;
-  dezember22: number | undefined;
   classInfo: string;
 }
 const Monatlich = ({
@@ -74,8 +72,6 @@ const Monatlich = ({
   august22,
   september22,
   oktober22,
-  november22,
-  dezember22,
   classInfo,
 }: Props) => {
   const [year, setYear] = useState(2020);
@@ -132,14 +128,23 @@ const Monatlich = ({
           <div className="w-[20%]">{juni22}</div>
         </div>
       )}
-      <div className="row">
-        <div className={classInfo}>July</div>
-        <div className={classInfo}>August</div>
-        <div className={classInfo}>September</div>
-        <div className={classInfo}>October</div>
-        <div className={classInfo}>November</div>
-        <div className={classInfo}>December</div>
-      </div>
+      {year != 2022 ? (
+        <div className="row">
+          <div className={classInfo}>July</div>
+          <div className={classInfo}>August</div>
+          <div className={classInfo}>September</div>
+          <div className={classInfo}>October</div>
+          <div className={classInfo}>November</div>
+          <div className={classInfo}>December</div>
+        </div>
+      ) : (
+        <div className="row">
+          <div className={classInfo}>July</div>
+          <div className={classInfo}>August</div>
+          <div className={classInfo}>September</div>
+          <div className={classInfo}>October</div>
+        </div>
+      )}
       {year == 2020 ? (
         <div className="row mb-5">
           <div className="w-[20%]">{juli20}</div>
@@ -164,8 +169,6 @@ const Monatlich = ({
           <div className="w-[20%]">{august22}</div>
           <div className="w-[20%]">{september22}</div>
           <div className="w-[20%]">{oktober22}</div>
-          <div className="w-[20%]">{november22}</div>
-          <div className="w-[20%]">{dezember22}</div>
         </div>
       )}
     </div>

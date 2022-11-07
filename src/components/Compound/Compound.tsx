@@ -82,7 +82,6 @@ function Compound({ quorum, threshold }: Props) {
       classNameVeto={""}
       veto_threshold_result={""}
       classNameVetoTitle={""}
-      proposals_Number_Title={"Alle Proposals bis November 2020"}
       classNameStronierteTitle={"infoCompound"}
       titleStornierte={"Stornierte Proposals"}
       classNameStronierte={"w-[20%]"}

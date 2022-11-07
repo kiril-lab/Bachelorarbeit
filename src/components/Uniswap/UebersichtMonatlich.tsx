@@ -52,14 +52,6 @@ const UebersichtMonatlich = () => {
       month_eight_year_three: numberProposalsPerMonth(Year.three, Month.eight),
       month_nine_year_three: numberProposalsPerMonth(Year.three, Month.nine),
       month_ten_year_three: numberProposalsPerMonth(Year.three, Month.ten),
-      month_eleven_year_three: numberProposalsPerMonth(
-        Year.three,
-        Month.eleven
-      ),
-      month_twelve_year_three: numberProposalsPerMonth(
-        Year.three,
-        Month.twelve
-      ),
     });
   }, []);
   return (
@@ -98,8 +90,6 @@ const UebersichtMonatlich = () => {
       august22={proposalMonth?.month_eight_year_three}
       september22={proposalMonth?.month_nine_year_three}
       oktober22={proposalMonth?.month_ten_year_three}
-      november22={proposalMonth?.month_eleven_year_three}
-      dezember22={proposalMonth?.month_twelve_year_three}
       classInfo={"infoUniswap"}
     />
   );
