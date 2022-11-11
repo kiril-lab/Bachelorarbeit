@@ -71,7 +71,7 @@ const EvmosSeite: NextPage = () => {
       numberVotesAbstain;
     return { id, numbeAllVotes };
   });
-  //console.log(votesNumberPerProposal)
+  console.log(votesNumberPerProposal)
   return (
     <>
       <Evmos data1={data1} data2={data2} />

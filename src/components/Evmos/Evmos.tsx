@@ -29,6 +29,7 @@ const Evmos = ({ data1, data2 }: Props) => {
   });
   //alle Proposals bis November 2022
   const AllProposalsUnitlNovember = AllProposals?.filter((x) => x.month < 11);
+  console.log(AllProposalsUnitlNovember)
   const number_proposals = () => {
     return AllProposalsUnitlNovember?.length;
   };

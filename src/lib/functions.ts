@@ -1,22 +1,3 @@
-import { Network } from "../types/network";
-
-export function getRPC(network: Network) {
-  switch (network) {
-    case Network.ethereum:
-      return "https://eth-rpc.gateway.pokt.network";
-  }
-}
-export function Quote(i: number, j: number, k: number) {
-  const result = (k / (i - j)) * 100;
-  return result.toFixed(1);
-}
-export function Quote1(i: number, j: number) {
-  const result = (j / i) * 100;
-  return result.toFixed(1);
-}
-export const getElementsSum = (arr: number[]) => {
-  const summe = arr.reduce(
-    (previousValue, currentValue) => previousValue + currentValue
-  );
-  return summe;
-};
+version https://git-lfs.github.com/spec/v1
+oid sha256:fe73a617b262aae165323c40d0a9ff2589765a58b0d9a4d85fc31e30cb7d0b04
+size 598

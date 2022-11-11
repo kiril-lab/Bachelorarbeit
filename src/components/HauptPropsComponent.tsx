@@ -79,7 +79,7 @@ const HauptComponent = ({
           </div>
           <div className="row">
             <div className={classInfo}>Erfolgsquote</div>
-            <div className={classInfo}>Unterschiedlische Proposers</div>
+            <div className={classInfo}>Unterschiedliche Proposers</div>
             <div className={classInfo}>Proposals monatlich</div>
           </div>
           <div className="row mb-[2rem]">
@@ -97,7 +97,7 @@ const HauptComponent = ({
             <div className={classInfo}>
               Durchschnittliche Voters Per Proposal
             </div>
-            <div className={classInfo}>Unterschiedlische Voters insgesamt</div>
+            <div className={classInfo}>Unterschiedliche Voters</div>
             <div className={classInfo}>Übersicht per Proposals</div>
           </div>
           <div className="row mb-[2rem]">

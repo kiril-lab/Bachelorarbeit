@@ -31,7 +31,7 @@ function Compound({ quorum, threshold }: Props) {
   };
   const Berechnung = useMemo(() => {
     const quote = Quote(
-      AllBlockNumbers_CreateProposalEvent.length,
+      AllBlockNumbers_CreateProposalEvent.length-1,
       AllCanceledProposalEvent,
       AllExecutedProposalEvent
     );
