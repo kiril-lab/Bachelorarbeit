@@ -1,3 +1,4 @@
+import { formatEther } from "ethers/lib/utils";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import UebersichtTabelle from "../../../components/Compound/UebersichtTabelle";
@@ -46,7 +47,7 @@ const uebersicht: NextPage = () => {
   });
   const filteredVoteCast = voteCast?.filter((x) => x.proposalId == id);
   const votes = filteredVoteCast?.map((x) => {
-    return x?.votes;
+    return parseFloat(formatEther(x?.votes));
   });
   const voters = filteredVoteCast?.map((x) => {
     return x?.voters;

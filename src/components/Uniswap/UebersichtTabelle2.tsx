@@ -2,12 +2,21 @@ import { useEffect } from "react";
 
 interface Props {
   voters2: string[];
-  votes2: string[];
+  votes2: number[];
   support2: boolean[];
   i2: number;
 }
 const UebersichtTabelle2 = ({ voters2, votes2, support2, i2 }: Props) => {
   useEffect(() => {}, [voters2, votes2, support2, i2]);
+  /*votes2.sort((a, b) => {
+    if (a < b) {
+      return 1;
+    }
+    if (a > b) {
+      return -1;
+    }
+    return 0;
+  });*/
   return (
     <>
       <div className="row mb-[3rem]">

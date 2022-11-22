@@ -8,6 +8,7 @@ interface Props {
 }
 const UebersichtTabelle1 = ({ voters1, votes1, support1, i1 }: Props) => {
   useEffect(() => {}, [voters1, votes1, support1, i1]);
+
   return (
     <>
       <div className="row mb-[3rem]">

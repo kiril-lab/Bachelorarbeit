@@ -1,3 +1,4 @@
+import { formatEther } from "ethers/lib/utils";
 import type { NextPage } from "next";
 import { useState } from "react";
 import UebersichtTabelle1 from "../../../components/Uniswap/UebersichtTabelle1";
@@ -56,6 +57,7 @@ const uebersicht: NextPage = () => {
     Start_End_Block_Proposal_Parameters_Bravo[id3 - 1]?.startBlock,
     Start_End_Block_Proposal_Parameters_Bravo[id3 - 1]?.endBlock
   );
+  console.log(VotesInBravo)
   const argsAlpha = VotesInAlpha?.map((a) => {
     return a?.args;
   });
@@ -74,7 +76,7 @@ const uebersicht: NextPage = () => {
   const filteredVoteCast1 = voteCast1?.filter((x) => x.proposalId == id1);
 
   const votes1 = filteredVoteCast1?.map((x) => {
-    return x.votes;
+    return parseFloat(formatEther(x?.votes));
   });
   const voters1 = filteredVoteCast1?.map((x) => {
     return x.voters;
@@ -100,7 +102,7 @@ const uebersicht: NextPage = () => {
   const filteredVoteCast2 = voteCast2?.filter((x) => x.proposalId == id2);
 
   const votes2 = filteredVoteCast2?.map((x) => {
-    return x.votes;
+    return parseFloat(formatEther(x?.votes));
   });
   const voters2 = filteredVoteCast2?.map((x) => {
     return x.voters;
@@ -126,7 +128,7 @@ const uebersicht: NextPage = () => {
   const filteredVoteCast3 = voteCast3?.filter((x) => x.proposalId == id3);
 
   const votes3 = filteredVoteCast3?.map((x) => {
-    return x.votes;
+    return parseFloat(formatEther(x?.votes));
   });
   const voters3 = filteredVoteCast3?.map((x) => {
     return x.voters;

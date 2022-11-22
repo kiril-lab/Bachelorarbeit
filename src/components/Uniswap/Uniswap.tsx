@@ -37,7 +37,7 @@ const Uniswap = ({ quorum, threshold }: Props) => {
     const averageNumberVoters = (
       totalNumberVoters / NumberVotersPerProposal.length
     ).toFixed(0);
-    return { quote, quorumProzent, thresholdProzent, averageNumberVoters };
+    return { quote, quorumProzent, thresholdProzent, averageNumberVoters, totalNumberVoters };
   }, [quorum, threshold]);
 
   useEffect(() => {
@@ -83,6 +83,7 @@ const Uniswap = ({ quorum, threshold }: Props) => {
       titleStornierte={"Stornierte Proposals"}
       classNameStronierte={"w-[20%]"}
       averageNumber={Berechnung.averageNumberVoters}
+      votersInsgesamt={Berechnung.totalNumberVoters}
     />
   );
 };

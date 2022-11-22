@@ -17,6 +17,7 @@ const Evmos = ({ data1, data2 }: Props) => {
   const [numberPassed, setNumberPassed] = useState<number>();
   const [numberDifferentP, setNumberDifferentP] = useState<number>();
   const [averageNumber, setAverageNumber] = useState("");
+  const [totalNumberVoters, setTotalNumberVoters] = useState<number>();
 
   const AllProposals = data1?.map((x) => {
     const date = x.submit_time;
@@ -70,7 +71,7 @@ const Evmos = ({ data1, data2 }: Props) => {
     const result = uniquieProposers?.length;
     return result;
   };
-  const getAverageNumberVoters = () => {
+  const getNumberVoters = () => {
     const numberVotersArr = EvmosNumberVotesPerProposals.map((x) => {
       return x.numberAllVotes;
     });
@@ -78,7 +79,7 @@ const Evmos = ({ data1, data2 }: Props) => {
     const averageNumberVoters = (
       totalNumberVoters / numberVotersArr.length
     ).toFixed(0);
-    return averageNumberVoters;
+    return {averageNumberVoters, totalNumberVoters};
   };
   useEffect(() => {
     setNumber(number_proposals());
@@ -87,7 +88,8 @@ const Evmos = ({ data1, data2 }: Props) => {
     setVeto_threshold(GetQuorumAndThreshold().veto_threshold);
     setNumberPassed(numberProposalsPassed());
     setNumberDifferentP(differnetProposers());
-    setAverageNumber(getAverageNumberVoters());
+    setAverageNumber(getNumberVoters().averageNumberVoters);
+    setTotalNumberVoters(getNumberVoters().totalNumberVoters)
   }, [data1, data2]);
   return (
     <HauptComponent
@@ -106,15 +108,13 @@ const Evmos = ({ data1, data2 }: Props) => {
       classInfo="infoEvmos"
       veto_threshold={"Veto Threshold"}
       classNameVeto={"w-[20%]"}
-      veto_threshold_result={
-        veto_threshold ? veto_threshold + "%" : "Loading..."
-      }
+      veto_threshold_result={veto_threshold ? veto_threshold + "%" : "Loading..."}
       classNameVetoTitle={"infoEvmos"}
       classNameStronierteTitle={""}
       titleStornierte={""}
       classNameStronierte={""}
-      averageNumber={averageNumber}
-    />
+      averageNumber={averageNumber} 
+      votersInsgesamt={totalNumberVoters}    />
   );
 };
 export default Evmos;

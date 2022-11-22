@@ -41,7 +41,7 @@ function Compound({ quorum, threshold }: Props) {
     const averageNumberVoters = (
       totalNumberVoters / NumberVotersPerProposal.length
     ).toFixed(0);
-    return { quote, quorumProzent, thresholdProzent, averageNumberVoters };
+    return { quote, quorumProzent, thresholdProzent, averageNumberVoters, totalNumberVoters };
   }, [quorum, threshold]);
   useEffect(() => {
     setNumber(getNumber());
@@ -54,21 +54,17 @@ function Compound({ quorum, threshold }: Props) {
     <HauptPropsComponent
       title={"Compound DAO"}
       stimmOption={"3 (Ja, Nein, Enthalten)"}
-      quorum={
-        quorum
-          ? quorum + " Votes" + " (" + Berechnung.quorumProzent + "%" + ")"
-          : "Loading..."
-      }
-      threshold={
-        threshold
-          ? threshold +
-            " delegated UNI" +
-            " (" +
-            Berechnung.thresholdProzent +
-            "%" +
-            ")"
-          : "Loading..."
-      }
+      quorum={quorum
+        ? quorum + " Votes" + " (" + Berechnung.quorumProzent + "%" + ")"
+        : "Loading..."}
+      threshold={threshold
+        ? threshold +
+        " delegated COMP" +
+        " (" +
+        Berechnung.thresholdProzent +
+        "%" +
+        ")"
+        : "Loading..."}
       allProposals={number ? number : "Loading..."}
       erfolgreicheP={numberExecuted ? numberExecuted : "Loading..."}
       canceledP={numberCanceled}
@@ -85,8 +81,8 @@ function Compound({ quorum, threshold }: Props) {
       classNameStronierteTitle={"infoCompound"}
       titleStornierte={"Stornierte Proposals"}
       classNameStronierte={"w-[20%]"}
-      averageNumber={Berechnung.averageNumberVoters}
-    />
+      averageNumber={Berechnung.averageNumberVoters} 
+      votersInsgesamt={Berechnung.totalNumberVoters}    />
   );
 }
 export default Compound;

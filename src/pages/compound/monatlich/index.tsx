@@ -25,7 +25,6 @@ const monatlich: NextPage = () => {
     });
     return timeStampArr;
   }, []);
-  console.log(getDatumBlocks());
   return (
     <div className="flex align-center justify-center">
       <UebersichtMonatlich />
